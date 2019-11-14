@@ -7,13 +7,9 @@ public class Board {
         name = inputName;
     }
 
-    public void makeColumn(String name){
-        Column newCol = new Column(name);
+    public void makeColumn(String name, int roleNum){
+        Column newCol = new Column(name, roleNum);
         columns.add(newCol);
-        /**
-         * TO DO:
-         *      - Add extra parameter to set the column's 'role' once we've figured out what roles are
-         */
     }
 
     public void removeColumn(Column columnToRemove){

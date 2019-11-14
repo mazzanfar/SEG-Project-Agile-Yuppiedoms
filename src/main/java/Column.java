@@ -1,17 +1,20 @@
 public class Column {
 
     private String name;
-    //private ____ role;
+    private int role; // 0 - Backlog    1 - In progress    2 - Completed
 
-    public Column(String inputName){
+    public Column(String inputName, int roleNum){
         name = inputName;
+        role = roleNum;
     }
 
     public void setName(String newName){
         name = newName;
     }
 
-    //pubic void setRole(??)...
+    pubic void setRole(int roleNum){
+        role = roleNum;
+    }
 
 
 }
