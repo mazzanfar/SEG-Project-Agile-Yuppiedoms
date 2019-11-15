@@ -12,7 +12,7 @@ public class Column {
         name = newName;
     }
 
-    pubic void setRole(int roleNum){
+    public void setRole(int roleNum){
         role = roleNum;
     }
 
