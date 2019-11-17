@@ -126,7 +126,7 @@ public class Display {
       public void actionPerformed(ActionEvent ev) {
         String fileName = "temp.csv";
         try {
-          FileWriter fileWriter = new FileWriter(fileName, true);
+          FileWriter fileWriter = new FileWriter(new File("..",fileName)); // Can now choose the directory you save csv files in (relative to the class file)
 
           BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
