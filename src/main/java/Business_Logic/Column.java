@@ -1,3 +1,5 @@
+package Business_Logic;
+import Business_Logic.Card;
 import java.util.ArrayList;
 public class Column {
 

@@ -1,3 +1,6 @@
+package Business_Logic;
+import Business_Logic.Card;
+import Business_Logic.Column;
 import java.util.ArrayList;
 public class Board {
     private String name;

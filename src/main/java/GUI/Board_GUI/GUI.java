@@ -1,3 +1,4 @@
+package GUI.Board_GUI;
 import javax.swing.*;
 
 public class GUI
