@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import java.util.Properties;
 
 public class Display {
 
@@ -14,10 +13,16 @@ public class Display {
   private int panelNumber = 1;
 
   private JFrame mainFrame;
+  private JFrame newPanelFrame;
   private JPanel mainPanel;
   private JPanel boardPanel;
   private JTextField boardTitle;
   private JButton newButton;
+
+  private JButton newColumn;
+  private JButton newCard;
+
+  private JMenuBar menuBar;
 
   private JMenuItem exit;
   private JMenuItem newBoard;
@@ -34,7 +39,7 @@ public class Display {
     mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     mainFrame.setVisible(true);
 
-    makeButton();
+    makeBoardButton();
     makeMainPanel();
     makeMenuBar();
  }
@@ -46,43 +51,47 @@ public class Display {
   }
 
 
-  public void makeButton() {
+  public void makeBoardButton() {
     newButton = new JButton("+ New Kanban Board");
+  }
 
-    newButton.addActionListener(new ActionListener () {
-      public void actionPerformed(ActionEvent e) {
-        String input = JOptionPane.showInputDialog("Input name of Kanban Board");
-        if (input.length() > 0) {
-          makeBoardPanel(input);
-        } else {
-          JOptionPane.showMessageDialog(null, "Name required");
-        }
-      }
-    });
+  public void makeNewButtons() {
+    newColumn = new JButton("+ New Column");
+    newCard = new JButton("+ New Card");
   }
 
   public void makeBoardPanel(String name) {
     Font font1 = new Font("SansSerif", Font.BOLD, 30);
 
-    boardPanel = new JPanel(new BorderLayout());
-    boardTitle = new JTextField();
-    boardTitle.setText("");
+    newPanelFrame = new JFrame(name);
 
+    newPanelFrame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+    newPanelFrame.setMinimumSize(new Dimension(WIDTH, HEIGHT));
+    newPanelFrame.setResizable(true);
+    newPanelFrame.setLocationRelativeTo(null);
+    newPanelFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    newPanelFrame.setVisible(true);
+
+    boardPanel = new JPanel();
+    boardPanel.setLayout(new FlowLayout());
+    boardTitle = new JTextField();
     boardTitle.setFont(font1);
-    boardTitle.setHorizontalAlignment(JTextField.CENTER);
+    boardTitle.setHorizontalAlignment(JTextField.LEFT);
 
     boardTitle.setText(name);
     boardTitle.setEditable(false);
-    mainFrame.remove(mainPanel);
-    mainFrame.add(boardPanel);
-    boardPanel.add(boardTitle, BorderLayout.PAGE_START);
-    mainFrame.repaint();
-    mainFrame.pack();
+    newPanelFrame.add(boardPanel);
+    boardPanel.add(boardTitle);
+
+    makeNewButtons();
+
+    boardPanel.add(newColumn);
+    boardPanel.add(newCard);
   }
 
 
   public void makeMenuBar() {
-    JMenuBar menuBar = new JMenuBar();
+    menuBar = new JMenuBar();
     JMenu file = new JMenu("File");
     menuBar.add(file);
 
@@ -90,7 +99,7 @@ public class Display {
     menuBar.add(makeNew);
 
     exit = new JMenuItem("Exit");
-    newBoard = new JMenuItem("New Kanban Board");
+    newBoard = new JMenuItem("Kanban Board");
     save = new JMenuItem("Save");
 
     assignActions();
@@ -104,6 +113,17 @@ public class Display {
   }
 
   public void assignActions() {
+    newButton.addActionListener(new ActionListener () {
+      public void actionPerformed(ActionEvent e) {
+        String input = JOptionPane.showInputDialog("Input name of Kanban Board");
+        if (input.length() > 0) {
+          makeBoardPanel(input);
+        } else {
+          JOptionPane.showMessageDialog(null, "Name required");
+        }
+      }
+    });
+
     exit.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent ev) {
           System.exit(0);
@@ -155,14 +175,13 @@ public class Display {
 
     KeyStroke saveShortcut = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
     save.setAccelerator(saveShortcut);
-
   }
 
   // code sourced from https://stackoverflow.com/questions/18806287/how-to-save-jpanel-as-jpeg-with-its-components
   public void takePicture(JPanel panel) {
       BufferedImage img = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-      panel.print(img.getGraphics()); // or: panel.printAll(...);
+      panel.print(img.getGraphics());
       try {
           ImageIO.write(img, "jpg", new File("Kanban-Board-" + panelNumber + ".jpg"));
       } catch (IOException e) {
