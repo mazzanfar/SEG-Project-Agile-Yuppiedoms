@@ -1,12 +1,12 @@
-
+package GUI.Card_GUI;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import javax.smartcardio.Card;
+//import javax.imageio.ImageIO;
+//import javax.smartcardio.Card;
 public class CardGui extends JFrame implements ActionListener{
     private JPanel titlePanel;
     private JPanel descriptionPanel;
