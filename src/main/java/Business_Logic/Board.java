@@ -16,11 +16,9 @@ public class Board {
         columns.remove(columnToRemove);
     }
 
-    public void moveCard(Column startingCol, Column endingCol){
-        /**
-         * TO DO:
-         *      - Implement code for moving a card from one column to another
-         */
+    public void moveCard(Card theCard, Column startingCol, Column endingCol){
+        startingCol.removeCard(theCard);
+        endingCol.addCard(theCard);
     }
 
 }
