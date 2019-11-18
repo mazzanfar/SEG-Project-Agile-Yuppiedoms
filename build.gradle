@@ -1,7 +1,10 @@
 apply plugin: 'java'
+apply plugin: 'application'
 dependencies {
     testCompile 'junit:junit:4.12'
 }
 repositories {
     mavenCentral()
 }
+
+mainClassName = "GUI"
