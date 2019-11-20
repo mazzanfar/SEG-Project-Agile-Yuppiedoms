@@ -1,10 +1,10 @@
 package GUI.Card_GUI;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import java.awt.image.BufferedImage;
+import Business_Logic.Card;
 //import javax.imageio.ImageIO;
 //import javax.smartcardio.Card;
 public class CardGui extends JFrame implements ActionListener{
@@ -20,7 +20,13 @@ public class CardGui extends JFrame implements ActionListener{
     private JLabel ID;
     private JLabel descriptionLabel;
     private JLabel titleLabel;
-    public CardGui() {
+    private Card card;
+
+    private Card temp;
+
+    public CardGui(Card inputCard) {
+        card = inputCard;
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setPreferredSize(new Dimension(900, 600));
         this.setMinimumSize(new Dimension(900, 600));
@@ -64,6 +70,7 @@ public class CardGui extends JFrame implements ActionListener{
 
         title = new JTextField(5);
         title.setVisible(true);
+        title.setText(card.getTitle());
         title.setEditable(false);
 
         //add actions
@@ -79,18 +86,21 @@ public class CardGui extends JFrame implements ActionListener{
         {
             description.setEditable(true);
             description.setText(description.getText());
+
+
             title.setEditable(true);
             title.setText(title.getText());
-            //Add card class and thencan do card.setTitle() etc...
+
+            //Add card class and then can do card.setTitle() etc...
             //to link business logic to gui.
             //Final should look like card instance.get...
         }
         if(e.getActionCommand().equals("save"))
         {
             title.setEditable(false);
-            title.setText(title.getText());
             description.setEditable(false);
-            description.setText(description.getText());
+            card.setDescription(description.getText());
+            card.setTitle(title.getText());
         }
     }
 
@@ -119,9 +129,8 @@ public class CardGui extends JFrame implements ActionListener{
         descriptionPanel.setBorder(BorderFactory.createLineBorder(Color.green));
 
         description = new JTextField(20);
+        description.setText(card.getDescription());
         description.setEditable(false);
-
-        //add actions
 
         descriptionPanel.add(description, BorderLayout.CENTER);
         descriptionPanel.add(descriptionLabel, BorderLayout.NORTH);
@@ -131,7 +140,9 @@ public class CardGui extends JFrame implements ActionListener{
     public static void main(String[] args){
         SwingUtilities.invokeLater(new Runnable() {
             public void run(){
-                new CardGui();
+                new CardGui(new Card("11","dd","1111"));
+                //just for testing.
+                //remove later.
             }
         });
     }
