@@ -106,7 +106,8 @@ public class CardGui extends JFrame implements ActionListener{
 
     public void makeID()
     {
-        ID = new JLabel("10");
+        int temp = card.getID();
+        ID = new JLabel("temp");
         this.add(ID, BorderLayout.WEST);
         //TODO: make jlabel ID by getting the id from Card class.
     }
