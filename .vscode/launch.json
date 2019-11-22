@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Column_GUI",
+            "request": "launch",
+            "mainClass": "GUI.Column_GUI.Column_GUI",
+            "projectName": "Agile_Yuppiedoms"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - GUI",
+            "request": "launch",
+            "mainClass": "GUI.Column_GUI.GUI",
+            "projectName": "Agile_Yuppiedoms"
+        }
+    ]
+}
