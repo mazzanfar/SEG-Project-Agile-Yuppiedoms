@@ -1,4 +1,5 @@
 package Business_Logic;
+
 public class Card {
     private String title;
     private String description;

@@ -1,3 +1,6 @@
+package Business_Logic;
+import Business_Logic.Card;
+import Business_Logic.Column;
 import java.util.ArrayList;
 public class Board {
     private String name;
@@ -16,11 +19,9 @@ public class Board {
         columns.remove(columnToRemove);
     }
 
-    public void moveCard(Column startingCol, Column endingCol){
-        /**
-         * TO DO:
-         *      - Implement code for moving a card from one column to another
-         */
+    public void moveCard(Card theCard, Column startingCol, Column endingCol){
+        startingCol.removeCard(theCard);
+        endingCol.addCard(theCard);
     }
 
 }

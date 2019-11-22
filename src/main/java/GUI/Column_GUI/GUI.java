@@ -1,4 +1,4 @@
-package GUI.Board_GUI;
+package GUI.Column_GUI;
 import javax.swing.*;
 
 public class GUI
@@ -6,7 +6,7 @@ public class GUI
   public static void main(String[] args){
     SwingUtilities.invokeLater(new Runnable() {
       public void run(){
-          new Mainframe();
+          new Column_GUI();
       }
     });
   }
