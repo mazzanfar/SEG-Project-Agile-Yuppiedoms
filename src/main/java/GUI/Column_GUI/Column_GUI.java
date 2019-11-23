@@ -5,6 +5,19 @@ import java.awt.event.*;
 import java.awt.*;
 
 
+/*
+    HOW TO RUN THIS CODE:
+    I haven't tried this on lab pc's yet but you can do this on your own windows machine:
+    - Navigate to the above folder Column_GUI on your terminal
+    - type 'set CLASSPATH=%CLASSPATH%;PATH_TO_THIS_FOLDER'
+    - then type 'javac Column_GUI.java'
+    - and finally 'java Column_GUI'
+
+    TODO: 
+    - Figure out how to add package to use actual BL classes
+    - Refactor to made code cleaner
+
+*/
 
 public class Column_GUI {
 
