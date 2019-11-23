@@ -1,6 +1,7 @@
-package GUI.Column_GUI;
+//package GUI.Column_GUI;
 
 import javax.swing.*;
+import java.awt.event.*;
 import java.awt.*;
 
 
@@ -10,68 +11,89 @@ public class Column_GUI {
 
     private static final int WIDTH = 200;
     private static final int HEIGHT = 600;
-  
+    JPanel cardsPanel;
   
     private JFrame mainFrame;
-    private JPanel mainPanel;
-
-    private JPanel columnPanel;
-    private JTextField columnTitle;
-    private JButton newButton;
-
-    private JButton newCard;
+    
 
     public Column_GUI() {
 
+        prepareFrame(); // makes a frame
+        
+        makeColumn(); // does all column building activities
+        mainFrame.pack(); // make sure this is always the last method to be called
+    }
+    
+    public void prepareFrame(){
         mainFrame = new JFrame();
     
-        mainFrame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        mainFrame.setMinimumSize(new Dimension(WIDTH, HEIGHT));
+        mainFrame.setPreferredSize(new Dimension(WIDTH+50, HEIGHT));
+        mainFrame.setMinimumSize(new Dimension(WIDTH+50, HEIGHT));
         mainFrame.setResizable(true);
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
-
-        
-        makeColumnPanel("Backlog");
-    }    
-
-    public void makeColumnMainPanel() {
-        mainPanel = new JPanel(new FlowLayout());
-        mainFrame.add(mainPanel);
     }
 
-
-    public void makeNewButtons() {
-        newCard = new JButton("+ New Card");
-    }
-    
-    public void makeColumnPanel(String name) {
-        Font font1 = new Font("Arial", Font.BOLD, 30);
-    
-    
-        columnPanel = new JPanel();
-        columnPanel.setLayout(new FlowLayout());
-        columnTitle = new JTextField();
-        columnTitle.setFont(font1);
-        columnTitle.setHorizontalAlignment(JTextField.LEFT);
-    
-        columnTitle.setText(name);
-        columnTitle.setEditable(false);
-        mainFrame.add(columnPanel);
-        columnPanel.add(columnTitle);
-    
-        makeNewButtons();
-    
-        columnPanel.add(newCard);
-    }
     public static void main(String[] args){
-        SwingUtilities.invokeLater(new Runnable() {
-          public void run(){
-              new Column_GUI();
-          }
+        Column_GUI testRun = new Column_GUI();
+    }
+
+    public void addCard(){
+        JPanel card1Panel = new JPanel();
+        card1Panel.setPreferredSize(new Dimension(WIDTH, 100));
+        card1Panel.setLayout(new BorderLayout());
+        JButton button1 = new JButton();
+        card1Panel.add(button1, BorderLayout.CENTER);
+        card1Panel.setMaximumSize(new Dimension(WIDTH+50, 100));
+        cardsPanel.add(card1Panel);
+        button1.addActionListener(new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("card click"); // card click functionality
+        }
         });
-      }
+    }
+    
+    public void makeColumn() {
+        JPanel rootPanel = new JPanel(); // the root panel
+        rootPanel.setLayout(new BorderLayout());
+
+        JPanel upperPanel = new JPanel();
+        upperPanel.setLayout(new BoxLayout(upperPanel, BoxLayout.PAGE_AXIS));
+
+        JLabel testLabel = new JLabel("tempName");
+        JButton addCardButton = new JButton("+ Card");
+        addCardButton.addActionListener(new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            addCard();
+            mainFrame.pack();
+        }
+        });
+        JPanel titlePanel = new JPanel();
+        JPanel buttonPanel = new JPanel();
+
+        //titlePanel.setLayout(new BorderLayout());
+        //buttonPanel.setLayout(new BorderLayout());
+        addCardButton.setPreferredSize(new Dimension(90, 25));
+        titlePanel.add(testLabel);
+        buttonPanel.add(addCardButton);
+
+
+        upperPanel.add(titlePanel);
+        upperPanel.add(buttonPanel);
+
+        cardsPanel = new JPanel();
+        cardsPanel.setLayout(new BoxLayout(cardsPanel, BoxLayout.PAGE_AXIS));
+        JScrollPane scrollableCards = new JScrollPane(cardsPanel);  
+    
+        rootPanel.add(upperPanel, BorderLayout.NORTH);
+        rootPanel.add(scrollableCards, BorderLayout.CENTER);
+        mainFrame.add(rootPanel);
+    }
     
 }
 
