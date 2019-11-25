@@ -1,5 +1,9 @@
 apply plugin: 'java'
 apply plugin: 'application'
+
+//Make SURE to change this when you merge to make it run the actual main file that will start the application.
+mainClassName = 'GUI.Board_GUI.GUI' 
+
 dependencies {
     testCompile 'junit:junit:4.12'
 }
@@ -7,4 +11,4 @@ repositories {
     mavenCentral()
 }
 
-mainClassName = "GUI"
+//mainClassName = "GUI"
