@@ -1,11 +1,13 @@
 package GUI.Card_GUI;
+import Business_Logic.Card;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.io.*;
 import java.awt.image.BufferedImage;
-import Business_Logic.Card;
+
 public class CardGui extends JFrame implements ActionListener{
     private JPanel titlePanel;
     private JPanel descriptionPanel;

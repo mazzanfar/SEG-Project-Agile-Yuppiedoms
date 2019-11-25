@@ -1,4 +1,7 @@
-//package GUI.Column_GUI;
+package GUI.Column_GUI;
+import Business_Logic.Card;
+import GUI.Card_GUI.*;
+
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -31,10 +34,12 @@ public class Column_GUI {
 
     public Column_GUI() {
 
+        
         prepareFrame(); // makes a frame
         
         makeColumn(); // does all column building activities
         mainFrame.pack(); // make sure this is always the last method to be called
+        
     }
     
     public void prepareFrame(){
@@ -60,10 +65,13 @@ public class Column_GUI {
         card1Panel.add(button1, BorderLayout.CENTER);
         card1Panel.setMaximumSize(new Dimension(WIDTH+50, 100));
         cardsPanel.add(card1Panel);
+        Card c = new Card("a","b","5"); // Card test you can take it out later
         button1.addActionListener(new ActionListener() {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            
+            CardGui card = new CardGui(c); //to test Cards are unique
             System.out.println("card click"); // card click functionality
         }
         });
