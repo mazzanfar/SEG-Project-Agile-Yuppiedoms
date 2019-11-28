@@ -1,11 +1,13 @@
 package GUI.Column_GUI;
 import Business_Logic.Card;
 import GUI.Card_GUI.*;
+import GUI.Board_GUI.CardTransfer.*;
 
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.awt.dnd.*;
 
 
 /*
@@ -22,7 +24,7 @@ import java.awt.*;
 
 */
 
-public class Column_GUI {
+public class Column_GUI extends JPanel{
 
 
     private static final int WIDTH = 200;
@@ -30,7 +32,8 @@ public class Column_GUI {
     JPanel cardsPanel;
   
     private JFrame mainFrame;
-    
+    private DragGestureRecognizer dgr;
+    private DragGestureHandler dragGestureHandler;
 
     public Column_GUI() {
 
@@ -75,6 +78,41 @@ public class Column_GUI {
             System.out.println("card click"); // card click functionality
         }
         });
+
+        @Override
+        public void addNotify() {
+
+            super.addNotify();
+
+            if (dgr == null) {
+
+                dragGestureHandler = new DragGestureHandler(this);
+                dgr = DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(
+                        this,
+                        DnDConstants.ACTION_MOVE,
+                        dragGestureHandler);
+
+            }
+
+        }
+
+        @Override
+        public void removeNotify() {
+
+            if (dgr != null) {
+
+                dgr.removeDragGestureListener(dragGestureHandler);
+                dragGestureHandler = null;
+
+            }
+
+            dgr = null;
+
+            super.removeNotify();
+
+
+
+        }
     }
     
     public void makeColumn() {
