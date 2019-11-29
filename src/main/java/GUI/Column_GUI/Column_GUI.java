@@ -1,6 +1,7 @@
 package GUI.Column_GUI;
 import Business_Logic.Card;
 import GUI.Card_GUI.*;
+import GUI.Board_GUI.CardTransfer;
 import GUI.Board_GUI.CardTransfer.*;
 
 
@@ -32,8 +33,7 @@ public class Column_GUI extends JPanel{
     JPanel cardsPanel;
   
     private JFrame mainFrame;
-    private DragGestureRecognizer dgr;
-    private DragGestureHandler dragGestureHandler;
+    
 
     public Column_GUI() {
 
@@ -61,58 +61,28 @@ public class Column_GUI extends JPanel{
     }
 
     public void addCard(){
+        CardTransfer ct = new CardTransfer();
         JPanel card1Panel = new JPanel();
         card1Panel.setPreferredSize(new Dimension(WIDTH, 100));
         card1Panel.setLayout(new BorderLayout());
-        JButton button1 = new JButton();
+        JButton editButton = new JButton();
+        DragActionButton button1 = ct.new DragActionButton(card1Panel, "");
         card1Panel.add(button1, BorderLayout.CENTER);
+        card1Panel.add(editButton, BorderLayout.CENTER);
         card1Panel.setMaximumSize(new Dimension(WIDTH+50, 100));
         cardsPanel.add(card1Panel);
-        Card c = new Card("a","b","5"); // Card test you can take it out later
-        button1.addActionListener(new ActionListener() {
+        Card c = new Card("a","b","1"); // Card test you can take it out later
+        
+        editButton.addActionListener(new ActionListener() {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             
             CardGui card = new CardGui(c); //to test Cards are unique
             System.out.println("card click"); // card click functionality
-        }
-        });
-
-        @Override
-        public void addNotify() {
-
-            super.addNotify();
-
-            if (dgr == null) {
-
-                dragGestureHandler = new DragGestureHandler(this);
-                dgr = DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(
-                        this,
-                        DnDConstants.ACTION_MOVE,
-                        dragGestureHandler);
-
-            }
-
-        }
-
-        @Override
-        public void removeNotify() {
-
-            if (dgr != null) {
-
-                dgr.removeDragGestureListener(dragGestureHandler);
-                dragGestureHandler = null;
-
-            }
-
-            dgr = null;
-
-            super.removeNotify();
-
-
-
-        }
+        } 
+        
+    });
     }
     
     public void makeColumn() {
@@ -131,7 +101,7 @@ public class Column_GUI extends JPanel{
             addCard();
             mainFrame.pack();
         }
-        });
+     });
         JPanel titlePanel = new JPanel();
         JPanel buttonPanel = new JPanel();
 

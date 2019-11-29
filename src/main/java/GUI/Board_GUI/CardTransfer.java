@@ -12,6 +12,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.Serializable;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -243,51 +244,47 @@ public class CardTransfer
 	
 	}
 
-	public class DragPane extends JPanel {
-
+	public class DragActionButton  extends JPanel {
 		private DragGestureRecognizer dgr;
 		private DragGestureHandler dragGestureHandler;
-	
-		public DragPane() {
-			System.out.println("DragPane = " + this.hashCode());
-			setBackground(Color.RED);
-			dragGestureHandler = new DragGestureHandler(this);
-			dgr = DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_MOVE, dragGestureHandler);
-		}
-	
-		@Override
-		public Dimension getPreferredSize() {
-			return new Dimension(50, 50);
-		}
-	
-	}
-
-	public class DropPane extends JPanel {
-
-		DropTarget dropTarget;
-		DropHandler dropHandler;
-	
-		public DropPane() {
-			setBackground(Color.BLUE);
-		}
-	
-		@Override
-		public Dimension getPreferredSize() {
-			return new Dimension(100, 100);
-		}
-	
-		@Override
-		public void addNotify() {
-			super.addNotify(); //To change body of generated methods, choose Tools | Templates.
-			dropHandler = new DropHandler();
-			dropTarget = new DropTarget(this, DnDConstants.ACTION_MOVE, dropHandler, true);
-		}
-	
-		@Override
-		public void removeNotify() {
-			super.removeNotify(); //To change body of generated methods, choose Tools | Templates.
-			dropTarget.removeDropTargetListener(dropHandler);
-		}
-	
-	}
+		private JPanel actionPanel;
+	  public DragActionButton (JPanel actionPanel, String buttonText)
+	   {
+	   this.actionPanel = actionPanel;
+	   }   
+	  
+	  @Override
+	  public void addNotify() {
+	  
+		  super.addNotify();
+	  
+		  if (dgr == null) {
+	  
+			  dragGestureHandler = new DragGestureHandler(this.actionPanel);
+			  dgr = DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(
+					  this,
+					  DnDConstants.ACTION_MOVE,
+					  dragGestureHandler);
+	  
+		  }
+	  
+	  }
+	  
+	  @Override
+	  public void removeNotify() {
+	  
+		  if (dgr != null) {
+	  
+			  dgr.removeDragGestureListener(dragGestureHandler);
+			  dragGestureHandler = null;
+	  
+		  }
+	  
+		  dgr = null;
+	  
+		  super.removeNotify();
+	  
+	  }
+	  
+	  }
 }
