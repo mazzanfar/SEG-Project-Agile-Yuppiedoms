@@ -1,11 +1,13 @@
 package GUI.Column_GUI;
+
 import Business_Logic.Card;
 import GUI.Card_GUI.*;
 import GUI.Board_GUI.CardTransfer;
 import GUI.Board_GUI.CardTransfer.*;
 
-
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.event.*;
 import java.awt.*;
 import java.awt.dnd.*;
@@ -61,18 +63,55 @@ public class Column_GUI extends JPanel{
     }
 
     public void addCard(){
+        Border blackline, raisedetched, loweredetched,
+        raisedbevel, loweredbevel, empty;
+
+        blackline = BorderFactory.createLineBorder(Color.black);
+        raisedbevel = BorderFactory.createRaisedBevelBorder();
+        loweredbevel = BorderFactory.createLoweredBevelBorder();
+        empty = BorderFactory.createEmptyBorder();
+        
         CardTransfer ct = new CardTransfer();
-        JPanel card1Panel = new JPanel();
-        card1Panel.setPreferredSize(new Dimension(WIDTH, 100));
-        card1Panel.setLayout(new BorderLayout());
-        JButton editButton = new JButton();
-        DragActionButton button1 = ct.new DragActionButton(card1Panel, "");
-        card1Panel.add(button1, BorderLayout.CENTER);
-        card1Panel.add(editButton, BorderLayout.CENTER);
-        card1Panel.setMaximumSize(new Dimension(WIDTH+50, 100));
-        cardsPanel.add(card1Panel);
+        JPanel cardPanel = new JPanel();
+
+        
+    
+        GridBagLayout gridbag = new GridBagLayout();
+        cardPanel.setLayout(gridbag);
+        GridBagConstraints gbc = new GridBagConstraints();
+
+    
+        cardPanel.setPreferredSize(new Dimension(WIDTH, 100));
+        
+        JButton editButton = new JButton("Edit");
+        DragActionButton dragButton = ct.new DragActionButton(cardPanel, "");
+    
+
+        cardPanel.add(dragButton);
+        cardPanel.add(editButton);
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 50;
+        gbc.weighty = 1.0;      //make this component tall
+        gbc.weightx = 1.0;
+        gbc.gridwidth = 3;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        cardPanel.add(dragButton, gbc);
+
+        gbc.ipady = 1;
+        gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 0;
+        cardPanel.add(editButton, gbc);
+
+        cardPanel.setMaximumSize(new Dimension(WIDTH+50, 100));
+        cardsPanel.add(cardPanel);
         Card c = new Card("a","b","1"); // Card test you can take it out later
         
+        cardPanel.setBorder(blackline);
+
         editButton.addActionListener(new ActionListener() {
 
         @Override
