@@ -3,13 +3,13 @@ import Business_Logic.Card;
 import Business_Logic.Column;
 import java.util.ArrayList;
 public class Board {
+
     private String name;
     private ArrayList<Column> columns;
 
     public Board(String inputName){
         name = inputName;
     }
-
     public void makeColumn(String name, int roleNum){
         Column newCol = new Column(name, roleNum);
         columns.add(newCol);

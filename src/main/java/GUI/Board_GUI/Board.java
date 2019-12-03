@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class Board {
-
+  
   private static final int WIDTH = 900;
   private static final int HEIGHT = 600;
   private static final Font font1 = new Font("Sans-Serif", Font.BOLD, 15);
@@ -97,7 +97,7 @@ public class Board {
 
       save.addActionListener(new ActionListener () {
         public void actionPerformed(ActionEvent ev) {
-          String fileName = "temp.csv";
+          String fileName = boardTitle.getText() + ".csv";
           try {
             FileWriter fileWriter = new FileWriter(fileName, true);
 
