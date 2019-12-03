@@ -111,7 +111,7 @@ public class Board {
             System.out.println("Error writing to file '" + fileName + "'");
           }
 
-        //  takePicture(boardPanel);
+          takePicture(boardPanel);
           panelNumber++;
 
         }
@@ -127,5 +127,16 @@ public class Board {
 
         KeyStroke saveShortcut = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
         save.setAccelerator(saveShortcut);
+    }
+
+    public void takePicture(JPanel panel) {
+    BufferedImage img = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+      panel.print(img.getGraphics()); // or: panel.printAll(...);
+      try {
+          ImageIO.write(img, "jpg", new File("Kanban-Board-" + panelNumber + ".jpg"));
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
     }
 }
