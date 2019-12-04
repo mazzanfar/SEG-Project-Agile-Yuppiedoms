@@ -1,3 +1,7 @@
+package GUI.Board_GUI;
+
+import Business_Logic.Column;
+import javax.swing.JOptionPane;
 import javax.swing.*;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
@@ -61,8 +65,15 @@ public class Board {
     }
 
     public void newButtons() {
-      newColumn = new JButton("+ New Column");
-      newCard = new JButton("+ New Card");
+        newColumn = new JButton("+ New Column");
+        newColumn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Column column = new Column("",1);
+            }
+        });
+
+
     }
 
     public JMenuBar makeMenuBar() {

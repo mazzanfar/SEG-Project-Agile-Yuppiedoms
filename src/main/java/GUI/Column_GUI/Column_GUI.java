@@ -115,7 +115,8 @@ public class Column_GUI extends JPanel{
         cardsPanel.add(cardPanel);
         Card card = new Card("","","1"); // Card test you can take it out later
         column.addCard(card);
-
+        JLabel little_title = new JLabel("Title: " );
+        dragButton.add(little_title);
         cardPanel.setBorder(blackline);
 
         editButton.addActionListener(new ActionListener() {
@@ -131,7 +132,7 @@ public class Column_GUI extends JPanel{
 
                     @Override
                     public void windowClosed(WindowEvent e) {
-                        JLabel little_title = new JLabel("Title: " + card.getTitle());
+                        little_title.setText("Title: " + card.getTitle());
                         dragButton.add(little_title);
                         cardsPanel.revalidate();
                         cardsPanel.repaint();

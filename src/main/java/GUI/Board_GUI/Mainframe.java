@@ -1,3 +1,7 @@
+package GUI.Board_GUI;
+
+import GUI.Board_GUI.Board;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
