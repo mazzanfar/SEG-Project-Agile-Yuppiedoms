@@ -39,8 +39,8 @@ public class Column_GUI extends JPanel{
     private JFrame mainFrame;
     private Column column;
 
-    public Column_GUI(String inputName, int roleNum) {
-        column = new Column(inputName,roleNum);
+    public Column_GUI(Column column) {
+        this.column = column;
         prepareFrame(); // makes a frame
         makeColumn(); // does all column building activities
         mainFrame.pack(); // make sure this is always the last method to be called
@@ -192,7 +192,7 @@ public class Column_GUI extends JPanel{
         mainFrame.add(rootPanel);
     }
     public static void main(String[] args){
-        Column_GUI testRun = new Column_GUI("backlog",1);
+        Column_GUI testRun = new Column_GUI(new Column("",1));
     }
 }
 

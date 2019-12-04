@@ -7,12 +7,14 @@ public class Board {
     private ArrayList<Column> columns;
 
     public Board(String inputName){
+        columns = new ArrayList<>();
         name = inputName;
     }
 
-    public void makeColumn(String name, int roleNum){
+    public Column makeColumn(String name, int roleNum){
         Column newCol = new Column(name, roleNum);
         columns.add(newCol);
+        return newCol;
     }
 
     public void removeColumn(Column columnToRemove){

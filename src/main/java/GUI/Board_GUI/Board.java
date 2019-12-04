@@ -1,6 +1,8 @@
 package GUI.Board_GUI;
 
-import Business_Logic.Column;
+import Business_Logic.*;
+import GUI.Column_GUI.Column_GUI;
+
 import javax.swing.JOptionPane;
 import javax.swing.*;
 import java.awt.FlowLayout;
@@ -27,15 +29,18 @@ public class Board {
   private JTextField boardTitle;
 
   private JButton newColumn;
-  private JButton newCard;
+
   private JMenuBar menuBar;
 
   private JMenuItem exit;
   private JMenuItem newBoard;
   private JMenuItem save;
 
+  private Business_Logic.Board board;
 
   public Board(String name) {
+      board = new Business_Logic.Board(name);
+
       boardFrame = new JFrame(name);
 
       boardFrame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -59,7 +64,6 @@ public class Board {
 
 
       boardPanel.add(newColumn);
-      boardPanel.add(newCard);
       boardFrame.setJMenuBar(makeMenuBar());
       boardFrame.setVisible(true);
     }
@@ -69,11 +73,17 @@ public class Board {
         newColumn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Column column = new Column("",1);
+                JFrame questionFrame = new JFrame();
+                JOptionPane.showMessageDialog(questionFrame,"");
+                String inputName;
+                inputName = JOptionPane.showInputDialog("New Column Name");
+                String roleNumber;
+                roleNumber = JOptionPane.showInputDialog("New Column Role Number");
+                JOptionPane.showMessageDialog(null, "New Column Created");
+                Column_GUI columnPanel = new Column_GUI(board.makeColumn(inputName,Integer.parseInt(roleNumber)));
+                boardFrame.add(columnPanel);
             }
         });
-
-
     }
 
     public JMenuBar makeMenuBar() {

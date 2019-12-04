@@ -9,7 +9,6 @@ public class GUI
     SwingUtilities.invokeLater(new Runnable() {
       public void run(){
           new Mainframe();
-          new CardGui(new Card("11", "dd", "1111"));
       }
     });
   }
