@@ -8,8 +8,14 @@ import java.awt.Font;
 import java.awt.event.*;
 import java.awt.*;
 import java.io.*;
+import javax.swing.JFileChooser;
+import java.io.File;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Mainframe {
+
+  private JFileChooser jfc;
 
   private static final int WIDTH = 618;
   private static final int HEIGHT = 250;
@@ -24,6 +30,8 @@ public class Mainframe {
   private JButton loadKanbanBoard;
 
   public Mainframe() {
+
+    jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
     mainFrame = new JFrame("YUPPIEDOMS - KANBAN");
 
@@ -106,6 +114,22 @@ public class Mainframe {
         } else {
           JOptionPane.showMessageDialog(null, "Name required");
         }
+      }
+    });
+
+    loadKanbanBoard.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        jfc.setDialogTitle("Select a CSV file to load");
+        jfc.setAcceptAllFileFilterUsed(false);
+		    FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV", "csv");
+		    jfc.addChoosableFileFilter(filter);
+
+        int ret = jfc.showOpenDialog(null);
+
+        if (ret == JFileChooser.APPROVE_OPTION) {
+			       File selectedFile = jfc.getSelectedFile();
+			       System.out.println(selectedFile.getAbsolutePath());
+		    }
       }
     });
   }

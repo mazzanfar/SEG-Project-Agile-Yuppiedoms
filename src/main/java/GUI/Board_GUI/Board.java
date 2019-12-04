@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class Board {
-
+  
   private static final int WIDTH = 900;
   private static final int HEIGHT = 600;
   private static final Font font1 = new Font("Sans-Serif", Font.BOLD, 15);
@@ -97,7 +97,7 @@ public class Board {
 
       save.addActionListener(new ActionListener () {
         public void actionPerformed(ActionEvent ev) {
-          String fileName = "temp.csv";
+          String fileName = boardTitle.getText() + ".csv";
           try {
             FileWriter fileWriter = new FileWriter(fileName, true);
 
@@ -111,7 +111,7 @@ public class Board {
             System.out.println("Error writing to file '" + fileName + "'");
           }
 
-        //  takePicture(boardPanel);
+          takePicture(boardPanel);
           panelNumber++;
 
         }
@@ -127,5 +127,16 @@ public class Board {
 
         KeyStroke saveShortcut = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
         save.setAccelerator(saveShortcut);
+    }
+
+    public void takePicture(JPanel panel) {
+    BufferedImage img = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+      panel.print(img.getGraphics()); // or: panel.printAll(...);
+      try {
+          ImageIO.write(img, "jpg", new File("Kanban-Board-" + panelNumber + ".jpg"));
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
     }
 }
