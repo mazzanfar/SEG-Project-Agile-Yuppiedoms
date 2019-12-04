@@ -108,6 +108,7 @@ public class Column_GUI extends JPanel{
 
         cardPanel.setMaximumSize(new Dimension(WIDTH+50, 100));
         cardsPanel.add(cardPanel);
+        
         Card c = new Card("a","b","1"); // Card test you can take it out later
         
         cardPanel.setBorder(blackline);
