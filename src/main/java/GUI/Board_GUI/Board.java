@@ -66,6 +66,8 @@ public class Board {
       boardPanel.add(newColumn);
       boardFrame.setJMenuBar(makeMenuBar());
       boardFrame.setVisible(true);
+
+      boardFrame.setLayout(new GridLayout(1,5,1,0));
     }
 
     public void newButtons() {
@@ -80,8 +82,15 @@ public class Board {
                 String roleNumber;
                 roleNumber = JOptionPane.showInputDialog("New Column Role Number");
                 JOptionPane.showMessageDialog(null, "New Column Created");
-                Column_GUI columnPanel = new Column_GUI(board.makeColumn(inputName,Integer.parseInt(roleNumber)));
+                JPanel columnPanel = new Column_GUI(board.makeColumn(inputName,Integer.parseInt(roleNumber)));
+                columnPanel.setVisible(true);
+                columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
                 boardFrame.add(columnPanel);
+                columnPanel.repaint();
+                columnPanel.revalidate();
+                boardFrame.repaint();
+                boardFrame.revalidate();
+                SwingUtilities.updateComponentTreeUI(boardFrame);
             }
         });
     }

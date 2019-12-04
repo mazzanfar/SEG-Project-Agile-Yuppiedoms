@@ -43,18 +43,18 @@ public class Column_GUI extends JPanel{
         this.column = column;
         prepareFrame(); // makes a frame
         makeColumn(); // does all column building activities
-        mainFrame.pack(); // make sure this is always the last method to be called
+        //mainFrame.pack(); // make sure this is always the last method to be called
     }
     
     public void prepareFrame(){
-        mainFrame = new JFrame();
-    
-        mainFrame.setPreferredSize(new Dimension(WIDTH+50, HEIGHT));
-        mainFrame.setMinimumSize(new Dimension(WIDTH+50, HEIGHT));
-        mainFrame.setResizable(true);
-        mainFrame.setLocationRelativeTo(null);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setVisible(true);
+//        mainFrame = new JFrame();
+
+        this.setPreferredSize(new Dimension(WIDTH+50, HEIGHT));
+        this.setMinimumSize(new Dimension(WIDTH+50, HEIGHT));
+//        this.setResizable(true);
+//        this.setLocationRelativeTo(null);
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
     }
 
 
@@ -136,6 +136,7 @@ public class Column_GUI extends JPanel{
                         dragButton.add(little_title);
                         cardsPanel.revalidate();
                         cardsPanel.repaint();
+                        SwingUtilities.updateComponentTreeUI(cardsPanel);
                     }
 
                 });
@@ -167,7 +168,9 @@ public class Column_GUI extends JPanel{
         @Override
         public void actionPerformed(ActionEvent e) {
             addCard();
-            mainFrame.pack();
+            cardsPanel.revalidate();
+            cardsPanel.repaint();
+            SwingUtilities.updateComponentTreeUI(cardsPanel);
         }
      });
         JPanel titlePanel = new JPanel();
@@ -189,10 +192,10 @@ public class Column_GUI extends JPanel{
     
         rootPanel.add(upperPanel, BorderLayout.NORTH);
         rootPanel.add(scrollableCards, BorderLayout.CENTER);
-        mainFrame.add(rootPanel);
+        this.add(rootPanel);
     }
     public static void main(String[] args){
-        Column_GUI testRun = new Column_GUI(new Column("",1));
+//        Column_GUI testRun = new Column_GUI(new Column("",1));
     }
 }
 
