@@ -73,29 +73,43 @@ public class Mainframe {
 
   /*
   Inputs for this method will be csv data of some form
-
+  This method will call methods which will create a board, an array of columns and an array of cards
   */
   public void extractFromCSV(){
     //BufferedReader br =                   We need a buffered reader for the file
-    //String line = br.readLine();
+    String line = br.readLine();
+    Board board;
+    ArrayList<int> columnList = new ArrayList<>();
+    ArrayList<int> cardList = new ArrayList<>(); 
+    
+    while(line != "-"){ // this will read the csv file until it reaches the '-' line, then we're done with board object creation
+      // use string.split to load a string array with the values from
+      // each line of
+      // the file, using a comma as the delimiter
+      String[] attributes = line.split(",");
 
-    //Board newBoard = new Board();
-    while (line != null) {
+      board = createBoard(attributes);
 
-            // use string.split to load a string array with the values from
-            // each line of
-            // the file, using a comma as the delimiter
-            String[] attributes = line.split(",");
+      
 
-            Board board = createBoard(attributes);
+      // read next line before looping
+      // if end of file reached, line would be null
+      line = br.readLine();
+    }
+    line = br.readLine();// begin reading next section
+    while(line != "-"){ // again we will stop once we reach another '-', this time we are reading column objects
+      String[] attributes = line.split(",");
 
-            // adding book into ArrayList
-            //books.add(book);
-
-            // read next line before looping
-            // if end of file reached, line would be null
-            //line = br.readLine();
-        }
+      Column col = createColumn(attributes);
+      columnList.add(col);
+    }
+    line = br.readLine();
+    while(line != null){ // reading card objects
+      String[] attributes = line.split(",");
+      
+      Card card = createCard(attributes);
+      cardList.add(card);
+    }
   }
 
   private Board createBoard(String[] metadata) {

@@ -10,7 +10,6 @@ public class Board {
     public Board(String inputName){
         name = inputName;
     }
-<<<<<<< HEAD
 
     public Board(String inputName, ArrayList<Int> CIDs){
         name = inputName;
@@ -22,8 +21,6 @@ public class Board {
         columns.add(newCol);
     }
 
-=======
->>>>>>> 50dacd94bc33547ba12485f3bda5365dc19aa2c6
     public void makeColumn(String name, int roleNum){
         Column newCol = new Column(name, roleNum);
         columns.add(newCol);
