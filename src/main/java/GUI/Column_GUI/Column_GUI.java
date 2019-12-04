@@ -122,6 +122,23 @@ public class Column_GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 CardGui cardGui = new CardGui(card); //to test Cards are unique
+                cardGui.addWindowListener(new WindowAdapter() {
+
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+
+                    }
+
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        JLabel little_title = new JLabel("Title: " + card.getTitle());
+                        dragButton.add(little_title);
+                        cardsPanel.revalidate();
+                        cardsPanel.repaint();
+                    }
+
+                });
+
                 System.out.println("card click"); // card click functionality
             }
         });
@@ -132,7 +149,6 @@ public class Column_GUI extends JPanel{
                 cardsPanel.revalidate();
                 cardsPanel.repaint();
                 column.removeCard(card);
-
             }
         });
     }
