@@ -1,6 +1,7 @@
 package GUI.Column_GUI;
 
 import Business_Logic.Card;
+import Business_Logic.Column;
 import GUI.Card_GUI.*;
 import GUI.Board_GUI.CardTransfer;
 import GUI.Board_GUI.CardTransfer.*;
@@ -34,17 +35,15 @@ public class Column_GUI extends JPanel{
 
     private static final int WIDTH = 200;
     private static final int HEIGHT = 600;
-    JPanel cardsPanel;
+    private JPanel cardsPanel;
     private JFrame mainFrame;
-    
+    private Column column;
 
-    public Column_GUI() {
-
+    public Column_GUI(String inputName, int roleNum) {
+        column = new Column(inputName,roleNum);
         prepareFrame(); // makes a frame
-        
         makeColumn(); // does all column building activities
         mainFrame.pack(); // make sure this is always the last method to be called
-        
     }
     
     public void prepareFrame(){
@@ -58,9 +57,7 @@ public class Column_GUI extends JPanel{
         mainFrame.setVisible(true);
     }
 
-    public static void main(String[] args){
-        Column_GUI testRun = new Column_GUI();
-    }
+
 
     public void addCard(){
         Border blackline, raisedetched, loweredetched,
@@ -84,11 +81,13 @@ public class Column_GUI extends JPanel{
         cardPanel.setPreferredSize(new Dimension(WIDTH, 100));
         
         JButton editButton = new JButton("Edit");
+        JButton removeButton = new JButton("Remove");
         DragActionButton dragButton = ct.new DragActionButton(cardPanel, "");
         dragButton.setVisible(true);
 
         cardPanel.add(dragButton);
         cardPanel.add(editButton);
+        cardPanel.add(removeButton);
         cardPanel.setVisible(true);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 50;
@@ -106,23 +105,36 @@ public class Column_GUI extends JPanel{
         gbc.gridwidth = 0;
         cardPanel.add(editButton, gbc);
 
+        gbc.ipady = 1;
+        gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 0;
+        cardPanel.add(removeButton,gbc);
         cardPanel.setMaximumSize(new Dimension(WIDTH+50, 100));
         cardsPanel.add(cardPanel);
-        Card c = new Card("","","1"); // Card test you can take it out later
+        Card card = new Card("","","1"); // Card test you can take it out later
+        column.addCard(card);
 
-        
         cardPanel.setBorder(blackline);
 
         editButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardGui cardGui = new CardGui(card); //to test Cards are unique
+                System.out.println("card click"); // card click functionality
+            }
+        });
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardsPanel.remove(cardPanel);
+                cardsPanel.revalidate();
+                cardsPanel.repaint();
+                column.removeCard(card);
 
-
-            CardGui card = new CardGui(c); //to test Cards are unique
-            System.out.println("card click"); // card click functionality
-        } 
-        
-    });
+            }
+        });
     }
     
     public void makeColumn() {
@@ -132,10 +144,9 @@ public class Column_GUI extends JPanel{
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new BoxLayout(upperPanel, BoxLayout.PAGE_AXIS));
 
-        JLabel testLabel = new JLabel("tempName");
+        JLabel testLabel = new JLabel(column.getName());
         JButton addCardButton = new JButton("+ Card");
         addCardButton.addActionListener(new ActionListener() {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             addCard();
@@ -163,6 +174,8 @@ public class Column_GUI extends JPanel{
         rootPanel.add(scrollableCards, BorderLayout.CENTER);
         mainFrame.add(rootPanel);
     }
-    
+    public static void main(String[] args){
+        Column_GUI testRun = new Column_GUI("backlog",1);
+    }
 }
 
