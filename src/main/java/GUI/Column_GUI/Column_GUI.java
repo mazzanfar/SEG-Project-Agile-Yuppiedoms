@@ -10,6 +10,8 @@ import javax.swing.border.Border;
 
 import java.awt.event.*;
 import java.awt.*;
+
+import java.util.ArrayList;
 import java.awt.dnd.*;
 
 
@@ -33,13 +35,13 @@ public class Column_GUI extends JPanel{
     private static final int WIDTH = 200;
     private static final int HEIGHT = 600;
     JPanel cardsPanel;
-  
+    private ArrayList<Card> cardList;
     private JFrame mainFrame;
     
 
     public Column_GUI() {
 
-        
+        cardList = new ArrayList<>();
         prepareFrame(); // makes a frame
         
         makeColumn(); // does all column building activities
@@ -85,11 +87,11 @@ public class Column_GUI extends JPanel{
         
         JButton editButton = new JButton("Edit");
         DragActionButton dragButton = ct.new DragActionButton(cardPanel, "");
-    
+        dragButton.setVisible(true);
 
         cardPanel.add(dragButton);
         cardPanel.add(editButton);
-
+        cardPanel.setVisible(true);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 50;
         gbc.weighty = 1.0;      //make this component tall
@@ -108,16 +110,14 @@ public class Column_GUI extends JPanel{
 
         cardPanel.setMaximumSize(new Dimension(WIDTH+50, 100));
         cardsPanel.add(cardPanel);
-        
-        Card c = new Card("a","b","1"); // Card test you can take it out later
+        Card c = new Card("","","1"); // Card test you can take it out later
+        cardList.add(c);
         
         cardPanel.setBorder(blackline);
 
         editButton.addActionListener(new ActionListener() {
-
         @Override
         public void actionPerformed(ActionEvent e) {
-            
             CardGui card = new CardGui(c); //to test Cards are unique
             System.out.println("card click"); // card click functionality
         } 
