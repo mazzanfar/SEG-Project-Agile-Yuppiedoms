@@ -62,6 +62,41 @@ public class Mainframe {
     mainFrame.pack();
   }
 
+
+  /*
+  Inputs for this method will be csv data of some form
+
+  */
+  public void extractFromCSV(){
+    //BufferedReader br =                   We need a buffered reader for the file
+    //String line = br.readLine();
+
+    //Board newBoard = new Board();
+    while (line != null) {
+
+            // use string.split to load a string array with the values from
+            // each line of
+            // the file, using a comma as the delimiter
+            String[] attributes = line.split(",");
+
+            Board board = createBoard(attributes);
+
+            // adding book into ArrayList
+            //books.add(book);
+
+            // read next line before looping
+            // if end of file reached, line would be null
+            //line = br.readLine();
+        }
+  }
+
+  private Board createBoard(String[] metadata) {
+  String name = metadata[0];
+  String[] cIDs = metadata[1].split("-");
+  
+  return new Board(name, cIDS);
+}
+
   public void addActions() {
     newKanbanBoard.addActionListener(new ActionListener () {
       public void actionPerformed(ActionEvent e) {

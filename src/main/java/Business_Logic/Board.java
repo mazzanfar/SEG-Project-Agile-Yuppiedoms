@@ -4,10 +4,20 @@ import Business_Logic.Column;
 import java.util.ArrayList;
 public class Board {
     private String name;
-    private ArrayList<Column> columns;
+    private ArrayList<int> column_IDs;
 
     public Board(String inputName){
         name = inputName;
+    }
+
+    public Board(String inputName, ArrayList<Int> CIDs){
+        name = inputName;
+        column_IDs = CIDs;
+    }
+
+    public void makeColumn(String name, int roleNum, ArrayList<int> ){
+        Column newCol = new Column(name, roleNum);
+        columns.add(newCol);
     }
 
     public void makeColumn(String name, int roleNum){

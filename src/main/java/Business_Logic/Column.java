@@ -5,7 +5,7 @@ public class Column {
 
     private String name;
     private int role; // 0 - Backlog    1 - In progress    2 - Completed
-    private ArrayList<Card> cards;
+    private ArrayList<Int> cardIDs;
 
     public Column(String inputName, int roleNum){
         name = inputName;
@@ -21,12 +21,12 @@ public class Column {
         role = roleNum;
     }
 
-    public void addCard(Card theCard){
-        cards.add(theCard);
+    public void addCard(int cardID){
+        cardIDs.add(cardID);
     }
 
-    public void removeCard(Card theCard){
-        cards.remove(theCard);
+    public void removeCard(int cardID){
+        cardIDs.remove(cardID);
     }
 
 
