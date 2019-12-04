@@ -89,6 +89,8 @@ public class Column_GUI {
     }
 
     public void makeColumn(Column col) {
+
+
         JPanel rootPanel = new JPanel(); // the root panel
         rootPanel.setLayout(new BorderLayout());
 
@@ -108,7 +110,7 @@ public class Column_GUI {
         JPanel titlePanel = new JPanel();
         JPanel buttonPanel = new JPanel();
         
-        for(int f : ){
+        for(int f : col.cardIDs){
 
         }
 
@@ -131,6 +133,9 @@ public class Column_GUI {
     }
 
     public void makeColumn() {
+
+        Column column = new Column();
+
         JPanel rootPanel = new JPanel(); // the root panel
         rootPanel.setLayout(new BorderLayout());
 

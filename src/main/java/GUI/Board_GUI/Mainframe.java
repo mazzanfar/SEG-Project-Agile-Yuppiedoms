@@ -119,6 +119,20 @@ public class Mainframe {
   return new Board(name, cIDS);
 }
 
+private ArrayList<Column> createColumn(String[] metadata) {
+  String name = metadata[0];
+  String[] cIDs = metadata[1].split("-");
+  
+  // return  new column
+}
+
+private ArrayList<Card> createCard(String[] metadata) {
+  String name = metadata[0];
+  String[] cIDs = metadata[1].split("-");
+  
+  // return new card
+}
+
   public void addActions() {
     newKanbanBoard.addActionListener(new ActionListener () {
       public void actionPerformed(ActionEvent e) {
