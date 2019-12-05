@@ -3,8 +3,8 @@ package GUI.Column_GUI;
 import Business_Logic.Card;
 import Business_Logic.Column;
 import GUI.Card_GUI.*;
-import GUI.Board_GUI.CardTransfer;
-import GUI.Board_GUI.CardTransfer.*;
+import GUI.Transfer.DragActionButton;
+
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -36,13 +36,19 @@ public class Column_GUI extends JPanel{
     private static final int WIDTH = 200;
     private static final int HEIGHT = 600;
     private JPanel cardsPanel;
-    private JFrame mainFrame;
+    //private JFrame mainFrame;
     private Column column;
 
     public Column_GUI(Column column) {
         this.column = column;
         prepareFrame(); // makes a frame
         makeColumn(); // does all column building activities
+
+        // DragPane drag = new DragPane();
+        // cardsPanel.add(drag);
+        
+        // add(cardsPanel);
+        // add(new DropPane());
         //mainFrame.pack(); // make sure this is always the last method to be called
     }
     
@@ -68,7 +74,6 @@ public class Column_GUI extends JPanel{
         loweredbevel = BorderFactory.createLoweredBevelBorder();
         empty = BorderFactory.createEmptyBorder();
         
-        CardTransfer ct = new CardTransfer();
         JPanel cardPanel = new JPanel();
 
         
@@ -82,7 +87,8 @@ public class Column_GUI extends JPanel{
         
         JButton editButton = new JButton("Edit");
         JButton removeButton = new JButton("Remove");
-        DragActionButton dragButton = ct.new DragActionButton(cardPanel, "");
+        //DragActionButton dragButton = ct.new DragActionButton(cardPanel, "");
+        DragActionButton dragButton = new DragActionButton(cardPanel, "");
         dragButton.setVisible(true);
 
         cardPanel.add(dragButton);
@@ -191,8 +197,20 @@ public class Column_GUI extends JPanel{
         upperPanel.add(buttonPanel);
 
         cardsPanel = new JPanel();
+        DragPane drag = new DragPane();
+        cardsPanel.add(drag);
+        //drag.setLayout(new BoxLayout(cardsPanel, BoxLayout.PAGE_AXIS));
+
         cardsPanel.setLayout(new BoxLayout(cardsPanel, BoxLayout.PAGE_AXIS));
         JScrollPane scrollableCards = new JScrollPane(cardsPanel);  
+
+        // DragPane drag = new DragPane();
+        // cardsPanel.add(drag);
+        
+        add(cardsPanel);
+        add(new DropPane());
+
+            
     
         rootPanel.add(upperPanel, BorderLayout.NORTH);
         rootPanel.add(scrollableCards, BorderLayout.CENTER);
