@@ -1,11 +1,19 @@
 package GUI.Column_GUI;
-import Business_Logic.Card;
-import GUI.Card_GUI.*;
 
+import Business_Logic.Card;
+import Business_Logic.Column;
+import GUI.Card_GUI.*;
+import GUI.Board_GUI.CardTransfer;
+import GUI.Board_GUI.CardTransfer.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.event.*;
 import java.awt.*;
+
+import java.util.ArrayList;
+import java.awt.dnd.*;
 
 
 /*
@@ -22,58 +30,129 @@ import java.awt.*;
 
 */
 
-public class Column_GUI {
+public class Column_GUI extends JPanel{
 
 
     private static final int WIDTH = 200;
     private static final int HEIGHT = 600;
-    JPanel cardsPanel;
-  
+    private JPanel cardsPanel;
     private JFrame mainFrame;
-    
+    private Column column;
 
-    public Column_GUI() {
-
-        
+    public Column_GUI(Column column) {
+        this.column = column;
         prepareFrame(); // makes a frame
-        
         makeColumn(); // does all column building activities
-        mainFrame.pack(); // make sure this is always the last method to be called
-        
+        //mainFrame.pack(); // make sure this is always the last method to be called
     }
     
     public void prepareFrame(){
-        mainFrame = new JFrame();
-    
-        mainFrame.setPreferredSize(new Dimension(WIDTH+50, HEIGHT));
-        mainFrame.setMinimumSize(new Dimension(WIDTH+50, HEIGHT));
-        mainFrame.setResizable(true);
-        mainFrame.setLocationRelativeTo(null);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setVisible(true);
+//        mainFrame = new JFrame();
+
+        this.setPreferredSize(new Dimension(WIDTH+50, HEIGHT));
+        this.setMinimumSize(new Dimension(WIDTH+50, HEIGHT));
+//        this.setResizable(true);
+//        this.setLocationRelativeTo(null);
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
     }
 
-    public static void main(String[] args){
-        Column_GUI testRun = new Column_GUI();
-    }
+
 
     public void addCard(){
-        JPanel card1Panel = new JPanel();
-        card1Panel.setPreferredSize(new Dimension(WIDTH, 100));
-        card1Panel.setLayout(new BorderLayout());
-        JButton button1 = new JButton();
-        card1Panel.add(button1, BorderLayout.CENTER);
-        card1Panel.setMaximumSize(new Dimension(WIDTH+50, 100));
-        cardsPanel.add(card1Panel);
-        Card c = new Card("a","b","5"); // Card test you can take it out later
-        button1.addActionListener(new ActionListener() {
+        Border blackline, raisedetched, loweredetched,
+        raisedbevel, loweredbevel, empty;
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            
-            CardGui card = new CardGui(c); //to test Cards are unique
-            System.out.println("card click"); // card click functionality
-        }
+        blackline = BorderFactory.createLineBorder(Color.black);
+        raisedbevel = BorderFactory.createRaisedBevelBorder();
+        loweredbevel = BorderFactory.createLoweredBevelBorder();
+        empty = BorderFactory.createEmptyBorder();
+        
+        CardTransfer ct = new CardTransfer();
+        JPanel cardPanel = new JPanel();
+
+        
+    
+        GridBagLayout gridbag = new GridBagLayout();
+        cardPanel.setLayout(gridbag);
+        GridBagConstraints gbc = new GridBagConstraints();
+
+    
+        cardPanel.setPreferredSize(new Dimension(WIDTH, 100));
+        
+        JButton editButton = new JButton("Edit");
+        JButton removeButton = new JButton("Remove");
+        DragActionButton dragButton = ct.new DragActionButton(cardPanel, "");
+        dragButton.setVisible(true);
+
+        cardPanel.add(dragButton);
+        cardPanel.add(editButton);
+        cardPanel.add(removeButton);
+        cardPanel.setVisible(true);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 50;
+        gbc.weighty = 1.0;      //make this component tall
+        gbc.weightx = 1.0;
+        gbc.gridwidth = 3;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        cardPanel.add(dragButton, gbc);
+
+        gbc.ipady = 1;
+        gbc.weightx = 10;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 0;
+        cardPanel.add(editButton, gbc);
+
+        gbc.ipady = 1;
+        gbc.weightx = 10;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 0;
+        cardPanel.add(removeButton,gbc);
+        cardPanel.setMaximumSize(new Dimension(WIDTH+50, 100));
+        cardsPanel.add(cardPanel);
+        Card card = new Card("","","1"); // Card test you can take it out later
+        column.addCard(card);
+        JLabel little_title = new JLabel("Title: " );
+        dragButton.add(little_title);
+        cardPanel.setBorder(blackline);
+
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardGui cardGui = new CardGui(card); //to test Cards are unique
+                cardGui.addWindowListener(new WindowAdapter() {
+
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+
+                    }
+
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        little_title.setText("Title: " + card.getTitle());
+                        dragButton.add(little_title);
+                        cardsPanel.revalidate();
+                        cardsPanel.repaint();
+                        SwingUtilities.updateComponentTreeUI(cardsPanel);
+                        SwingUtilities.updateComponentTreeUI(dragButton);
+                    }
+
+                });
+
+                System.out.println("card click"); // card click functionality
+            }
+        });
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardsPanel.remove(cardPanel);
+                cardsPanel.revalidate();
+                cardsPanel.repaint();
+                column.removeCard(card);
+            }
         });
     }
     
@@ -84,16 +163,20 @@ public class Column_GUI {
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new BoxLayout(upperPanel, BoxLayout.PAGE_AXIS));
 
-        JLabel testLabel = new JLabel("tempName");
+        JLabel testLabel = new JLabel(column.getName());
         JButton addCardButton = new JButton("+ Card");
         addCardButton.addActionListener(new ActionListener() {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             addCard();
-            mainFrame.pack();
+            cardsPanel.revalidate();
+            cardsPanel.repaint();
+            SwingUtilities.updateComponentTreeUI(cardsPanel);
+            cardsPanel.getRootPane().revalidate();
+            cardsPanel.getRootPane().repaint();
+            SwingUtilities.updateComponentTreeUI(cardsPanel.getRootPane());
         }
-        });
+     });
         JPanel titlePanel = new JPanel();
         JPanel buttonPanel = new JPanel();
 
@@ -108,13 +191,22 @@ public class Column_GUI {
         upperPanel.add(buttonPanel);
 
         cardsPanel = new JPanel();
-        cardsPanel.setLayout(new BoxLayout(cardsPanel, BoxLayout.PAGE_AXIS));
-        JScrollPane scrollableCards = new JScrollPane(cardsPanel);  
-    
+        cardsPanel.setLayout(new GridLayout(20,1,10,0));
+        cardsPanel.setPreferredSize(new Dimension(250,3000));
+
+        JScrollPane scrollableCards = new JScrollPane();
+        scrollableCards.setPreferredSize(new Dimension(250,700));
+        scrollableCards.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        JViewport viewport = new JViewport();
+        viewport.setView(cardsPanel);
+        scrollableCards.setViewport(viewport);
+
         rootPanel.add(upperPanel, BorderLayout.NORTH);
         rootPanel.add(scrollableCards, BorderLayout.CENTER);
-        mainFrame.add(rootPanel);
+        this.add(rootPanel);
     }
-    
+    public static void main(String[] args){
+//        Column_GUI testRun = new Column_GUI(new Column("",1));
+    }
 }
 

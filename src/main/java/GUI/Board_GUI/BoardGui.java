@@ -1,3 +1,9 @@
+package GUI.Board_GUI;
+
+import Business_Logic.*;
+import GUI.Column_GUI.Column_GUI;
+
+import javax.swing.JOptionPane;
 import javax.swing.*;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
@@ -8,7 +14,7 @@ import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-public class Board {
+public class BoardGui {
 
   private static final int WIDTH = 900;
   private static final int HEIGHT = 600;
@@ -23,16 +29,19 @@ public class Board {
   private JTextField boardTitle;
 
   private JButton newColumn;
-  private JButton newCard;
+
   private JMenuBar menuBar;
 
   private JMenuItem exit;
   private JMenuItem newBoard;
   private JMenuItem save;
 
+  private Business_Logic.Board board;
 
-  public Board(String name) {
-      boardFrame = new JFrame(name);
+  public BoardGui(Business_Logic.Board board) {
+      this.board = board;
+
+      boardFrame = new JFrame(board.getName());
 
       boardFrame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
       boardFrame.setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -40,29 +49,53 @@ public class Board {
       boardFrame.setLocationRelativeTo(null);
       boardFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-      boardPanel = new JPanel(new FlowLayout());
+      boardPanel = new JPanel(new BorderLayout());
       boardTitle = new JTextField();
       boardTitle.setFont(font1);
-      boardTitle.setText(name);
+      boardTitle.setText(board.getName());
       boardTitle.setEditable(false);
-      boardTitle.setHorizontalAlignment(JTextField.LEFT);
+      boardTitle.setHorizontalAlignment(JTextField.CENTER);
 
 
       boardFrame.add(boardPanel);
-      boardPanel.add(boardTitle);
 
       newButtons();
 
+      JPanel northPane = new JPanel(new GridLayout(2,1,100,10));
+      northPane.add(boardTitle);
+      northPane.add(newColumn);
+      boardPanel.add(northPane,BorderLayout.NORTH);
 
-      boardPanel.add(newColumn);
-      boardPanel.add(newCard);
       boardFrame.setJMenuBar(makeMenuBar());
       boardFrame.setVisible(true);
+
+      boardFrame.setLayout(new GridLayout(1,5,1,0));
     }
 
     public void newButtons() {
-      newColumn = new JButton("+ New Column");
-      newCard = new JButton("+ New Card");
+        newColumn = new JButton("+ New Column");
+        newColumn.setPreferredSize(new Dimension(20,20));
+        newColumn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame questionFrame = new JFrame();
+                JOptionPane.showMessageDialog(questionFrame,"");
+                String inputName;
+                inputName = JOptionPane.showInputDialog("New Column Name");
+                String roleNumber;
+                roleNumber = JOptionPane.showInputDialog("New Column Role Number");
+                JOptionPane.showMessageDialog(null, "New Column Created");
+                JPanel columnPanel = new Column_GUI(board.makeColumn(inputName,Integer.parseInt(roleNumber)));
+                columnPanel.setVisible(true);
+                columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
+                boardFrame.add(columnPanel,BorderLayout.CENTER);
+                columnPanel.repaint();
+                columnPanel.revalidate();
+                boardFrame.repaint();
+                boardFrame.revalidate();
+                SwingUtilities.updateComponentTreeUI(boardFrame);
+            }
+        });
     }
 
     public JMenuBar makeMenuBar() {

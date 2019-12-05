@@ -96,6 +96,8 @@ public class CardGui extends JFrame implements ActionListener{
             title.setEditable(true);
             title.setText(title.getText());
 
+            SpDropDown.setEditable((true));
+            SpDropDown.setSelectedItem(SpDropDown.getSelectedItem());
             //Add card class and then can do card.setTitle() etc...
             //to link business logic to gui.
             //Final should look like card instance.get...
@@ -104,9 +106,10 @@ public class CardGui extends JFrame implements ActionListener{
         {
             title.setEditable(false);
             description.setEditable(false);
+            SpDropDown.setEditable((false));
             card.setDescription(description.getText());
             card.setTitle(title.getText());
-            card.setStoryPoints(SpDropDown.getToolTipText());
+            card.setStoryPoints((String) SpDropDown.getSelectedItem());
             this.dispose();
         }
     }
@@ -138,12 +141,14 @@ public class CardGui extends JFrame implements ActionListener{
         SpDropDown.setSelectedItem(card.getStoryPoints());
         SpDropDown.setFont(new Font("Courier New", Font.ITALIC, 12));
         SpDropDown.setMaximumSize(new Dimension(0,10));
+        SpDropDown.setSelectedItem(card.getStoryPoints());
         SpPanel = new JPanel(new FlowLayout(1,0,0));
         SpPanel.add(SpLabel);
         SpPanel.add(SpDropDown);
         SpPanel.setBorder(new EmptyBorder(450, 0, 0, 0));
         this.add(SpPanel, BorderLayout.EAST);
         SpDropDown.setVisible(true);
+        SpDropDown.setEditable(false);
     }
 
     public void makeDescription() {

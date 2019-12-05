@@ -8,6 +8,7 @@ public class Column {
     private ArrayList<Card> cards;
 
     public Column(String inputName, int roleNum){
+        cards = new ArrayList<Card>();
         name = inputName;
         role = roleNum;
 
@@ -29,5 +30,11 @@ public class Column {
         cards.remove(theCard);
     }
 
+    public Card getCard(int cardId){
+        return cards.get(cardId);
+    }
 
+    public String getName(){ return name; }
+
+    public int getRole(){ return role; }
 }

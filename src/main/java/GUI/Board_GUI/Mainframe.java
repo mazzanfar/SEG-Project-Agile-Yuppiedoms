@@ -1,13 +1,12 @@
+package GUI.Board_GUI;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
-import java.awt.*;
-import java.io.*;
 
 public class Mainframe {
 
@@ -67,7 +66,7 @@ public class Mainframe {
       public void actionPerformed(ActionEvent e) {
         String input = JOptionPane.showInputDialog("Input name of Kanban Board");
         if (input.length() > 0) {
-          Board board = new Board(input);
+          BoardGui board = new BoardGui(new Business_Logic.Board(input)) ;
         } else {
           JOptionPane.showMessageDialog(null, "Name required");
         }
