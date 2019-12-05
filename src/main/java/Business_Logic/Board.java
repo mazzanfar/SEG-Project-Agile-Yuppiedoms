@@ -26,4 +26,7 @@ public class Board {
         endingCol.addCard(theCard);
     }
 
+    public java.lang.String getName() {
+        return name;
+    }
 }

@@ -99,14 +99,14 @@ public class Column_GUI extends JPanel{
         cardPanel.add(dragButton, gbc);
 
         gbc.ipady = 1;
-        gbc.weightx = 0;
+        gbc.weightx = 10;
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 0;
         cardPanel.add(editButton, gbc);
 
         gbc.ipady = 1;
-        gbc.weightx = 0;
+        gbc.weightx = 10;
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 0;
@@ -191,9 +191,16 @@ public class Column_GUI extends JPanel{
         upperPanel.add(buttonPanel);
 
         cardsPanel = new JPanel();
-        cardsPanel.setLayout(new BoxLayout(cardsPanel, BoxLayout.PAGE_AXIS));
-        JScrollPane scrollableCards = new JScrollPane(cardsPanel);  
-    
+        cardsPanel.setLayout(new GridLayout(20,1,10,0));
+        cardsPanel.setPreferredSize(new Dimension(250,3000));
+
+        JScrollPane scrollableCards = new JScrollPane();
+        scrollableCards.setPreferredSize(new Dimension(250,700));
+        scrollableCards.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        JViewport viewport = new JViewport();
+        viewport.setView(cardsPanel);
+        scrollableCards.setViewport(viewport);
+
         rootPanel.add(upperPanel, BorderLayout.NORTH);
         rootPanel.add(scrollableCards, BorderLayout.CENTER);
         this.add(rootPanel);
