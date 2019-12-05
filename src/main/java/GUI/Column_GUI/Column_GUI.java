@@ -137,6 +137,7 @@ public class Column_GUI extends JPanel{
                         cardsPanel.revalidate();
                         cardsPanel.repaint();
                         SwingUtilities.updateComponentTreeUI(cardsPanel);
+                        SwingUtilities.updateComponentTreeUI(dragButton);
                     }
 
                 });
@@ -171,6 +172,9 @@ public class Column_GUI extends JPanel{
             cardsPanel.revalidate();
             cardsPanel.repaint();
             SwingUtilities.updateComponentTreeUI(cardsPanel);
+            cardsPanel.getRootPane().revalidate();
+            cardsPanel.getRootPane().repaint();
+            SwingUtilities.updateComponentTreeUI(cardsPanel.getRootPane());
         }
      });
         JPanel titlePanel = new JPanel();
