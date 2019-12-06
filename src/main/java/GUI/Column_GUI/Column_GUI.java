@@ -63,12 +63,12 @@ public class Column_GUI extends JPanel{
         this.setVisible(true);
     }
 
-    public void actionPerformed (ActionEvent e)
-    {
-        if(e.getActionCommand().equals("remove")){
-            cardsPanel.remove( );
-        }
-    }
+//    public void actionPerformed (ActionEvent e)
+//    {
+//        if(e.getActionCommand().equals("remove")){
+//            cardsPanel.remove();
+//        }
+//    }
 
 
 
