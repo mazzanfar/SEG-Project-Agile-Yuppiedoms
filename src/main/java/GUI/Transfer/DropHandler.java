@@ -52,7 +52,7 @@ public class DropHandler implements DropTargetListener, Serializable {
     @Override
     public void drop(DropTargetDropEvent dtde) {
         boolean success = false;
-        // Basically, we want to unwrap the present...
+        //        // Basically, we want to unwrap the present...
         if (dtde.isDataFlavorSupported(PanelDataFlavor.SHARED_INSTANCE)) {
             Transferable transferable = dtde.getTransferable();
             try {

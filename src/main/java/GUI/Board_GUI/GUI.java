@@ -6,7 +6,6 @@ import GUI.Card_GUI.CardGui;
 public class GUI
 {
   public static void main(String[] args){
-
           new Mainframe();
 
   }

@@ -63,128 +63,17 @@ public class Column_GUI extends JPanel{
         this.setVisible(true);
     }
 
+    public void actionPerformed (ActionEvent e)
+    {
+        if(e.getActionCommand().equals("remove")){
+            cardsPanel.remove( );
+        }
+    }
+
 
 
     public void addCard(Card card){
-        Border blackline, raisedetched, loweredetched,
-        raisedbevel, loweredbevel, empty;
-
-        blackline = BorderFactory.createLineBorder(Color.black);
-        raisedbevel = BorderFactory.createRaisedBevelBorder();
-        loweredbevel = BorderFactory.createLoweredBevelBorder();
-        empty = BorderFactory.createEmptyBorder();
-
-        DragPane cardPanel = new DragPane();
-        cardPanel.setLayout(new GridLayout(3,1,0,2));
-        cardPanel.addMouseListener(new MouseAdapter() {
-            JPanel previousParent;
-            JPanel newParent;
-            JPanel currentParent;
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                System.out.println("mousePressed");
-//                previousParent = (JPanel)cardsPanel.getParent();
-
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                System.out.println("mouseReleased");
-//                newParent = (JPanel)cardsPanel.getParent();
-                System.out.println("mouseReleased");
-            }
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                System.out.println("mouseDragged");
-//                currentParent = (JPanel)cardsPanel.getParent();
-                System.out.println("mouseDragged");
-            }
-        });
-        
-    
-        GridBagLayout gridbag = new GridBagLayout();
-        cardPanel.setLayout(gridbag);
-        GridBagConstraints gbc = new GridBagConstraints();
-
-    
-        cardPanel.setPreferredSize(new Dimension(WIDTH, 100));
-        
-        JButton editButton = new JButton("Edit");
-        editButton.setPreferredSize(new Dimension(100,30));
-        JButton removeButton = new JButton("Remove");
-        removeButton.setPreferredSize(new Dimension(100,30));
-
-        cardPanel.setVisible(true);
-
-        JLabel little_title = new JLabel("Title: " );
-        cardPanel.add(little_title);
-        cardPanel.add(editButton);
-        cardPanel.add(removeButton);
-        cardPanel.setVisible(true);
-//        gbc.fill = GridBagConstraints.HORIZONTAL;
-//        gbc.ipady = 50;
-//        gbc.weighty = 1.0;      //make this component tall
-//        gbc.weightx = 1.0;
-//        gbc.gridwidth = 3;
-//        gbc.gridx = 1;
-//        gbc.gridy = 0;
-//        cardPanel.add(cardPanel, gbc);
-
-        gbc.ipady = 1;
-        gbc.weightx = 10;
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 0;
-        cardPanel.add(editButton, gbc);
-
-        gbc.ipady = 1;
-        gbc.weightx = 10;
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 0;
-        cardPanel.add(removeButton,gbc);
-        cardPanel.setMaximumSize(new Dimension(WIDTH+50, 100));
-        cardsPanel.add(cardPanel);
-        cardPanel.setBorder(blackline);
-
-        editButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CardGui cardGui = new CardGui(card); //to test Cards are unique
-                cardGui.addWindowListener(new WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-
-                    }
-
-                    @Override
-                    public void windowClosed(WindowEvent e) {
-                        little_title.setText("Title: " + card.getTitle());
-                        cardPanel.add(little_title);
-                        cardPanel.revalidate();
-                        cardPanel.repaint();
-                        cardsPanel.revalidate();
-                        cardsPanel.repaint();
-                        SwingUtilities.updateComponentTreeUI(cardsPanel);
-                        SwingUtilities.updateComponentTreeUI(cardPanel);
-                    }
-
-                });
-
-                System.out.println("card click"); // card click functionality
-            }
-        });
-        removeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardsPanel.remove(cardPanel);
-                cardsPanel.revalidate();
-                cardsPanel.repaint();
-                column.removeCard(card);
-            }
-        });
+        cardsPanel.add(new CardGui(card));
     }
     
     public void makeColumn() {
@@ -239,16 +128,15 @@ public class Column_GUI extends JPanel{
 
         cardsPanel = new DropPane();
 
-//        PropertyChangeListener propChangeListn = new PropertyChangeListener() {
-//            @Override
-//            public void propertyChange(PropertyChangeEvent event) {
-//                for (Component component : cardsPanel.getComponents()){
-//                    if(!cardMap.containsKey(component)){
-//                    }
-//                }
-//            }
-//        };
-//        cardsPanel.addPropertyChangeListener(propChangeListn);
+        PropertyChangeListener propChangeListn = new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent event) {
+                for (Component component : cardsPanel.getComponents()){
+
+                }
+            }
+        };
+        cardsPanel.addPropertyChangeListener(propChangeListn);
         cardsPanel.setLayout(new GridLayout(20,1,10,0));
         cardsPanel.setPreferredSize(new Dimension(250,3000));
 
