@@ -39,4 +39,9 @@ public class Column {
     public String getName(){ return name; }
 
     public int getRole(){ return role; }
+
+    public void moveCard(Card theCard, Column endingCol){
+        this.removeCard(theCard);
+        endingCol.addCard(theCard);
+    }
 }

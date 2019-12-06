@@ -62,7 +62,7 @@ public class CardGui extends DragPane {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 System.out.println("mouseReleased");
-//                newParent = (JPanel)cardsPanel.getParent();
+                newParent = (JPanel)CardGui.this.getParent();
                 System.out.println("mouseReleased");
             }
             @Override
@@ -88,7 +88,7 @@ public class CardGui extends DragPane {
 
         this.setVisible(true);
 
-        JLabel little_title = new JLabel("Title: " );
+        JLabel little_title = new JLabel("Title: " + card.getTitle());
         this.add(little_title);
         this.add(editButton);
         this.add(removeButton);
@@ -271,16 +271,5 @@ public class CardGui extends DragPane {
         descriptionPanel.add(description, BorderLayout.CENTER);
         descriptionPanel.add(descriptionLabel, BorderLayout.NORTH);
         popUpFrame.add(descriptionPanel, BorderLayout.CENTER);
-    }
-
-    public static void main(String[] args){
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run(){
-                new CardGui(new Card("11","dd","3"));
-                new CardGui(new Card("11","dd","4"));
-                //just for testing.
-                //remove later.
-            }
-        });
     }
 }

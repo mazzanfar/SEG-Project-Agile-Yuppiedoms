@@ -73,7 +73,11 @@ public class Column_GUI extends JPanel{
 
 
     public void addCard(Card card){
-        cardsPanel.add(new CardGui(card));
+        CardGui cg = new CardGui(card);
+        cg.repaint();
+        cg.revalidate();
+        SwingUtilities.updateComponentTreeUI(cg);
+        cardsPanel.add(cg);
     }
     
     public void makeColumn() {
@@ -131,8 +135,12 @@ public class Column_GUI extends JPanel{
         PropertyChangeListener propChangeListn = new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent event) {
-                for (Component component : cardsPanel.getComponents()){
-
+                if(column.getCards().size() != cardsPanel.getComponents().length){
+                    cardsPanel.removeAll();
+                    for(Card card : column.getCards())
+                    {
+                        addCard(card);
+                    }
                 }
             }
         };

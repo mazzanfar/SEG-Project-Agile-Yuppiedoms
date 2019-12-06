@@ -1,12 +1,8 @@
 package GUI.Column_GUI;
 
-import Business_Logic.Card;
-import Business_Logic.Column;
-import GUI.Card_GUI.*;
 import GUI.Transfer.DropHandler;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import javax.swing.JPanel;
@@ -33,5 +29,4 @@ public class DropPane extends JPanel {
         super.removeNotify(); //To change body of generated methods, choose Tools | Templates.
         dropTarget.removeDropTargetListener(dropHandler);
     }
-
 }
