@@ -34,6 +34,8 @@ public class Column {
         return cards.get(cardId);
     }
 
+    public ArrayList<Card> getCards(){ return cards;}
+
     public String getName(){ return name; }
 
     public int getRole(){ return role; }

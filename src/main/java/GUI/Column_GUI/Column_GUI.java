@@ -3,7 +3,7 @@ package GUI.Column_GUI;
 import Business_Logic.Card;
 import Business_Logic.Column;
 import GUI.Card_GUI.*;
-import GUI.Transfer.DragActionButton;
+import GUI.Transfer.*;
 
 
 import javax.swing.*;
@@ -12,9 +12,9 @@ import javax.swing.border.Border;
 import java.awt.event.*;
 import java.awt.*;
 
-import java.util.ArrayList;
-import java.awt.dnd.*;
-
+import java.util.HashMap;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /*
     HOW TO RUN THIS CODE:
@@ -35,7 +35,7 @@ public class Column_GUI extends JPanel{
 
     private static final int WIDTH = 200;
     private static final int HEIGHT = 600;
-    private JPanel cardsPanel;
+    private DropPane cardsPanel;
     //private JFrame mainFrame;
     private Column column;
 
@@ -65,7 +65,7 @@ public class Column_GUI extends JPanel{
 
 
 
-    public void addCard(){
+    public void addCard(Card card){
         Border blackline, raisedetched, loweredetched,
         raisedbevel, loweredbevel, empty;
 
@@ -73,9 +73,34 @@ public class Column_GUI extends JPanel{
         raisedbevel = BorderFactory.createRaisedBevelBorder();
         loweredbevel = BorderFactory.createLoweredBevelBorder();
         empty = BorderFactory.createEmptyBorder();
-        
-        JPanel cardPanel = new JPanel();
 
+        DragPane cardPanel = new DragPane();
+        cardPanel.setLayout(new GridLayout(3,1,0,2));
+        cardPanel.addMouseListener(new MouseAdapter() {
+            JPanel previousParent;
+            JPanel newParent;
+            JPanel currentParent;
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                System.out.println("mousePressed");
+//                previousParent = (JPanel)cardsPanel.getParent();
+
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                System.out.println("mouseReleased");
+//                newParent = (JPanel)cardsPanel.getParent();
+                System.out.println("mouseReleased");
+            }
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                System.out.println("mouseDragged");
+//                currentParent = (JPanel)cardsPanel.getParent();
+                System.out.println("mouseDragged");
+            }
+        });
         
     
         GridBagLayout gridbag = new GridBagLayout();
@@ -86,43 +111,41 @@ public class Column_GUI extends JPanel{
         cardPanel.setPreferredSize(new Dimension(WIDTH, 100));
         
         JButton editButton = new JButton("Edit");
+        editButton.setPreferredSize(new Dimension(100,30));
         JButton removeButton = new JButton("Remove");
-        //DragActionButton dragButton = ct.new DragActionButton(cardPanel, "");
-        DragActionButton dragButton = new DragActionButton(cardPanel, "");
-        dragButton.setVisible(true);
+        removeButton.setPreferredSize(new Dimension(100,30));
 
-        cardPanel.add(dragButton);
+        cardPanel.setVisible(true);
+
+        JLabel little_title = new JLabel("Title: " );
+        cardPanel.add(little_title);
         cardPanel.add(editButton);
         cardPanel.add(removeButton);
         cardPanel.setVisible(true);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipady = 50;
-        gbc.weighty = 1.0;      //make this component tall
-        gbc.weightx = 1.0;
-        gbc.gridwidth = 3;
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        cardPanel.add(dragButton, gbc);
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+//        gbc.ipady = 50;
+//        gbc.weighty = 1.0;      //make this component tall
+//        gbc.weightx = 1.0;
+//        gbc.gridwidth = 3;
+//        gbc.gridx = 1;
+//        gbc.gridy = 0;
+//        cardPanel.add(cardPanel, gbc);
 
         gbc.ipady = 1;
-        gbc.weightx = 0;
+        gbc.weightx = 10;
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 0;
         cardPanel.add(editButton, gbc);
 
         gbc.ipady = 1;
-        gbc.weightx = 0;
+        gbc.weightx = 10;
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 0;
         cardPanel.add(removeButton,gbc);
         cardPanel.setMaximumSize(new Dimension(WIDTH+50, 100));
         cardsPanel.add(cardPanel);
-        Card card = new Card("","","1"); // Card test you can take it out later
-        column.addCard(card);
-        JLabel little_title = new JLabel("Title: " );
-        dragButton.add(little_title);
         cardPanel.setBorder(blackline);
 
         editButton.addActionListener(new ActionListener() {
@@ -139,11 +162,13 @@ public class Column_GUI extends JPanel{
                     @Override
                     public void windowClosed(WindowEvent e) {
                         little_title.setText("Title: " + card.getTitle());
-                        dragButton.add(little_title);
+                        cardPanel.add(little_title);
+                        cardPanel.revalidate();
+                        cardPanel.repaint();
                         cardsPanel.revalidate();
                         cardsPanel.repaint();
                         SwingUtilities.updateComponentTreeUI(cardsPanel);
-                        SwingUtilities.updateComponentTreeUI(dragButton);
+                        SwingUtilities.updateComponentTreeUI(cardPanel);
                     }
 
                 });
@@ -169,12 +194,27 @@ public class Column_GUI extends JPanel{
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new BoxLayout(upperPanel, BoxLayout.PAGE_AXIS));
 
-        JLabel testLabel = new JLabel(column.getName());
+        JTextField titleLabel = new JTextField(column.getName());
+        titleLabel.setPreferredSize(new Dimension(60,25));
+        JButton saveTitleButton = new JButton("Save");
+        saveTitleButton.setPreferredSize(new Dimension(90, 25));
+        saveTitleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                column.setName(titleLabel.getText());
+                titleLabel.setText(titleLabel.getText());
+            }
+        });
         JButton addCardButton = new JButton("+ Card");
         addCardButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            addCard();
+            column.addCard(new Card("","","1"));
+            cardsPanel.removeAll();
+            for(Card card : column.getCards())
+            {
+                addCard(card);
+            }
             cardsPanel.revalidate();
             cardsPanel.repaint();
             SwingUtilities.updateComponentTreeUI(cardsPanel);
@@ -182,36 +222,44 @@ public class Column_GUI extends JPanel{
             cardsPanel.getRootPane().repaint();
             SwingUtilities.updateComponentTreeUI(cardsPanel.getRootPane());
         }
-     });
+        });
         JPanel titlePanel = new JPanel();
         JPanel buttonPanel = new JPanel();
 
         //titlePanel.setLayout(new BorderLayout());
         //buttonPanel.setLayout(new BorderLayout());
         addCardButton.setPreferredSize(new Dimension(90, 25));
-        titlePanel.add(testLabel);
+        titlePanel.add(titleLabel);
         buttonPanel.add(addCardButton);
+        buttonPanel.add(saveTitleButton);
 
 
         upperPanel.add(titlePanel);
         upperPanel.add(buttonPanel);
 
-        cardsPanel = new JPanel();
-        DragPane drag = new DragPane();
-        cardsPanel.add(drag);
-        //drag.setLayout(new BoxLayout(cardsPanel, BoxLayout.PAGE_AXIS));
+        cardsPanel = new DropPane();
 
-        cardsPanel.setLayout(new BoxLayout(cardsPanel, BoxLayout.PAGE_AXIS));
-        JScrollPane scrollableCards = new JScrollPane(cardsPanel);  
+//        PropertyChangeListener propChangeListn = new PropertyChangeListener() {
+//            @Override
+//            public void propertyChange(PropertyChangeEvent event) {
+//                for (Component component : cardsPanel.getComponents()){
+//                    if(!cardMap.containsKey(component)){
+//                    }
+//                }
+//            }
+//        };
+//        cardsPanel.addPropertyChangeListener(propChangeListn);
+        cardsPanel.setLayout(new GridLayout(20,1,10,0));
+        cardsPanel.setPreferredSize(new Dimension(250,3000));
 
-        // DragPane drag = new DragPane();
-        // cardsPanel.add(drag);
-        
-        add(cardsPanel);
-        add(new DropPane());
 
-            
-    
+        JScrollPane scrollableCards = new JScrollPane();
+        scrollableCards.setPreferredSize(new Dimension(250,700));
+        scrollableCards.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        JViewport viewport = new JViewport();
+        viewport.setView(cardsPanel);
+        scrollableCards.setViewport(viewport);
+
         rootPanel.add(upperPanel, BorderLayout.NORTH);
         rootPanel.add(scrollableCards, BorderLayout.CENTER);
         this.add(rootPanel);
