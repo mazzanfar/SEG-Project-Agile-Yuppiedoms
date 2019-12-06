@@ -1,6 +1,7 @@
 package GUI.Card_GUI;
 import Business_Logic.Card;
 import GUI.Column_GUI.DragPane;
+import GUI.Column_GUI.DropPane;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -47,30 +48,7 @@ public class CardGui extends DragPane {
         empty = BorderFactory.createEmptyBorder();
 
         this.setLayout(new GridLayout(3,1,0,2));
-        this.addMouseListener(new MouseAdapter() {
-            JPanel previousParent;
-            JPanel newParent;
-            JPanel currentParent;
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                System.out.println("mousePressed");
-//                previousParent = (JPanel)cardsPanel.getParent();
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                System.out.println("mouseReleased");
-                newParent = (JPanel)CardGui.this.getParent();
-                System.out.println("mouseReleased");
-            }
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                System.out.println("mouseDragged");
-//                currentParent = (JPanel)cardsPanel.getParent();
-                System.out.println("mouseDragged");
-            }
-        });
+
 
 
         GridBagLayout gridbag = new GridBagLayout();
@@ -134,6 +112,18 @@ public class CardGui extends DragPane {
                 });
 
                 System.out.println("card click"); // card click functionality
+            }
+        });
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DropPane dp = (DropPane)CardGui.this.getParent();
+                System.out.println("First: "+dp.getColumn().getCards().size());
+                dp.getColumn().removeCard(CardGui.this.card);
+                dp.repaint();
+                dp.revalidate();
+                SwingUtilities.updateComponentTreeUI(dp);
+                System.out.println("Second: "+dp.getColumn().getCards().size());
             }
         });
     }

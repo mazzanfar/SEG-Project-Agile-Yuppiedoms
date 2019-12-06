@@ -65,12 +65,14 @@ public class DropHandler implements DropTargetListener, Serializable {
                     Component component = dtc.getComponent();
                     if (component instanceof JComponent) {
                         Container parent = panel.getParent();
+                        System.out.println("asdfasdfasdf");
                         if (parent != null) {
                             parent.remove(panel);
                             parent.revalidate();
                             parent.repaint();
                         }
                         ((JComponent) component).add(panel);
+
                         success = true;
                         dtde.acceptDrop(DnDConstants.ACTION_MOVE);
                         ((JComponent) component).invalidate();

@@ -63,21 +63,40 @@ public class Column_GUI extends JPanel{
         this.setVisible(true);
     }
 
-//    public void actionPerformed (ActionEvent e)
-//    {
-//        if(e.getActionCommand().equals("remove")){
-//            cardsPanel.remove();
-//        }
-//    }
-
-
-
     public void addCard(Card card){
         CardGui cg = new CardGui(card);
         cg.repaint();
         cg.revalidate();
         SwingUtilities.updateComponentTreeUI(cg);
+        cg.addMouseListener(new MouseAdapter() {
+            Column previousParent;
+            Column newParent;
+//            Column currentParent;
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                DropPane dp = (DropPane) cg.getParent();
+                previousParent = dp.getColumn();
+                System.out.println("mousePressed");
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                DropPane dp = (DropPane) cg.getParent();
+                newParent = dp.getColumn();
+                previousParent.moveCard(card,newParent);
+                System.out.println("mouseReleased");
+            }
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                System.out.println("DRAGGED");
+            }
+        });
         cardsPanel.add(cg);
+        cardsPanel.repaint();
+        cardsPanel.revalidate();
+        SwingUtilities.updateComponentTreeUI(cardsPanel);
     }
     
     public void makeColumn() {
