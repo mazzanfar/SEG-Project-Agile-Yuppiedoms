@@ -1,7 +1,9 @@
 package Business_Logic;
 import Business_Logic.Card;
+
+import java.io.Serializable;
 import java.util.ArrayList;
-public class Column {
+public class Column implements Serializable {
 
     private String name;
     private int role; // 0 - Backlog    1 - In progress    2 - Completed

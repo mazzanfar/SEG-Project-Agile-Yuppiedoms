@@ -1,5 +1,7 @@
 package GUI.Transfer;
 
+import GUI.Column_GUI.DropPane;
+
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -57,8 +59,8 @@ public class DropHandler implements DropTargetListener, Serializable {
             Transferable transferable = dtde.getTransferable();
             try {
                 Object data = transferable.getTransferData(PanelDataFlavor.SHARED_INSTANCE);
-                if (data instanceof JPanel) {
-                    JPanel panel = (JPanel) data;
+                if (data instanceof DropPane) {
+                    DropPane panel = (DropPane) data;
                     DropTargetContext dtc = dtde.getDropTargetContext();
                     Component component = dtc.getComponent();
                     if (component instanceof JComponent) {

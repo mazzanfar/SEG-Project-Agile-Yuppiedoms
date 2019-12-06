@@ -130,7 +130,7 @@ public class Column_GUI extends JPanel{
         upperPanel.add(titlePanel);
         upperPanel.add(buttonPanel);
 
-        cardsPanel = new DropPane();
+        cardsPanel = new DropPane(column);
 
         PropertyChangeListener propChangeListn = new PropertyChangeListener() {
             @Override

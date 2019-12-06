@@ -56,7 +56,6 @@ public class CardGui extends DragPane {
                 super.mousePressed(e);
                 System.out.println("mousePressed");
 //                previousParent = (JPanel)cardsPanel.getParent();
-
             }
             @Override
             public void mouseReleased(MouseEvent e) {

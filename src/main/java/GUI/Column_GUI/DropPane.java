@@ -1,5 +1,6 @@
 package GUI.Column_GUI;
 
+import Business_Logic.Column;
 import GUI.Transfer.DropHandler;
 
 import java.awt.*;
@@ -11,9 +12,14 @@ public class DropPane extends JPanel {
 
     DropTarget dropTarget;
     DropHandler dropHandler;
-
-    public DropPane() {
+    Column column;
+    public DropPane(Column column) {
+        this.column = column;
         setBackground(Color.BLUE);
+    }
+
+    public Column getColumn(){
+        return column;
     }
 
     @Override
