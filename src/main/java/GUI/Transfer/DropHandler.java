@@ -1,6 +1,10 @@
 package GUI.Transfer;
 
 import GUI.Column_GUI.DropPane;
+import GUI.Column_GUI.DragPane;
+import GUI.Column_GUI.Column_GUI;
+import GUI.Card_GUI.CardGui;
+import Business_Logic.Card;
 
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -17,6 +21,7 @@ import java.io.Serializable;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.*;
 
 
 public class DropHandler implements DropTargetListener, Serializable {
@@ -59,24 +64,21 @@ public class DropHandler implements DropTargetListener, Serializable {
             Transferable transferable = dtde.getTransferable();
             try {
                 Object data = transferable.getTransferData(PanelDataFlavor.SHARED_INSTANCE);
-                if (data instanceof DropPane) {
-                    DropPane panel = (DropPane) data;
+                if (data instanceof DragPane) {
+                    DragPane panel = (DragPane) data;
                     DropTargetContext dtc = dtde.getDropTargetContext();
-                    Component component = dtc.getComponent();
+                    Component component = dtc.getComponent(); // The drop pane
                     if (component instanceof JComponent) {
-                        Container parent = panel.getParent();
-                        System.out.println("asdfasdfasdf");
-                        if (parent != null) {
-                            parent.remove(panel);
-                            parent.revalidate();
-                            parent.repaint();
-                        }
-                        ((JComponent) component).add(panel);
-
+                        
+                        Column_GUI ColGui = (Column_GUI) ((DropPane) component).getParent().getParent().getParent().getParent();
+                        Card c = ((CardGui) panel).getCard();
+                        ColGui.addCard(c);
                         success = true;
                         dtde.acceptDrop(DnDConstants.ACTION_MOVE);
-                        ((JComponent) component).invalidate();
-                        ((JComponent) component).repaint();
+                        ((CardGui) panel).repaint();
+                        ((CardGui) panel).revalidate();
+                        ColGui.repaint();
+                        ColGui.revalidate();
                     } else {
                         success = false;
                         dtde.rejectDrop();

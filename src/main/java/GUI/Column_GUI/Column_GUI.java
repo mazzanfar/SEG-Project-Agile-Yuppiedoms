@@ -16,19 +16,6 @@ import java.util.HashMap;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-/*
-    HOW TO RUN THIS CODE:
-    I haven't tried this on lab pc's yet but you can do this on your own windows machine:
-    - Navigate to the above folder Column_GUI on your terminal
-    - type 'set CLASSPATH=%CLASSPATH%;PATH_TO_THIS_FOLDER'
-    - then type 'javac Column_GUI.java'
-    - and finally 'java Column_GUI'
-
-    TODO: 
-    - Figure out how to add package to use actual BL classes
-    - Refactor to made code cleaner
-
-*/
 
 public class Column_GUI extends JPanel{
 
@@ -36,7 +23,6 @@ public class Column_GUI extends JPanel{
     private static final int WIDTH = 200;
     private static final int HEIGHT = 600;
     private DropPane cardsPanel;
-    //private JFrame mainFrame;
     private Column column;
 
     public Column_GUI(Column column) {
@@ -44,55 +30,26 @@ public class Column_GUI extends JPanel{
         prepareFrame(); // makes a frame
         makeColumn(); // does all column building activities
 
-        // DragPane drag = new DragPane();
-        // cardsPanel.add(drag);
-        
-        // add(cardsPanel);
-        // add(new DropPane());
-        //mainFrame.pack(); // make sure this is always the last method to be called
+    }
+
+    public void removeFromCol(Card c){
+        column.removeCard(c);
+    }
+
+    public void addToCol(Card c){
+        column.addCard(c);
     }
     
     public void prepareFrame(){
-//        mainFrame = new JFrame();
-
-        this.setPreferredSize(new Dimension(WIDTH+50, HEIGHT));
-        this.setMinimumSize(new Dimension(WIDTH+50, HEIGHT));
-//        this.setResizable(true);
-//        this.setLocationRelativeTo(null);
-//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 
     public void addCard(Card card){
+        column.addCard(card);
         CardGui cg = new CardGui(card);
         cg.repaint();
         cg.revalidate();
         SwingUtilities.updateComponentTreeUI(cg);
-        cg.addMouseListener(new MouseAdapter() {
-            Column previousParent;
-            Column newParent;
-//            Column currentParent;
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                DropPane dp = (DropPane) cg.getParent();
-                previousParent = dp.getColumn();
-                System.out.println("mousePressed");
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                DropPane dp = (DropPane) cg.getParent();
-                newParent = dp.getColumn();
-                previousParent.moveCard(card,newParent);
-                System.out.println("mouseReleased");
-            }
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);
-                System.out.println("DRAGGED");
-            }
-        });
         cardsPanel.add(cg);
         cardsPanel.repaint();
         cardsPanel.revalidate();
@@ -121,12 +78,8 @@ public class Column_GUI extends JPanel{
         addCardButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            column.addCard(new Card("","","1"));
-            cardsPanel.removeAll();
-            for(Card card : column.getCards())
-            {
-                addCard(card);
-            }
+            addCard(new Card("","","1"));
+            
             cardsPanel.revalidate();
             cardsPanel.repaint();
             SwingUtilities.updateComponentTreeUI(cardsPanel);
@@ -138,8 +91,7 @@ public class Column_GUI extends JPanel{
         JPanel titlePanel = new JPanel();
         JPanel buttonPanel = new JPanel();
 
-        //titlePanel.setLayout(new BorderLayout());
-        //buttonPanel.setLayout(new BorderLayout());
+
         addCardButton.setPreferredSize(new Dimension(90, 25));
         titlePanel.add(titleLabel);
         buttonPanel.add(addCardButton);
@@ -149,21 +101,9 @@ public class Column_GUI extends JPanel{
         upperPanel.add(titlePanel);
         upperPanel.add(buttonPanel);
 
-        cardsPanel = new DropPane(column);
+        cardsPanel = new DropPane();
 
-        PropertyChangeListener propChangeListn = new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent event) {
-                if(column.getCards().size() != cardsPanel.getComponents().length){
-                    cardsPanel.removeAll();
-                    for(Card card : column.getCards())
-                    {
-                        addCard(card);
-                    }
-                }
-            }
-        };
-        cardsPanel.addPropertyChangeListener(propChangeListn);
+
         cardsPanel.setLayout(new GridLayout(20,1,10,0));
         cardsPanel.setPreferredSize(new Dimension(250,3000));
 
@@ -177,10 +117,19 @@ public class Column_GUI extends JPanel{
 
         rootPanel.add(upperPanel, BorderLayout.NORTH);
         rootPanel.add(scrollableCards, BorderLayout.CENTER);
+
+        JButton toRemove = new JButton("Click me to print column state");
+        toRemove.addActionListener(new ActionListener() {
+            @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Number of items in this column: " + column.getCards().size());
+        }
+        });
+        upperPanel.add(toRemove);
         this.add(rootPanel);
     }
     public static void main(String[] args){
-//        Column_GUI testRun = new Column_GUI(new Column("",1));
+
     }
 }
 

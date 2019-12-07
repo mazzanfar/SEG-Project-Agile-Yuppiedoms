@@ -1,6 +1,6 @@
 package GUI.Column_GUI;
 
-import Business_Logic.Column;
+
 import GUI.Transfer.DropHandler;
 
 import java.awt.*;
@@ -12,15 +12,11 @@ public class DropPane extends JPanel {
 
     DropTarget dropTarget;
     DropHandler dropHandler;
-    Column column;
-    public DropPane(Column column) {
-        this.column = column;
+
+    public DropPane() {
         setBackground(Color.BLUE);
     }
 
-    public Column getColumn(){
-        return column;
-    }
 
     @Override
     public void addNotify() {

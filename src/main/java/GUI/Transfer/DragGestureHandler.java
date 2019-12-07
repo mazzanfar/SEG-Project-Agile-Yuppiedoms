@@ -1,5 +1,10 @@
 package GUI.Transfer;
 
+import GUI.Column_GUI.DropPane;
+import GUI.Column_GUI.Column_GUI;
+import GUI.Card_GUI.CardGui;
+import Business_Logic.Card;
+
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -46,27 +51,27 @@ public class DragGestureHandler implements DragGestureListener, DragSourceListen
         // parent container so we can return it if the drop
         // is rejected
         Container parent = getPanel().getParent();
-        System.out.println("parent = " + parent.hashCode());
         setParent(parent);
     
-        // Remove the panel from the parent.  If we don't do this, it
-        // can cause serialization issues.  We could overcome this
-        // by allowing the drop target to remove the component, but that's
-        // an argument for another day
-        // This is causing a NullPointerException on MacOS 10.13.3/Java 8
-        //      parent.remove(getPanel());
-        //      // Update the display
-        //      parent.invalidate();
-        //      parent.repaint();
-    
         // Create our transferable wrapper
-        System.out.println("Drag " + getPanel().hashCode());
         Transferable transferable = new PanelTransferable(getPanel());
         // Start the "drag" process...
         DragSource ds = dge.getDragSource();
         ds.startDrag(dge, null, transferable, this);
-    
-        parent.remove(getPanel());
+        parent.remove(getPanel()); // This line removes the dragpane from the droppane, we would also like to do this in the backend at the same time
+        // Parent must be a DropPane, so we cast to one and access column
+
+        // REMOVAL OF Card from column and dragpane from droppane (syncing up frontend and backend) occurs here
+        DropPane PRNT = (DropPane) parent;
+        Column_GUI ColGui = (Column_GUI) PRNT.getParent().getParent().getParent().getParent(); // now we have access to column and column GUI
+
+        CardGui CdGui = (CardGui) getPanel(); // cast dragPane to card gui, because it's the only possible thing it could be
+        Card c = CdGui.getCard();
+        ColGui.removeFromCol(c);
+
+        // REMOVAL OF Card from column and dragpane from droppane (syncing up frontend and backend) occurs here
+
+        
         // Update the display
         parent.invalidate();
         parent.repaint();
@@ -93,8 +98,17 @@ public class DragGestureHandler implements DragGestureListener, DragSourceListen
         // If the drop was not successful, we need to
         // return the component back to it's previous
         // parent
+        // we also need to return the card to col in backend
         if (!dsde.getDropSuccess()) {
             getParent().add(getPanel());
+            // Here
+            CardGui CdGui = (CardGui) getPanel();
+            Card c = CdGui.getCard();
+
+            DropPane PRNT = (DropPane) parent;
+            Column_GUI ColGui = (Column_GUI) PRNT.getParent().getParent().getParent().getParent();
+            ColGui.addToCol(c);
+
         } else {
             getPanel().remove(getPanel());
         }

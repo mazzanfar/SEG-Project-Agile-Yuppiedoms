@@ -38,6 +38,10 @@ public class CardGui extends DragPane {
         makeCard();
     }
 
+    public Card getCard(){
+        return card;
+    }
+
     public void makeCard(){
         Border blackline, raisedetched, loweredetched,
                 raisedbevel, loweredbevel, empty;
@@ -114,18 +118,18 @@ public class CardGui extends DragPane {
                 System.out.println("card click"); // card click functionality
             }
         });
-        removeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DropPane dp = (DropPane)CardGui.this.getParent();
-                System.out.println("First: "+dp.getColumn().getCards().size());
-                dp.getColumn().removeCard(CardGui.this.card);
-                dp.repaint();
-                dp.revalidate();
-                SwingUtilities.updateComponentTreeUI(dp);
-                System.out.println("Second: "+dp.getColumn().getCards().size());
-            }
-        });
+        // removeButton.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         // DropPane dp = (DropPane)CardGui.this.getParent();
+        //         // System.out.println("First: "+dp.getColumn().getCards().size());
+        //         // dp.getColumn().removeCard(CardGui.this.card);
+        //         // dp.repaint();
+        //         // dp.revalidate();
+        //         // SwingUtilities.updateComponentTreeUI(dp);
+        //         // System.out.println("Second: "+dp.getColumn().getCards().size());
+        //     }
+        // });
     }
 
     public JFrame makeFrame(){
