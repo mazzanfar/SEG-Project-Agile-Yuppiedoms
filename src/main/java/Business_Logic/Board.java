@@ -21,11 +21,6 @@ public class Board {
         columns.remove(columnToRemove);
     }
 
-    public void moveCard(Card theCard, Column startingCol, Column endingCol){
-        startingCol.removeCard(theCard);
-        endingCol.addCard(theCard);
-    }
-
     public java.lang.String getName() {
         return name;
     }

@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
