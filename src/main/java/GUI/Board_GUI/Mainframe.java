@@ -7,11 +7,8 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
-
-
-import java.io.*;
-import javax.swing.JFileChooser;
 import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -32,9 +29,7 @@ public class Mainframe {
   private JButton loadKanbanBoard;
 
   public Mainframe() {
-
     jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-
 
     mainFrame = new JFrame("YUPPIEDOMS - KANBAN");
 
@@ -84,7 +79,6 @@ public class Mainframe {
         }
       }
     });
-
 
     loadKanbanBoard.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
