@@ -1,4 +1,4 @@
-package GUI.Board_GUI;
+package GUI.Transfer;
 
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -16,25 +16,14 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public class CardTransfer
-{
-	public static class PanelDataFlavor extends DataFlavor {
-		// This saves me having to make lots of copies of the same thing
-		public static final PanelDataFlavor SHARED_INSTANCE = new PanelDataFlavor();
+public class PanelDataFlavor extends DataFlavor {
+    // This saves me having to make lots of copies of the same thing
+    public static final PanelDataFlavor SHARED_INSTANCE = new PanelDataFlavor();
 
-		public PanelDataFlavor() {
+    public PanelDataFlavor() {
 
-			super(JPanel.class, null);
+        super(JPanel.class, null);
 
-		}
+    }
 
-	}
-
-	
-
-	
-
-	
-
-	
 }
