@@ -1,15 +1,21 @@
+package GUI.Board_GUI;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
+<<<<<<< HEAD
 import java.awt.*;
 import java.io.*;
 import javax.swing.JFileChooser;
 import java.io.File;
+=======
+import java.io.File;
+import javax.swing.JFileChooser;
+>>>>>>> bc214000ca189af2c2f621247854ee2efe13c3ec
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -30,6 +36,7 @@ public class Mainframe {
   private JButton loadKanbanBoard;
 
   public Mainframe() {
+    jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
     jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
@@ -138,7 +145,7 @@ private ArrayList<Card> createCard(String[] metadata) {
       public void actionPerformed(ActionEvent e) {
         String input = JOptionPane.showInputDialog("Input name of Kanban Board");
         if (input.length() > 0) {
-          Board board = new Board(input);
+          BoardGui board = new BoardGui(new Business_Logic.Board(input)) ;
         } else {
           JOptionPane.showMessageDialog(null, "Name required");
         }
@@ -149,7 +156,7 @@ private ArrayList<Card> createCard(String[] metadata) {
       public void actionPerformed(ActionEvent e) {
         jfc.setDialogTitle("Select a CSV file to load");
         jfc.setAcceptAllFileFilterUsed(false);
-		    FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV", "csv");
+		    FileNameExtensionFilter filter = new FileNameExtensionFilter(".csv", "csv");
 		    jfc.addChoosableFileFilter(filter);
 
         int ret = jfc.showOpenDialog(null);
