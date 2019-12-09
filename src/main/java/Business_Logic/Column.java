@@ -7,7 +7,7 @@ public class Column implements Serializable {
 
     private String name;
     private int role; // 0 - Backlog    1 - In progress    2 - Completed
-    private ArrayList<Int> cardIDs;
+    private ArrayList<Card> cards;
 
     public Column(String inputName, int roleNum){
         cards = new ArrayList<Card>();
@@ -24,12 +24,12 @@ public class Column implements Serializable {
         role = roleNum;
     }
 
-    public void addCard(int cardID){
-        cardIDs.add(cardID);
+    public void addCard(Card theCard){
+        cards.add(theCard);
     }
 
-    public void removeCard(int cardID){
-        cardIDs.remove(cardID);
+    public void removeCard(Card theCard){
+        cards.remove(theCard);
     }
 
     public Card getCard(int cardId){

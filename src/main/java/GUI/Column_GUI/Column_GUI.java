@@ -39,17 +39,6 @@ public class Column_GUI extends JPanel{
     public void addToCol(Card c){
         column.addCard(c);
     }
-
-    public Column_GUI(Board brd) {
-
-        
-        prepareFrame(); // makes a frame
-        for(int i : brd.column_IDs){
-            makeColumn(i); // does all column building activities
-        }
-        mainFrame.pack(); // make sure this is always the last method to be called
-        
-    }
     
     public void prepareFrame(){
         this.setVisible(true);
@@ -66,55 +55,8 @@ public class Column_GUI extends JPanel{
         cardsPanel.revalidate();
         SwingUtilities.updateComponentTreeUI(cardsPanel);
     }
-
-    public void makeColumn(Column col) {
-
-
-        JPanel rootPanel = new JPanel(); // the root panel
-        rootPanel.setLayout(new BorderLayout());
-
-        JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new BoxLayout(upperPanel, BoxLayout.PAGE_AXIS));
-
-        JLabel testLabel = new JLabel("tempName");
-        JButton addCardButton = new JButton("+ Card");
-        addCardButton.addActionListener(new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            addCard();
-            mainFrame.pack();
-        }
-        });
-        JPanel titlePanel = new JPanel();
-        JPanel buttonPanel = new JPanel();
-        
-        for(int f : col.cardIDs){
-
-        }
-
-        //titlePanel.setLayout(new BorderLayout());
-        //buttonPanel.setLayout(new BorderLayout());
-        addCardButton.setPreferredSize(new Dimension(90, 25));
-        titlePanel.add(testLabel);
-        buttonPanel.add(addCardButton);
-
-        upperPanel.add(titlePanel);
-        upperPanel.add(buttonPanel);
-
-        cardsPanel = new JPanel();
-        cardsPanel.setLayout(new BoxLayout(cardsPanel, BoxLayout.PAGE_AXIS));
-        JScrollPane scrollableCards = new JScrollPane(cardsPanel);  
     
-        rootPanel.add(upperPanel, BorderLayout.NORTH);
-        rootPanel.add(scrollableCards, BorderLayout.CENTER);
-        mainFrame.add(rootPanel);
-    }
-
     public void makeColumn() {
-
-        Column column = new Column();
-
         JPanel rootPanel = new JPanel(); // the root panel
         rootPanel.setLayout(new BorderLayout());
 
@@ -190,4 +132,5 @@ public class Column_GUI extends JPanel{
 
     }
 }
+
 

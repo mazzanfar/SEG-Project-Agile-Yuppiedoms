@@ -1,4 +1,4 @@
-//package GUI.Board_GUI;
+package GUI.Board_GUI;
 import javax.swing.*;
 //import Business_Logic.*;
 //import GUI.Card_GUI.CardGui;
@@ -6,11 +6,6 @@ import javax.swing.*;
 public class GUI
 {
   public static void main(String[] args){
-    SwingUtilities.invokeLater(new Runnable() {
-      public void run(){
           new Mainframe();
-          //new CardGui(new Card("11", "dd", "1111"));
-      }
-    });
   }
 }

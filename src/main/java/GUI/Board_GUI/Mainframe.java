@@ -7,15 +7,8 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
-<<<<<<< HEAD
-import java.awt.*;
-import java.io.*;
-import javax.swing.JFileChooser;
-import java.io.File;
-=======
 import java.io.File;
 import javax.swing.JFileChooser;
->>>>>>> bc214000ca189af2c2f621247854ee2efe13c3ec
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -82,63 +75,63 @@ public class Mainframe {
   Inputs for this method will be csv data of some form
   This method will call methods which will create a board, an array of columns and an array of cards
   */
-  public void extractFromCSV(){
-    //BufferedReader br =                   We need a buffered reader for the file
-    String line = br.readLine();
-    Board board;
-    ArrayList<int> columnList = new ArrayList<>();
-    ArrayList<int> cardList = new ArrayList<>(); 
+  // public void extractFromCSV(){
+  //   //BufferedReader br =                   We need a buffered reader for the file
+  //   String line = br.readLine();
+  //   Board board;
+  //   ArrayList<int> columnList = new ArrayList<>();
+  //   ArrayList<int> cardList = new ArrayList<>(); 
     
-    while(line != "-"){ // this will read the csv file until it reaches the '-' line, then we're done with board object creation
-      // use string.split to load a string array with the values from
-      // each line of
-      // the file, using a comma as the delimiter
-      String[] attributes = line.split(",");
+  //   while(line != "-"){ // this will read the csv file until it reaches the '-' line, then we're done with board object creation
+  //     // use string.split to load a string array with the values from
+  //     // each line of
+  //     // the file, using a comma as the delimiter
+  //     String[] attributes = line.split(",");
 
-      board = createBoard(attributes);
+  //     board = createBoard(attributes);
 
       
 
-      // read next line before looping
-      // if end of file reached, line would be null
-      line = br.readLine();
-    }
-    line = br.readLine();// begin reading next section
-    while(line != "-"){ // again we will stop once we reach another '-', this time we are reading column objects
-      String[] attributes = line.split(",");
+  //     // read next line before looping
+  //     // if end of file reached, line would be null
+  //     line = br.readLine();
+  //   }
+  //   line = br.readLine();// begin reading next section
+  //   while(line != "-"){ // again we will stop once we reach another '-', this time we are reading column objects
+  //     String[] attributes = line.split(",");
 
-      Column col = createColumn(attributes);
-      columnList.add(col);
-    }
-    line = br.readLine();
-    while(line != null){ // reading card objects
-      String[] attributes = line.split(",");
+  //     Column col = createColumn(attributes);
+  //     columnList.add(col);
+  //   }
+  //   line = br.readLine();
+  //   while(line != null){ // reading card objects
+  //     String[] attributes = line.split(",");
       
-      Card card = createCard(attributes);
-      cardList.add(card);
-    }
-  }
+  //     Card card = createCard(attributes);
+  //     cardList.add(card);
+  //   }
+  // }
 
-  private Board createBoard(String[] metadata) {
-  String name = metadata[0];
-  String[] cIDs = metadata[1].split("-");
+//   private Board createBoard(String[] metadata) {
+//   String name = metadata[0];
+//   String[] cIDs = metadata[1].split("-");
   
-  return new Board(name, cIDS);
-}
+//   return new Board(name, cIDS);
+// }
 
-private ArrayList<Column> createColumn(String[] metadata) {
-  String name = metadata[0];
-  String[] cIDs = metadata[1].split("-");
+// private ArrayList<Column> createColumn(String[] metadata) {
+//   String name = metadata[0];
+//   String[] cIDs = metadata[1].split("-");
   
-  // return  new column
-}
+//   // return  new column
+// }
 
-private ArrayList<Card> createCard(String[] metadata) {
-  String name = metadata[0];
-  String[] cIDs = metadata[1].split("-");
+// private ArrayList<Card> createCard(String[] metadata) {
+//   String name = metadata[0];
+//   String[] cIDs = metadata[1].split("-");
   
-  // return new card
-}
+//   // return new card
+// }
 
   public void addActions() {
     newKanbanBoard.addActionListener(new ActionListener () {

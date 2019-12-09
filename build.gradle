@@ -3,10 +3,6 @@ apply plugin: 'application'
 
 //Make SURE to change this when you merge to make it run the actual main file that will start the application.
 mainClassName = 'GUI.Board_GUI.GUI'
-<<<<<<< HEAD
-//mainClassName = 'GUI.Column_GUI.Column_GUI' 
-=======
->>>>>>> bc214000ca189af2c2f621247854ee2efe13c3ec
 
 dependencies {
     testCompile 'junit:junit:4.12'
