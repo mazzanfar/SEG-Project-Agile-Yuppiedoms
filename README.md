@@ -2,8 +2,8 @@
 Team Name: Yuppiedoms
 
 Team members:
-Kerim Yalchin
-Layth Mehdi
-Maximilian Ghazanfar
-Ziyang Chen
+Kerim Yalchin,
+Layth Mehdi,
+Maximilian Ghazanfar,
+Ziyang Chen,
 William Zard
