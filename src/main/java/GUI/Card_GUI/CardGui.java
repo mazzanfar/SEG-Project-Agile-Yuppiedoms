@@ -1,5 +1,6 @@
 package GUI.Card_GUI;
 import Business_Logic.Card;
+import GUI.Column_GUI.Column_GUI;
 import GUI.Column_GUI.DragPane;
 import GUI.Column_GUI.DropPane;
 
@@ -118,18 +119,18 @@ public class CardGui extends DragPane {
                 System.out.println("card click"); // card click functionality
             }
         });
-        // removeButton.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         // DropPane dp = (DropPane)CardGui.this.getParent();
-        //         // System.out.println("First: "+dp.getColumn().getCards().size());
-        //         // dp.getColumn().removeCard(CardGui.this.card);
-        //         // dp.repaint();
-        //         // dp.revalidate();
-        //         // SwingUtilities.updateComponentTreeUI(dp);
-        //         // System.out.println("Second: "+dp.getColumn().getCards().size());
-        //     }
-        // });
+         removeButton.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                  DropPane dp = (DropPane)CardGui.this.getParent();
+                  Column_GUI ColGui = (Column_GUI) dp.getParent().getParent().getParent().getParent();
+                  ColGui.removeFromCol(CardGui.this.card);
+                  dp.remove(CardGui.this);
+                  dp.repaint();
+                  dp.revalidate();
+                  SwingUtilities.updateComponentTreeUI(dp);
+             }
+         });
     }
 
     public JFrame makeFrame(){
