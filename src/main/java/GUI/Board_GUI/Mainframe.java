@@ -87,6 +87,7 @@ public class Mainframe {
   */
   public Board extractFromCSV(String fileName) throws IOException{
     Path path = Paths.get(fileName);
+    System.out.println(path.toString());
     BufferedReader br = Files.newBufferedReader(path, StandardCharsets.US_ASCII);
     String line = br.readLine();
     Board board;
@@ -157,13 +158,12 @@ private Card createCard(String[] metadata) {
         jfc.setAcceptAllFileFilterUsed(false);
 		    FileNameExtensionFilter filter = new FileNameExtensionFilter(".csv", "csv");
 		    jfc.addChoosableFileFilter(filter);
-
         int ret = jfc.showOpenDialog(null);
 
         if (ret == JFileChooser.APPROVE_OPTION) {
              File selectedFile = jfc.getSelectedFile();
              try{
-              BoardGui board = new BoardGui(extractFromCSV(selectedFile.getName()));
+              BoardGui board = new BoardGui(extractFromCSV(selectedFile.getPath()));
              }
              catch(IOException ioe){
 
