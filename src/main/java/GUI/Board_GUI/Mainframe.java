@@ -1,5 +1,8 @@
 package GUI.Board_GUI;
 
+import java.io.BufferedReader;
+import Business_Logic.*;
+import GUI.Column_GUI.Column_GUI;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
@@ -11,6 +14,13 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.IOException;
+
 
 public class Mainframe {
 
@@ -29,6 +39,8 @@ public class Mainframe {
   private JButton loadKanbanBoard;
 
   public Mainframe() {
+    jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
     jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
     mainFrame = new JFrame("YUPPIEDOMS - KANBAN");
@@ -68,6 +80,65 @@ public class Mainframe {
     mainFrame.pack();
   }
 
+
+  /*
+  Inputs for this method will be csv data of some form
+  This method will call methods which will create a board, an array of columns and an array of cards
+  */
+  public Board extractFromCSV(String fileName) throws IOException{
+    Path path = Paths.get(fileName);
+    BufferedReader br = Files.newBufferedReader(path, StandardCharsets.US_ASCII);
+    String line = br.readLine();
+    Board board;
+    ArrayList<Column> columnList = new ArrayList<>();
+    
+    
+    // use string.split to load a string array with the values from
+    // each line of
+    // the file, using a comma as the delimiter
+    String[] attributes = line.split(",");
+    board = createBoard(attributes);
+    line = br.readLine();
+    
+    
+
+    while(line != null){ // reading card objects 
+      line = br.readLine();// begin reading next section
+      String[] ColAttributes = line.split(",");
+      Column c = createColumn(ColAttributes);
+      line = br.readLine();
+      while(line != null && !line.equals("-")){
+        String[] cardAttributes = line.split(",");
+        Card card = createCard(cardAttributes);
+        c.addCard(card);
+        line = br.readLine();
+      }
+      board.importColumn(c);
+    }
+    return board;
+  }
+
+private Board createBoard(String[] metadata) {
+  String name = metadata[0];
+  return new Board(name);
+}
+
+private Column createColumn(String[] metadata) {
+  String name = metadata[0];
+  int role = Integer.parseInt(metadata[1]);
+  return  new Column(name, role);
+}
+
+private Card createCard(String[] metadata) {
+  String title = metadata[0];
+  int Id = Integer.parseInt(metadata[1]);
+  String description = metadata[2];
+  String storyPoints = metadata[3];
+  int IdCounter = Integer.parseInt(metadata[4]);
+  
+  return new Card(title, Id, description, storyPoints, IdCounter);
+}
+
   public void addActions() {
     newKanbanBoard.addActionListener(new ActionListener () {
       public void actionPerformed(ActionEvent e) {
@@ -90,8 +161,13 @@ public class Mainframe {
         int ret = jfc.showOpenDialog(null);
 
         if (ret == JFileChooser.APPROVE_OPTION) {
-			       File selectedFile = jfc.getSelectedFile();
-			       System.out.println(selectedFile.getAbsolutePath());
+             File selectedFile = jfc.getSelectedFile();
+             try{
+              BoardGui board = new BoardGui(extractFromCSV(selectedFile.getName()));
+             }
+             catch(IOException ioe){
+
+             }
 		    }
       }
     });

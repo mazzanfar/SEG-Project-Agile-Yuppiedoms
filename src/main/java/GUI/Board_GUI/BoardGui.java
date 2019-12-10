@@ -15,6 +15,7 @@ import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import java.io.File;
 
 public class BoardGui {
 
@@ -67,6 +68,13 @@ public class BoardGui {
       northPane.add(boardTitle);
       northPane.add(newColumn);
       boardPanel.add(northPane,BorderLayout.NORTH);
+
+      for(Column c : board.getColumns()){
+        Column_GUI columnPanel = new Column_GUI(c);
+        columnPanel.setVisible(true);
+        columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
+        boardFrame.add(columnPanel,BorderLayout.CENTER);
+      }
 
       boardFrame.setJMenuBar(makeMenuBar());
       boardFrame.setVisible(true);
@@ -132,14 +140,27 @@ public class BoardGui {
 
       save.addActionListener(new ActionListener () {
         public void actionPerformed(ActionEvent ev) {
-          String fileName = "temp.csv";
+          String fileName = boardTitle.getText() + ".csv";
           try {
-            FileWriter fileWriter = new FileWriter(fileName, true);
-
+            FileWriter fileWriter = new FileWriter(new File("src/main/resources", fileName), false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            bufferedWriter.write(boardTitle.getText());
-            bufferedWriter.newLine();
+            
+            bufferedWriter.write(board.getName());
+            for(Column i : board.getColumns()){
+              bufferedWriter.newLine();
+              bufferedWriter.write("-");
+              bufferedWriter.newLine();
+              bufferedWriter.write(i.getName());
+              bufferedWriter.write("," + Integer.toString(i.getRole()));
+              for(Card c : i.getCards()){
+                bufferedWriter.newLine();
+                bufferedWriter.write(c.getTitle());
+                bufferedWriter.write("," + Integer.toString(c.getID()));
+                bufferedWriter.write("," + c.getDescription());
+                bufferedWriter.write("," + c.getStoryPoints());
+                bufferedWriter.write("," + c.getIdCounter());
+              }
+            }
             bufferedWriter.close();
           }
           catch(IOException ex){

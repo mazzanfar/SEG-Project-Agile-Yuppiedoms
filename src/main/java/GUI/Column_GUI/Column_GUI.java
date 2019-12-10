@@ -29,6 +29,16 @@ public class Column_GUI extends JPanel{
         this.column = column;
         prepareFrame(); // makes a frame
         makeColumn(); // does all column building activities
+        for(Card c : column.getCards()){
+            CardGui cg = new CardGui(c);
+        cg.repaint();
+        cg.revalidate();
+        SwingUtilities.updateComponentTreeUI(cg);
+        cardsPanel.add(cg);
+        cardsPanel.repaint();
+        cardsPanel.revalidate();
+        SwingUtilities.updateComponentTreeUI(cardsPanel);
+        }
 
     }
 
@@ -78,7 +88,7 @@ public class Column_GUI extends JPanel{
         addCardButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            addCard(new Card("","","1"));
+            addCard(new Card("Default","Default","1"));
             
             cardsPanel.revalidate();
             cardsPanel.repaint();
@@ -132,4 +142,5 @@ public class Column_GUI extends JPanel{
 
     }
 }
+
 
