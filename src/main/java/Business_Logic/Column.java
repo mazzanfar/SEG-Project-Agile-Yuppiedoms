@@ -13,7 +13,6 @@ public class Column implements Serializable {
         cards = new ArrayList<Card>();
         name = inputName;
         role = roleNum;
-
     }
 
     public void setName(String newName){
@@ -26,6 +25,10 @@ public class Column implements Serializable {
 
     public void addCard(Card theCard){
         cards.add(theCard);
+    }
+
+    public void importCardList(ArrayList<Card> cardList){
+        cards = cardList;
     }
 
     public void removeCard(Card theCard){

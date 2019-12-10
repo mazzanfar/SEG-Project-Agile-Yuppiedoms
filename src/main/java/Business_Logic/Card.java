@@ -16,6 +16,18 @@ public class Card implements Serializable {
         description = inputDescription;
         sp = inputSP;
     }
+
+    /*
+    Overrided constructor to allow for loading a card, the ID doesn't get incremented with this one
+    */
+    public Card(String inputTitle, int Id, String inputDescription, String inputSP, int IdC)
+    {
+        this.Id = Id;
+        title = inputTitle;
+        description = inputDescription;
+        sp = inputSP;
+        IDcounter = IdC;
+    }
      
 
     public void setDescription(String inputDescription)
@@ -26,6 +38,14 @@ public class Card implements Serializable {
     public void setStoryPoints(String inputSP)
     {
         sp = inputSP;
+    }
+
+    public void setIdCounter(int newId){
+        IDcounter = newId;
+    }
+
+    public int getIdCounter(){
+        return IDcounter;
     }
 
     public void setTitle(String inputTitle)
