@@ -2,6 +2,7 @@ package GUI.Board_GUI;
 
 import Business_Logic.*;
 import GUI.Column_GUI.Column_GUI;
+import GUI.Column_GUI.DropPane;
 
 import javax.swing.JOptionPane;
 import javax.swing.*;
@@ -17,7 +18,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 
-public class BoardGui {
+public class BoardGui extends JFrame{
 
   private static final int WIDTH = 900;
   private static final int HEIGHT = 600;
@@ -25,10 +26,9 @@ public class BoardGui {
 
   private int panelNumber = 1;
 
-  private JFrame boardFrame;
-
   private JPanel boardPanel;
-
+  private JPanel columnsPanel;
+  private JPanel northPane;
   private JTextField boardTitle;
 
   private JButton newColumn;
@@ -44,15 +44,15 @@ public class BoardGui {
   public BoardGui(Business_Logic.Board board) {
       this.board = board;
 
-      boardFrame = new JFrame(board.getName());
-
-      boardFrame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-      boardFrame.setMinimumSize(new Dimension(WIDTH, HEIGHT));
-      boardFrame.setResizable(true);
-      boardFrame.setLocationRelativeTo(null);
-      boardFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+      this.setName(board.getName());
+      this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+      this.setMinimumSize(new Dimension(WIDTH, HEIGHT));
+      this.setResizable(true);
+      this.setLocationRelativeTo(null);
+      this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
       boardPanel = new JPanel(new BorderLayout());
+      boardPanel.setLayout(new BorderLayout());
       boardTitle = new JTextField();
       boardTitle.setFont(font1);
       boardTitle.setText(board.getName());
@@ -60,26 +60,40 @@ public class BoardGui {
       boardTitle.setHorizontalAlignment(JTextField.CENTER);
 
 
-      boardFrame.add(boardPanel);
+      this.add(boardPanel);
 
       newButtons();
 
-      JPanel northPane = new JPanel(new GridLayout(2,1,100,10));
+      northPane = new JPanel(new GridLayout(2,1,100,10));
       northPane.add(boardTitle);
       northPane.add(newColumn);
+
+      columnsPanel = new JPanel();
+      columnsPanel.setLayout(new GridLayout(0,20,0,0));
+      columnsPanel.setPreferredSize(new Dimension(9000,400));
+      JScrollPane scrollableCols = new JScrollPane();
+      scrollableCols.setPreferredSize(new Dimension(80,500));
+      scrollableCols.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+      JViewport viewport = new JViewport();
+      viewport.setView(columnsPanel);
+      scrollableCols.setViewport(viewport);
+
       boardPanel.add(northPane,BorderLayout.NORTH);
+      boardPanel.add(scrollableCols,BorderLayout.CENTER);
 
       for(Column c : board.getColumns()){
         Column_GUI columnPanel = new Column_GUI(c);
         columnPanel.setVisible(true);
         columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
-        boardFrame.add(columnPanel,BorderLayout.CENTER);
+        columnsPanel.add(columnPanel);
+        columnsPanel.repaint();
+        columnsPanel.revalidate();
+        SwingUtilities.updateComponentTreeUI(columnsPanel);
       }
 
-      boardFrame.setJMenuBar(makeMenuBar());
-      boardFrame.setVisible(true);
+      this.setJMenuBar(makeMenuBar());
+      this.setVisible(true);
 
-      boardFrame.setLayout(new GridLayout(1,5,1,0));
     }
 
     public void newButtons() {
@@ -88,22 +102,18 @@ public class BoardGui {
         newColumn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame questionFrame = new JFrame();
-                JOptionPane.showMessageDialog(questionFrame,"");
                 String inputName;
                 inputName = JOptionPane.showInputDialog("New Column Name");
                 String roleNumber;
                 roleNumber = JOptionPane.showInputDialog("New Column Role Number");
-                JOptionPane.showMessageDialog(null, "New Column Created");
-                JPanel columnPanel = new Column_GUI(board.makeColumn(inputName,Integer.parseInt(roleNumber)));
-                columnPanel.setVisible(true);
-                columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
-                boardFrame.add(columnPanel,BorderLayout.CENTER);
-                columnPanel.repaint();
-                columnPanel.revalidate();
-                boardFrame.repaint();
-                boardFrame.revalidate();
-                SwingUtilities.updateComponentTreeUI(boardFrame);
+                if(isNumeric(roleNumber)){
+                    JOptionPane.showMessageDialog(null, "New Column Created");
+                    makeColumn(new Column(inputName,Integer.parseInt(roleNumber)));
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Please type integers");
+                }
+
             }
         });
     }
@@ -133,7 +143,7 @@ public class BoardGui {
     public void assignActions() {
       exit.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent ev) {
-            boardFrame.dispose();
+            BoardGui.this.dispose();
           }
       });
 
@@ -195,4 +205,67 @@ public class BoardGui {
           e.printStackTrace();
       }
     }
+
+    public void addColumn(Column inputColumn)
+    {
+        this.board.importColumn(inputColumn);
+    }
+
+    public void makeColumn(Column inputColumn) {
+      boolean check = true;
+        for(Component component : columnsPanel.getComponents())
+        {
+            DropPane dp = (DropPane) component;
+            if(dp.getComponents().length ==0)
+            {
+                addColumn(inputColumn);
+                JPanel columnPanel = new Column_GUI(inputColumn);
+                columnPanel.setVisible(true);
+                dp.add(columnPanel);
+                columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
+                columnsPanel.add(dp);
+                columnPanel.repaint();
+                columnPanel.revalidate();
+                this.repaint();
+                this.revalidate();
+                SwingUtilities.updateComponentTreeUI(this);
+                check = false;
+            }
+            else{continue;}
+        }
+        if(check)
+        {
+            DropPane dp = new DropPane();
+            addColumn(inputColumn);
+            JPanel columnPanel = new Column_GUI(inputColumn);
+            columnPanel.setVisible(true);
+            dp.add(columnPanel);
+            columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
+            columnsPanel.add(dp);
+            columnPanel.repaint();
+            columnPanel.revalidate();
+            this.repaint();
+            this.revalidate();
+            SwingUtilities.updateComponentTreeUI(this);
+            System.out.println(board.getColumns().size());
+        }
+        else{check = true; }
+    }
+    public Board getBoard(){
+      return board;
+    }
+
+    public boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    public void removeCol(Column column){ board.removeColumn(column);}
 }

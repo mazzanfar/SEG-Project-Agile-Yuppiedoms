@@ -123,7 +123,7 @@ public class CardGui extends DragPane {
              @Override
              public void actionPerformed(ActionEvent e) {
                   DropPane dp = (DropPane)CardGui.this.getParent();
-                  Column_GUI ColGui = (Column_GUI) dp.getParent().getParent().getParent().getParent();
+                  Column_GUI ColGui = (Column_GUI) dp.getParent().getParent().getParent();
                   ColGui.removeFromCol(CardGui.this.card);
                   dp.remove(CardGui.this);
                   dp.repaint();
