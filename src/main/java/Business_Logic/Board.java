@@ -25,7 +25,6 @@ public class Board {
     public void importColumn(Column importedCol){
         columns.add(importedCol);
     }
-    
 
     public ArrayList<Column> getColumns(){
         return columns;

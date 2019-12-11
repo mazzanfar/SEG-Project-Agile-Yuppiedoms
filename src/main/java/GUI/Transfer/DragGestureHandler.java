@@ -63,7 +63,7 @@ public class DragGestureHandler implements DragGestureListener, DragSourceListen
 
         // REMOVAL OF Card from column and dragpane from droppane (syncing up frontend and backend) occurs here
         DropPane PRNT = (DropPane) parent;
-        Column_GUI ColGui = (Column_GUI) PRNT.getParent().getParent().getParent().getParent(); // now we have access to column and column GUI
+        Column_GUI ColGui = (Column_GUI) PRNT.getParent().getParent().getParent(); // now we have access to column and column GUI
 
         CardGui CdGui = (CardGui) getPanel(); // cast dragPane to card gui, because it's the only possible thing it could be
         Card c = CdGui.getCard();
@@ -106,7 +106,7 @@ public class DragGestureHandler implements DragGestureListener, DragSourceListen
             Card c = CdGui.getCard();
 
             DropPane PRNT = (DropPane) parent;
-            Column_GUI ColGui = (Column_GUI) PRNT.getParent().getParent().getParent().getParent();
+            Column_GUI ColGui = (Column_GUI) PRNT.getParent().getParent().getParent();
             ColGui.addToCol(c);
 
         } else {
