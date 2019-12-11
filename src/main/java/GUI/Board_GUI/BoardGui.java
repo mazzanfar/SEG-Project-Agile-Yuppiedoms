@@ -3,7 +3,6 @@ package GUI.Board_GUI;
 import Business_Logic.*;
 import GUI.Column_GUI.Column_GUI;
 
-import javax.swing.JOptionPane;
 import javax.swing.*;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
@@ -38,99 +37,128 @@ public class BoardGui {
   private JMenuItem exit;
   private JMenuItem newBoard;
   private JMenuItem save;
+  private JMenuItem cardActivity;
+  private JMenuItem columnActivity;
+  private JMenuItem boardActivity;
+
+  private JTextField boardLog;
 
   private Business_Logic.Board board;
 
   public BoardGui(Business_Logic.Board board) {
-      this.board = board;
+    this.board = board;
 
-      boardFrame = new JFrame(board.getName());
+    boardFrame = new JFrame(board.getName());
 
-      boardFrame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-      boardFrame.setMinimumSize(new Dimension(WIDTH, HEIGHT));
-      boardFrame.setResizable(true);
-      boardFrame.setLocationRelativeTo(null);
-      boardFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    boardFrame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+    boardFrame.setMinimumSize(new Dimension(WIDTH, HEIGHT));
+    boardFrame.setResizable(true);
+    boardFrame.setLocationRelativeTo(null);
+    boardFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-      boardPanel = new JPanel(new BorderLayout());
-      boardTitle = new JTextField();
-      boardTitle.setFont(font1);
-      boardTitle.setText(board.getName());
-      boardTitle.setEditable(false);
-      boardTitle.setHorizontalAlignment(JTextField.CENTER);
+    boardPanel = new JPanel(new BorderLayout());
+    boardTitle = new JTextField();
+    boardTitle.setFont(font1);
+    boardTitle.setText(board.getName());
+    boardTitle.setEditable(false);
+    boardTitle.setHorizontalAlignment(JTextField.CENTER);
 
+    boardFrame.add(boardPanel);
 
-      boardFrame.add(boardPanel);
+    newButtons();
 
-      newButtons();
+    JPanel northPane = new JPanel(new GridLayout(2, 1, 100, 10));
+    northPane.add(boardTitle);
+    northPane.add(newColumn);
+    boardPanel.add(northPane, BorderLayout.NORTH);
 
-      JPanel northPane = new JPanel(new GridLayout(2,1,100,10));
-      northPane.add(boardTitle);
-      northPane.add(newColumn);
-      boardPanel.add(northPane,BorderLayout.NORTH);
+    for (Column c : board.getColumns()) {
+      Column_GUI columnPanel = new Column_GUI(c);
+      columnPanel.setVisible(true);
+      columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
+      boardFrame.add(columnPanel, BorderLayout.CENTER);
+    }
 
-      for(Column c : board.getColumns()){
-        Column_GUI columnPanel = new Column_GUI(c);
+    boardFrame.setJMenuBar(makeMenuBar());
+    boardFrame.setVisible(true);
+
+    boardFrame.setLayout(new GridLayout(1, 5, 1, 0));
+  }
+
+  public void newButtons() {
+    newColumn = new JButton("+ New Column");
+    newColumn.setPreferredSize(new Dimension(20, 20));
+    newColumn.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JFrame questionFrame = new JFrame();
+        JOptionPane.showMessageDialog(questionFrame, "");
+        String inputName;
+        inputName = JOptionPane.showInputDialog("New Column Name");
+        String roleNumber;
+        roleNumber = JOptionPane.showInputDialog("New Column Role Number");
+        JOptionPane.showMessageDialog(null, "New Column Created");
+        JPanel columnPanel = new Column_GUI(board.makeColumn(inputName, Integer.parseInt(roleNumber)));
         columnPanel.setVisible(true);
         columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
-        boardFrame.add(columnPanel,BorderLayout.CENTER);
+        boardFrame.add(columnPanel, BorderLayout.CENTER);
+        columnPanel.repaint();
+        columnPanel.revalidate();
+        boardFrame.repaint();
+        boardFrame.revalidate();
+        SwingUtilities.updateComponentTreeUI(boardFrame);
       }
+    });
+  }
 
-      boardFrame.setJMenuBar(makeMenuBar());
-      boardFrame.setVisible(true);
+  public JMenuBar makeMenuBar() {
+    menuBar = new JMenuBar();
+    JMenu file = new JMenu("File");
+    menuBar.add(file);
 
-      boardFrame.setLayout(new GridLayout(1,5,1,0));
-    }
+    JMenu makeNew = new JMenu("New");
+    menuBar.add(makeNew);
 
-    public void newButtons() {
-        newColumn = new JButton("+ New Column");
-        newColumn.setPreferredSize(new Dimension(20,20));
-        newColumn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame questionFrame = new JFrame();
-                JOptionPane.showMessageDialog(questionFrame,"");
-                String inputName;
-                inputName = JOptionPane.showInputDialog("New Column Name");
-                String roleNumber;
-                roleNumber = JOptionPane.showInputDialog("New Column Role Number");
-                JOptionPane.showMessageDialog(null, "New Column Created");
-                JPanel columnPanel = new Column_GUI(board.makeColumn(inputName,Integer.parseInt(roleNumber)));
-                columnPanel.setVisible(true);
-                columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
-                boardFrame.add(columnPanel,BorderLayout.CENTER);
-                columnPanel.repaint();
-                columnPanel.revalidate();
-                boardFrame.repaint();
-                boardFrame.revalidate();
-                SwingUtilities.updateComponentTreeUI(boardFrame);
-            }
-        });
-    }
+    exit = new JMenuItem("Exit");
+    newBoard = new JMenuItem("Kanban Board");
+    save = new JMenuItem("Save");
+    cardActivity = new JMenuItem("Card Activity");
+    columnActivity = new JMenuItem("Column Activity");
+    boardActivity = new JMenuItem("Board Activity");
 
-    public JMenuBar makeMenuBar() {
-      menuBar = new JMenuBar();
-      JMenu file = new JMenu("File");
-      menuBar.add(file);
+    assignActions();
+    makeShortcuts();
 
-      JMenu makeNew = new JMenu("New");
-      menuBar.add(makeNew);
+    file.add(exit);
+    file.add(save);
+    file.add(cardActivity);
+    file.add(columnActivity);
+    file.add(boardActivity);
 
-      exit = new JMenuItem("Exit");
-      newBoard = new JMenuItem("Kanban Board");
-      save = new JMenuItem("Save");
+    makeNew.add(newBoard);
 
-      assignActions();
-      makeShortcuts();
+    return menuBar;
+  }
 
-      file.add(exit);
-      file.add(save);
-      makeNew.add(newBoard);
+  public void assignActions() {
+    boardActivity.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ev) 
+      {
+        JFrame c = new JFrame();
+        JPanel cp = new JPanel();
+          boardLog = new JTextField(100);
+          cp.add(boardLog);
+          c.add(cp);
+          
+          for (int i = 0; i < board.getActivity().size(); i++) 
+          {
+            boardLog.setText(boardLog.getText() + board.getActivity().get(i) + "\n");
+          }
+          
+        }
+    });
 
-      return menuBar;
-    }
 
-    public void assignActions() {
       exit.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent ev) {
             boardFrame.dispose();

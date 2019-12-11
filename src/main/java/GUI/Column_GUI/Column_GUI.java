@@ -82,6 +82,7 @@ public class Column_GUI extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 column.setName(titleLabel.getText());
                 titleLabel.setText(titleLabel.getText());
+                
             }
         });
         JButton addCardButton = new JButton("+ Card");

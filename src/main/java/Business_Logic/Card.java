@@ -1,6 +1,7 @@
 package Business_Logic;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Card implements Serializable {
     private String title;
@@ -8,13 +9,30 @@ public class Card implements Serializable {
     private String sp;
     private static int IDcounter = 1;
     public final int Id;
+    private ArrayList<String> log;
 
+    /**
+     * Constructor of card business logic which initialises the activity log for the card aswell.
+     * @param inputTitle
+     * @param inputDescription
+     * @param inputSP
+     */
     public Card(String inputTitle, String inputDescription, String inputSP)
     {
         this.Id = IDcounter++;
         title = inputTitle;
         description = inputDescription;
         sp = inputSP;
+        log = new ArrayList<>();
+    }
+
+    /**
+     * gets the activity log for each card. 
+     * @return Activity log
+     */
+    public ArrayList<String> getActivity()
+    {
+        return log;
     }
 
     /*
@@ -28,16 +46,34 @@ public class Card implements Serializable {
         sp = inputSP;
         IDcounter = IdC;
     }
-     
+    
+    public void setTitle(String inputTitle)
+    {
+        if (!title.equals(inputTitle))
+        {
+            log.add("Card title has been edited.");
+            title = inputTitle;
+        }
+            
+    }
 
     public void setDescription(String inputDescription)
     {
-        description = inputDescription;
+        
+        if (!description.equals(inputDescription))
+        {
+            log.add("Card description has been edited.");
+            description = inputDescription;
+        }
     } 
 
     public void setStoryPoints(String inputSP)
     {
-        sp = inputSP;
+        if (!sp.equals(inputSP))
+        {
+            log.add("Story Points have been edited.");
+            sp = inputSP;
+        }
     }
 
     public void setIdCounter(int newId){
@@ -48,10 +84,7 @@ public class Card implements Serializable {
         return IDcounter;
     }
 
-    public void setTitle(String inputTitle)
-    {
-        title = inputTitle;
-    }
+    
 
     public String getTitle()
     {
