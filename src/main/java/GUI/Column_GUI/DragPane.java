@@ -26,7 +26,7 @@ public class DragPane extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(50, 50);
+        return new Dimension(250, 960);
     }
 
 }
