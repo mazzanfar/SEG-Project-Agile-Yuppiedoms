@@ -9,6 +9,7 @@ public class Board {
     private ArrayList<String> log;
 
     public Board(String inputName){
+        log = new ArrayList<String>();
         columns = new ArrayList<>();
         name = inputName;
     }
@@ -27,10 +28,9 @@ public class Board {
     }
 
     public void importColumn(Column importedCol){
-        //log.add("A column has been made.");
+        log.add("A column has been made.");
         columns.add(importedCol);
     }
-    
 
     public ArrayList<Column> getColumns(){
         return columns;

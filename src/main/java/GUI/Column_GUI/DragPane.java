@@ -23,10 +23,4 @@ public class DragPane extends JPanel {
         dragGestureHandler = new DragGestureHandler(this);
         dgr = DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_MOVE, dragGestureHandler);
     }
-
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(50, 50);
-    }
-
 }
