@@ -236,6 +236,7 @@ public class BoardGui extends JFrame{
         if(check)
         {
             DropPane dp = new DropPane();
+            dp.setPreferredSize(new Dimension(250,960));
             addColumn(inputColumn);
             JPanel columnPanel = new Column_GUI(inputColumn);
             columnPanel.setVisible(true);

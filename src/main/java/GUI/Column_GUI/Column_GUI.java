@@ -18,7 +18,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 
-public class Column_GUI extends DragPane{
+public class Column_GUI extends JPanel{
 
 
     private static final int WIDTH = 250;
