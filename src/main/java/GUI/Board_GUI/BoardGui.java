@@ -59,6 +59,7 @@ public class BoardGui extends JFrame{
       boardTitle.setEditable(false);
       boardTitle.setHorizontalAlignment(JTextField.CENTER);
 
+      boardTitle.setName("boardTitle");
 
       this.add(boardPanel);
 
@@ -95,7 +96,9 @@ public class BoardGui extends JFrame{
       this.setVisible(true);
 
     }
-
+    public BoardGui getBoardGui(){
+        return this;
+    }
     public void newButtons() {
         newColumn = new JButton("+ New Column");
         newColumn.setPreferredSize(new Dimension(20,20));
@@ -116,6 +119,7 @@ public class BoardGui extends JFrame{
 
             }
         });
+        newColumn.setName("newColumn");
     }
 
     public JMenuBar makeMenuBar() {
@@ -136,6 +140,8 @@ public class BoardGui extends JFrame{
       file.add(exit);
       file.add(save);
       makeNew.add(newBoard);
+
+      file.setName("file");
 
       return menuBar;
     }

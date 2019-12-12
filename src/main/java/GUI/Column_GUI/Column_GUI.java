@@ -85,6 +85,7 @@ public class Column_GUI extends JPanel{
             }
         });
         JButton addCardButton = new JButton("+ Card");
+        addCardButton.setName("addCardButton");
         addCardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -125,7 +126,7 @@ public class Column_GUI extends JPanel{
         buttonPanel.add(saveTitleButton);
         buttonPanel.add(removeButton);
 
-
+        
         upperPanel.add(titlePanel);
         upperPanel.add(buttonPanel);
 
@@ -150,6 +151,11 @@ public class Column_GUI extends JPanel{
     public Column getColumn(){
         return column;
     }
+
+    public Column_GUI getColumn_GUI(){
+        return this;
+    }
+
 }
 
 

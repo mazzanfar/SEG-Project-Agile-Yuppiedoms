@@ -33,6 +33,8 @@ public class CardGui extends DragPane {
     private JLabel IdLabel;
     private JLabel SpLabel;
 
+    private JFrame popUpFrame;
+
     private Card card;
     public CardGui(Card inputCard) {
         card = inputCard;
@@ -41,6 +43,10 @@ public class CardGui extends DragPane {
 
     public Card getCard(){
         return card;
+    }
+
+    public CardGui getCardGui(){
+        return this;
     }
 
     public void makeCard(){
@@ -100,6 +106,10 @@ public class CardGui extends DragPane {
         this.setMaximumSize(new Dimension(WIDTH+50, 100));
         this.setBorder(blackline);
 
+        editButton.setName("editButton");
+        removeButton.setName("removeButton");
+
+
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,7 +144,7 @@ public class CardGui extends DragPane {
     }
 
     public JFrame makeFrame(){
-        JFrame popUpFrame = new JFrame();
+        popUpFrame = new JFrame();
         popUpFrame.setPreferredSize(new Dimension(900, 600));
         popUpFrame.setMinimumSize(new Dimension(900, 600));
         popUpFrame.setVisible(true);
@@ -194,6 +204,8 @@ public class CardGui extends DragPane {
         buttonPanel.add(changeButton);
         buttonPanel.add(saveButton);
         popUpFrame.add(buttonPanel,BorderLayout.SOUTH);
+        changeButton.setName("changeButton");
+        saveButton.setName("saveButton");
     }
 
     public void  makeTitle(JFrame popUpFrame) {
@@ -265,5 +277,9 @@ public class CardGui extends DragPane {
         descriptionPanel.add(description, BorderLayout.CENTER);
         descriptionPanel.add(descriptionLabel, BorderLayout.NORTH);
         popUpFrame.add(descriptionPanel, BorderLayout.CENTER);
+    }
+
+    public JFrame getPopUpFrame(){
+        return popUpFrame;
     }
 }

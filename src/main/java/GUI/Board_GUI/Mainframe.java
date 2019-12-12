@@ -37,6 +37,7 @@ public class Mainframe {
   private JLabel splashTitle;
   private JButton newKanbanBoard;
   private JButton loadKanbanBoard;
+  private BoardGui board;
 
   public Mainframe() {
     jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -65,6 +66,10 @@ public class Mainframe {
     addActions();
  }
 
+ public JFrame getMainFrame(){
+   return mainFrame;
+   }
+
   public void splashButtons() {
 
     newKanbanBoard = new JButton("+ New Kanban Board");
@@ -78,6 +83,8 @@ public class Mainframe {
     contentPane.add(newKanbanBoard, BorderLayout.LINE_START);
     contentPane.add(loadKanbanBoard, BorderLayout.LINE_END);
     mainFrame.pack();
+
+    newKanbanBoard.setName("newKanbanBoard");
   }
 
 
@@ -140,12 +147,16 @@ private Card createCard(String[] metadata) {
   return new Card(title, Id, description, storyPoints, IdCounter);
 }
 
+public BoardGui getBoardGUI()  {
+   return board ;
+}
+
   public void addActions() {
     newKanbanBoard.addActionListener(new ActionListener () {
       public void actionPerformed(ActionEvent e) {
         String input = JOptionPane.showInputDialog("Input name of Kanban Board");
         if (input.length() > 0) {
-          BoardGui board = new BoardGui(new Business_Logic.Board(input)) ;
+          board = new BoardGui(new Business_Logic.Board(input));
         } else {
           JOptionPane.showMessageDialog(null, "Name required");
         }
