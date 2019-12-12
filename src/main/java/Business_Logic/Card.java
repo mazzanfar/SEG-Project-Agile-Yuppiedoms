@@ -28,17 +28,10 @@ public class Card implements Serializable {
         description = inputDescription;
         sp = inputSP;
         log = new ArrayList<>();
+        formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
-    /**
-     * gets the activity log for each card. 
-     * @return Activity log
-     */
-    public ArrayList<String> getActivity()
-    {
-        return log;
-    }
-
+    
     /*
     Overrided constructor to allow for loading a card, the ID doesn't get incremented with this one
     */
@@ -50,13 +43,26 @@ public class Card implements Serializable {
         sp = inputSP;
         IDcounter = IdC;
         log = new ArrayList<>();
+        formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
+
+    /**
+     * gets the activity log for each card. 
+     * @return Activity log
+     */
+    public ArrayList<String> getActivity()
+    {
+        return log;
+    }
+
     
     public void setTitle(String inputTitle)
     {
+        date = new Date();
+        String dateString = formatter.format(date);
         if (!title.equals(inputTitle))
         {
-            log.add("Card title has been edited. Card ID:" + Integer.toString(Id));
+            log.add("Card title has been edited. Card ID: " + Integer.toString(Id) + dateString);
             title = inputTitle;
         }
             
@@ -64,19 +70,22 @@ public class Card implements Serializable {
 
     public void setDescription(String inputDescription)
     {
-        
+        date = new Date();
+        String dateString = formatter.format(date);
         if (!description.equals(inputDescription))
         {
-            log.add("Card description has been edited. Card ID:" + Integer.toString(Id));
+            log.add("Card description has been edited. Card ID: " + Integer.toString(Id) + dateString);
             description = inputDescription;
         }
     } 
 
     public void setStoryPoints(String inputSP)
     {
+        date = new Date();
+        String dateString = formatter.format(date);
         if (!sp.equals(inputSP))
         {
-            log.add("Story Points have been edited. Card ID:" + Integer.toString(Id));
+            log.add("Story Points have been edited. Card ID: " + Integer.toString(Id) + dateString);
             sp = inputSP;
         }
     }

@@ -20,7 +20,6 @@ public class Column implements Serializable {
         name = inputName;
         role = roleNum;
         log = new ArrayList<>();
-        date = new Date();
         formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         
     }
@@ -28,8 +27,9 @@ public class Column implements Serializable {
     public void setName(String newName){
         if (!name.equals(newName))
         {
+            date = new Date();
             String dateString = formatter.format(date);
-            log.add("Column title has been edited." + dateString);
+            log.add("Column title has been edited. " + "Column name:" + name + " " + dateString);
             name = newName;
         }
         
@@ -37,18 +37,20 @@ public class Column implements Serializable {
     }
 
     public void setRole(int roleNum){
+        date = new Date();
         String dateString = formatter.format(date);
         if (!(role == roleNum))
         {
-            log.add("Column role has been edited." + dateString);
+            log.add("Column role has been edited. " + "Column name:" + name + " " + dateString);
         }
         role = roleNum;
         
     }
 
     public void addCard(Card theCard){
+        date = new Date();
         String dateString = formatter.format(date);
-        log.add("A card has been added. Card ID:" + Integer.toString(theCard.getID()) + dateString);
+        log.add("A card has been added to: " + name + "Card ID: " + Integer.toString(theCard.getID()) + " " + dateString);
         cards.add(theCard);
     }
 
@@ -58,8 +60,9 @@ public class Column implements Serializable {
     }
 
     public void removeCard(Card theCard){
+        date = new Date();
         String dateString = formatter.format(date);
-        log.add("A card has been removed. Card ID:" + Integer.toString(theCard.getID()) + dateString);
+        log.add("A card has been removed from: " + name + " Card ID: " + Integer.toString(theCard.getID()) + " " +  dateString);
         cards.remove(theCard);
     }
 
@@ -77,8 +80,9 @@ public class Column implements Serializable {
     {
         this.removeCard(theCard);
         endingCol.addCard(theCard);
-        String dateString = formatter.format(date);
-        log.add("A card has been moved. Card ID:" + Integer.toString(theCard.getID()) + "Moved from: " + this.name + "Moved to: " + endingCol.name + dateString);
+        // date = new Date();
+        // String dateString = formatter.format(date);
+        //log.add("A card has been moved. Card ID: " + Integer.toString(theCard.getID()) + "Moved from: " + this.name + "Moved to: " + endingCol.name + " " + dateString);
     }
 
     public ArrayList<String> getActivity()

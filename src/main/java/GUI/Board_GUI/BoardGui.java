@@ -196,17 +196,10 @@ public class BoardGui extends JFrame{
         //c.setSize(100, 300);
         c.setVisible(true);
         JPanel cp = new JPanel();
-        cp.setSize(300, 500);
-        boardLog = new JTextArea(5, 20);
+        cp.setSize(500, 1000);
+        boardLog = new JTextArea(15, 50);
         boardLog.setEditable(false);
-        JScrollPane activityScrollPane = new JScrollPane();
-        activityScrollPane.setPreferredSize(new Dimension(250,700));
-        activityScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        JViewport vp = new JViewport();
-        vp.setView(cp);
-        activityScrollPane.setViewport(vp);
-        
-        c.add(activityScrollPane, BorderLayout.CENTER);
+
         cp.add(boardLog);
         c.add(cp);
         c.pack();
