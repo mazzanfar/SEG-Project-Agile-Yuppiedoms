@@ -15,7 +15,7 @@ public class Board {
     }
 
     public Column makeColumn(String name, int roleNum){
-        
+        log.add("A new column has been made.");
         Column newCol = new Column(name, roleNum);
         columns.add(newCol);
         return newCol;
@@ -28,7 +28,6 @@ public class Board {
     }
 
     public void importColumn(Column importedCol){
-        log.add("A column has been made.");
         columns.add(importedCol);
     }
 

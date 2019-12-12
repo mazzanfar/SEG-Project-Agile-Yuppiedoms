@@ -1,7 +1,9 @@
 package Business_Logic;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Card implements Serializable {
     private String title;
@@ -10,6 +12,8 @@ public class Card implements Serializable {
     private static int IDcounter = 1;
     public final int Id;
     private ArrayList<String> log;
+    private Date date;
+    private SimpleDateFormat formatter;
 
     /**
      * Constructor of card business logic which initialises the activity log for the card aswell.
@@ -45,13 +49,14 @@ public class Card implements Serializable {
         description = inputDescription;
         sp = inputSP;
         IDcounter = IdC;
+        log = new ArrayList<>();
     }
     
     public void setTitle(String inputTitle)
     {
         if (!title.equals(inputTitle))
         {
-            log.add("Card title has been edited.");
+            log.add("Card title has been edited. Card ID:" + Integer.toString(Id));
             title = inputTitle;
         }
             
@@ -62,7 +67,7 @@ public class Card implements Serializable {
         
         if (!description.equals(inputDescription))
         {
-            log.add("Card description has been edited.");
+            log.add("Card description has been edited. Card ID:" + Integer.toString(Id));
             description = inputDescription;
         }
     } 
@@ -71,7 +76,7 @@ public class Card implements Serializable {
     {
         if (!sp.equals(inputSP))
         {
-            log.add("Story Points have been edited.");
+            log.add("Story Points have been edited. Card ID:" + Integer.toString(Id));
             sp = inputSP;
         }
     }

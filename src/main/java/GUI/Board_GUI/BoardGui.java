@@ -5,7 +5,6 @@ import Business_Logic.*;
 import GUI.Column_GUI.Column_GUI;
 import GUI.Column_GUI.DropPane;
 
-import javax.swing.JOptionPane;
 import javax.swing.*;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
@@ -18,6 +17,7 @@ import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.util.ArrayList;
 
 public class BoardGui extends JFrame{
 
@@ -31,7 +31,7 @@ public class BoardGui extends JFrame{
   private JPanel columnsPanel;
   private JPanel northPane;
   private JTextField boardTitle;
-  private JTextField boardLog;
+  private JTextArea boardLog;
 
   private JButton newColumn;
 
@@ -40,8 +40,6 @@ public class BoardGui extends JFrame{
   private JMenuItem exit;
   private JMenuItem newBoard;
   private JMenuItem save;
-  private JMenuItem cardActivity;
-  private JMenuItem columnActivity;
   private JMenuItem boardActivity;
 
   private Business_Logic.Board board;
@@ -134,16 +132,12 @@ public class BoardGui extends JFrame{
     exit = new JMenuItem("Exit");
     newBoard = new JMenuItem("Kanban Board");
     save = new JMenuItem("Save");
-    cardActivity = new JMenuItem("Card Activity");
-    columnActivity = new JMenuItem("Column Activity");
     boardActivity = new JMenuItem("Board Activity");
     assignActions();
     makeShortcuts();
 
     file.add(exit);
     file.add(save);
-    file.add(cardActivity);
-    file.add(columnActivity);
     file.add(boardActivity);
     makeNew.add(newBoard);
 
@@ -172,6 +166,7 @@ public class BoardGui extends JFrame{
             bufferedWriter.newLine();
             bufferedWriter.write(i.getName());
             bufferedWriter.write("," + Integer.toString(i.getRole()));
+           // bufferedWriter.write("," + retrieveString(i.getActivity()));
             for(Card c : i.getCards()){
               bufferedWriter.newLine();
               bufferedWriter.write(c.getTitle());
@@ -179,6 +174,7 @@ public class BoardGui extends JFrame{
               bufferedWriter.write("," + c.getDescription());
               bufferedWriter.write("," + c.getStoryPoints());
               bufferedWriter.write("," + c.getIdCounter());
+              //bufferedWriter.write("," + retriveString(c.getActivity()));
             }
           }
           bufferedWriter.close();
@@ -197,21 +193,33 @@ public class BoardGui extends JFrame{
       public void actionPerformed(ActionEvent ev)
       {
         JFrame c = new JFrame();
+        //c.setSize(100, 300);
+        c.setVisible(true);
         JPanel cp = new JPanel();
-        boardLog = new JTextField(100);
+        cp.setSize(300, 500);
+        boardLog = new JTextArea(5, 20);
+        boardLog.setEditable(false);
+        JScrollPane activityScrollPane = new JScrollPane();
+        activityScrollPane.setPreferredSize(new Dimension(250,700));
+        activityScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        JViewport vp = new JViewport();
+        vp.setView(cp);
+        activityScrollPane.setViewport(vp);
+        
+        c.add(activityScrollPane, BorderLayout.CENTER);
         cp.add(boardLog);
         c.add(cp);
-        try{
+        c.pack();
+        
+        try
+        {
           for (int i = 0; i < board.getActivity().size(); i++)
           {
             boardLog.setText(boardLog.getText() + board.getActivity().get(i) + "\n");
           }
         }
-        catch(NullPointerException e){
-
-      }
-
-
+        catch(NullPointerException e)
+        { }
       }
     });
   }
@@ -247,7 +255,7 @@ public class BoardGui extends JFrame{
     boolean check = true;
     for(Component component : columnsPanel.getComponents())
     {
-      DropPane dp = (DropPane) component;
+      Column_GUI dp = (Column_GUI) component;
       if(dp.getComponents().length ==0)
       {
         addColumn(inputColumn);
