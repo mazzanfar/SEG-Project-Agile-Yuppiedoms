@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import com.athaydes.automaton.Swinger;
 import static java.awt.event.KeyEvent.*;
 
-public class AddColumnTest{
+public class RemoveColumnTest{
 
     private Mainframe mainFrame;
     private Swinger swinger;
@@ -27,7 +27,7 @@ public class AddColumnTest{
     }
 
     @Test
-    public void testAddColumn(){
+    public void testRemoveColumn(){
         swinger.pause(250);
         swinger.clickOn("name:newKanbanBoard")
                .pause(250)
@@ -35,8 +35,6 @@ public class AddColumnTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
-
-        swinger.pause(250);
         swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:newColumn")
                .pause(250)
@@ -47,25 +45,11 @@ public class AddColumnTest{
                .pressSimultaneously(VK_ENTER)
                .pause(250)
                .pressSimultaneously(VK_ENTER)
-               .pause(2500);
+               .pause(250);
         swinger.getUserWith(mainFrame.getBoardGUI())
-               .clickOn("name:newColumn")
-               .pause(250)
-               .type("Second Column")
-               .pressSimultaneously(VK_ENTER)
-               .pause(250)
-               .type("2")
-               .pressSimultaneously(VK_ENTER)
-               .pause(250)
-               .pressSimultaneously(VK_ENTER)
-               .pause(2500);
-        assertThat(mainFrame.getBoardGUI().getBoard().getColumns().size(), equalTo(2));
-        // swinger.getUserWith(mainFrame.getBoardGUI())
-        //        .pause(250)
-        //        .clickOn("name:addCardButton")
-        //        .pause(250)
-        //        .clickOn("name:file");
-        swinger.pause(250);
+               .clickOn("name:removeButton")
+               .pause(250);
+        assertThat(mainFrame.getBoardGUI().getBoard().getColumns().size(), equalTo(0));
     }
     @After
     public void tearDown(){

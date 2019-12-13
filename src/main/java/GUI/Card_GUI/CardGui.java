@@ -86,15 +86,15 @@ public class CardGui extends DragPane {
 
         JButton editButton = new JButton("Edit");
         editButton.setPreferredSize(new Dimension(100,30));
-        JButton removeButton = new JButton("Remove");
-        removeButton.setPreferredSize(new Dimension(100,30));
+        JButton removeCardButton = new JButton("Remove");
+        removeCardButton.setPreferredSize(new Dimension(100,30));
 
         this.setVisible(true);
 
         JLabel little_title = new JLabel("Title: " + card.getTitle());
         this.add(little_title);
         this.add(editButton);
-        this.add(removeButton);
+        this.add(removeCardButton);
         this.setVisible(true);
 //        gbc.fill = GridBagConstraints.HORIZONTAL;
 //        gbc.ipady = 50;
@@ -117,12 +117,12 @@ public class CardGui extends DragPane {
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 0;
-        this.add(removeButton,gbc);
+        this.add(removeCardButton,gbc);
         this.setMaximumSize(new Dimension(WIDTH+50, 100));
         this.setBorder(blackline);
 
         editButton.setName("editButton");
-        removeButton.setName("removeButton");
+        removeCardButton.setName("removeCardButton");
 
         //Instance of the editable card with Jframe pop up.
         editButton.addActionListener(new ActionListener() {
@@ -145,7 +145,7 @@ public class CardGui extends DragPane {
             }
         });
 
-        removeButton.addActionListener(new ActionListener() {
+        removeCardButton.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
                   DropPane dp = (DropPane)CardGui.this.getParent();
@@ -170,6 +170,7 @@ public class CardGui extends DragPane {
         popUpFrame.setVisible(true);
         popUpFrame.setResizable(false);
         popUpFrame.setLocationRelativeTo(null);
+        popUpFrame.setName("popUpFrame");
         makeButton(popUpFrame);
         makeTitle(popUpFrame);
         makeDescription(popUpFrame);

@@ -57,8 +57,9 @@ public class RemoveCardTest{
                .pause(250);
         swinger.getUserWith(mainFrame.getBoardGUI())
                .pause(250)
-               .clickOn("name:removeButton")
+               .clickOn("name:removeCardButton")
                .pause(250);
+        assertThat(mainFrame.getBoardGUI().getBoard().getColumn(0).getCards().size(), equalTo(0));
     }
     @After 
     public void tearDown(){

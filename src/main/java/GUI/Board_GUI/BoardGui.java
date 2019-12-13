@@ -4,6 +4,7 @@ package GUI.Board_GUI;
 import Business_Logic.*;
 import GUI.Column_GUI.Column_GUI;
 import GUI.Column_GUI.DropPane;
+//import sun.swing.MenuItemLayoutHelper.ColumnAlignment;
 
 import javax.swing.*;
 import java.awt.FlowLayout;
@@ -308,6 +309,7 @@ public class BoardGui extends JFrame{
     }
     return true;
   }
+
 
   public void removeCol(Column column){ board.removeColumn(column);}
 }

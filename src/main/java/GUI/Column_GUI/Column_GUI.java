@@ -75,7 +75,9 @@ public class Column_GUI extends JPanel{
 
         JTextField titleLabel = new JTextField(column.getName());
         titleLabel.setPreferredSize(new Dimension(60,25));
+        titleLabel.setName("titleLabel");
         JButton saveTitleButton = new JButton("Save");
+        saveTitleButton.setName("saveTitleButton");
         saveTitleButton.setPreferredSize(new Dimension(92, 25));
         saveTitleButton.addActionListener(new ActionListener() {
             @Override
@@ -87,6 +89,7 @@ public class Column_GUI extends JPanel{
         });
         JButton addCardButton = new JButton("+ Card");
         addCardButton.setName("addCardButton");
+        System.out.println(addCardButton.getName());
         addCardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
