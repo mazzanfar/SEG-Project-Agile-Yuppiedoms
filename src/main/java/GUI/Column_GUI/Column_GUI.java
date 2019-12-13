@@ -76,6 +76,13 @@ public class Column_GUI extends JPanel{
         JTextField titleLabel = new JTextField(column.getName());
         titleLabel.setPreferredSize(new Dimension(60,25));
         titleLabel.setName("titleLabel");
+
+        Object[] roles = { "Backlog", "In-progress", "Completed"};
+        JComboBox comboBox = new JComboBox(roles); comboBox.setSelectedIndex(1);
+        if(column.getRole()==0){comboBox.setSelectedItem("Backlog");}
+        if(column.getRole()==1){comboBox.setSelectedItem("In-progress");}
+        if(column.getRole()==2){comboBox.setSelectedItem("Completed");}
+
         JButton saveTitleButton = new JButton("Save");
         saveTitleButton.setName("saveTitleButton");
         saveTitleButton.setPreferredSize(new Dimension(92, 25));
@@ -84,7 +91,11 @@ public class Column_GUI extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 column.setName(titleLabel.getText());
                 titleLabel.setText(titleLabel.getText());
-                
+                String role = (String) comboBox.getSelectedItem();
+                if(role.equals("Backlog")){column.setRole(0);}
+                if(role.equals("In-progress")){column.setRole(1);}
+                if(role.equals("Completed")){column.setRole(2);}
+
             }
         });
         JButton addCardButton = new JButton("+ Card");
@@ -122,13 +133,14 @@ public class Column_GUI extends JPanel{
             }
         });
         JPanel titlePanel = new JPanel();
-        JPanel buttonPanel = new JPanel(new GridLayout(1,3,1,1));
+        JPanel buttonPanel = new JPanel(new GridLayout(3,1,1,1));
 
 
         addCardButton.setPreferredSize(new Dimension(92, 25));
         titlePanel.add(titleLabel);
-        buttonPanel.add(addCardButton);
+        titlePanel.add(comboBox);
         buttonPanel.add(saveTitleButton);
+        buttonPanel.add(addCardButton);
         buttonPanel.add(removeButton);
 
         
