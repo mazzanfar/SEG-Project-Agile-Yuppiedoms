@@ -127,7 +127,7 @@ private Board createBoard(String[] metadata) {
 private Column createColumn(String[] metadata) {
   String name = metadata[0];
   int role = Integer.parseInt(metadata[1]);
-  return  new Column(name, role);
+  return new Column(name, role);
 }
 
 private Card createCard(String[] metadata) {

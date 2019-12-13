@@ -1,6 +1,9 @@
 package Business_Logic;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Card implements Serializable {
     private String title;
@@ -8,15 +11,27 @@ public class Card implements Serializable {
     private String sp;
     private static int IDcounter = 1;
     public final int Id;
+    private ArrayList<String> log;
+    private Date date;
+    private SimpleDateFormat formatter;
 
+    /**
+     * Constructor of card business logic which initialises the activity log for the card aswell.
+     * @param inputTitle
+     * @param inputDescription
+     * @param inputSP
+     */
     public Card(String inputTitle, String inputDescription, String inputSP)
     {
         this.Id = IDcounter++;
         title = inputTitle;
         description = inputDescription;
         sp = inputSP;
+        log = new ArrayList<>();
+        formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
+    
     /*
     Overrided constructor to allow for loading a card, the ID doesn't get incremented with this one
     */
@@ -27,17 +42,52 @@ public class Card implements Serializable {
         description = inputDescription;
         sp = inputSP;
         IDcounter = IdC;
+        log = new ArrayList<>();
+        formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
-     
+
+    /**
+     * gets the activity log for each card. 
+     * @return Activity log
+     */
+    public ArrayList<String> getActivity()
+    {
+        return log;
+    }
+
+    
+    public void setTitle(String inputTitle)
+    {
+        date = new Date();
+        String dateString = formatter.format(date);
+        if (!title.equals(inputTitle))
+        {
+            log.add("Card title has been edited. Card ID: " + Integer.toString(Id) + dateString);
+            title = inputTitle;
+        }
+            
+    }
 
     public void setDescription(String inputDescription)
     {
-        description = inputDescription;
+        date = new Date();
+        String dateString = formatter.format(date);
+        if (!description.equals(inputDescription))
+        {
+            log.add("Card description has been edited. Card ID: " + Integer.toString(Id) + dateString);
+            description = inputDescription;
+        }
     } 
 
     public void setStoryPoints(String inputSP)
     {
-        sp = inputSP;
+        date = new Date();
+        String dateString = formatter.format(date);
+        if (!sp.equals(inputSP))
+        {
+            log.add("Story Points have been edited. Card ID: " + Integer.toString(Id) + dateString);
+            sp = inputSP;
+        }
     }
 
     public void setIdCounter(int newId){
@@ -48,10 +98,7 @@ public class Card implements Serializable {
         return IDcounter;
     }
 
-    public void setTitle(String inputTitle)
-    {
-        title = inputTitle;
-    }
+    
 
     public String getTitle()
     {
