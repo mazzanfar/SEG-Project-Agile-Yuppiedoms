@@ -16,6 +16,7 @@ import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import javax.xml.stream.Location;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -106,16 +107,17 @@ public class BoardGui extends JFrame{
       public void actionPerformed(ActionEvent e) {
         String inputName;
         inputName = JOptionPane.showInputDialog("New Column Name");
-        String roleNumber;
-        roleNumber = JOptionPane.showInputDialog("New Column Role Number");
-        if(isNumeric(roleNumber)){
-          JOptionPane.showMessageDialog(null, "New Column Created");
-          makeColumn(new Column(inputName,Integer.parseInt(roleNumber)));
-        }
-        else{
-          JOptionPane.showMessageDialog(null, "Please type integers");
-        }
 
+        JPanel panel = new JPanel(new GridBagLayout());
+        Object[] roles = { "Backlog", "In-progress", "Completed"};
+        JComboBox comboBox = new JComboBox(roles); comboBox.setSelectedIndex(1);
+        JOptionPane.showMessageDialog(null, comboBox, "Select a role",
+                JOptionPane.QUESTION_MESSAGE);
+        panel.add(comboBox);
+        String result = (String) comboBox.getSelectedItem();
+        if(result.equals("Backlog")){makeColumn(new Column(inputName,0));}
+        if(result.equals("In-progress")){makeColumn(new Column(inputName,1));}
+        if(result.equals("Completed")){makeColumn(new Column(inputName,2));}
       }
     });
   }
@@ -166,7 +168,6 @@ public class BoardGui extends JFrame{
             bufferedWriter.newLine();
             bufferedWriter.write(i.getName());
             bufferedWriter.write("," + Integer.toString(i.getRole()));
-           // bufferedWriter.write("," + retrieveString(i.getActivity()));
             for(Card c : i.getCards()){
               bufferedWriter.newLine();
               bufferedWriter.write(c.getTitle());
@@ -174,7 +175,6 @@ public class BoardGui extends JFrame{
               bufferedWriter.write("," + c.getDescription());
               bufferedWriter.write("," + c.getStoryPoints());
               bufferedWriter.write("," + c.getIdCounter());
-              //bufferedWriter.write("," + retriveString(c.getActivity()));
             }
           }
           bufferedWriter.close();
