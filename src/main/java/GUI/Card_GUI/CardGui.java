@@ -42,6 +42,7 @@ public class CardGui extends DragPane {
 
     private Card card;
     public CardGui(Card inputCard) {
+        this.setLayout(new GridBagLayout());
         card = inputCard;
         makeCard();
     }
@@ -92,19 +93,15 @@ public class CardGui extends DragPane {
         this.setVisible(true);
 
         JLabel little_title = new JLabel("Title: " + card.getTitle());
-        this.add(little_title);
-        this.add(editButton);
-        this.add(removeButton);
+        GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(1, 1, 1, 1);
+        c.anchor = GridBagConstraints.NORTH; // place component on the North
+        this.add(little_title,c);
+        c.anchor = GridBagConstraints.CENTER; // place component on the North
+        this.add(editButton,c);
+        c.anchor = GridBagConstraints.SOUTH; // place component on the North
+        this.add(removeButton,c);
         this.setVisible(true);
-//        gbc.fill = GridBagConstraints.HORIZONTAL;
-//        gbc.ipady = 50;
-//        gbc.weighty = 1.0;      //make this component tall
-//        gbc.weightx = 1.0;
-//        gbc.gridwidth = 3;
-//        gbc.gridx = 1;
-//        gbc.gridy = 0;
-//        cardPanel.add(cardPanel, gbc);
-
         gbc.ipady = 1;
         gbc.weightx = 10;
         gbc.gridx = 0;
@@ -133,7 +130,6 @@ public class CardGui extends DragPane {
 
                     public void windowClosed(WindowEvent e) {
                         little_title.setText("Title: " + card.getTitle());
-                        CardGui.this.add(little_title);
                         CardGui.this.revalidate();
                         CardGui.this.repaint();
                         SwingUtilities.updateComponentTreeUI(CardGui.this);
@@ -306,7 +302,6 @@ public class CardGui extends DragPane {
         descriptionLabel = new JLabel("Description: ");
         descriptionLabel.setFont(new Font("Courier New", Font.ITALIC, 24));
         descriptionPanel = new JPanel(new BorderLayout());
-        //descriptionPanel.setBorder(BorderFactory.createLineBorder(Color.green));
 
         description = new JTextField(20);
         description.setText(card.getDescription());
