@@ -101,7 +101,7 @@ public class CardGui extends DragPane {
         c.anchor = GridBagConstraints.CENTER; // place component on the North
         this.add(editButton,c);
         c.anchor = GridBagConstraints.SOUTH; // place component on the North
-        this.add(removeButton,c);
+        this.add(removeCardButton,c);
         this.setVisible(true);
         gbc.ipady = 1;
         gbc.weightx = 10;

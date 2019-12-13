@@ -45,9 +45,6 @@ public class RemoveCardTest{
                .type("first Column")
                .pressSimultaneously(VK_ENTER)
                .pause(250)
-               .type("1")
-               .pressSimultaneously(VK_ENTER)
-               .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(2500);
         assertThat(boardTitleField.getText(), equalTo("First Board"));

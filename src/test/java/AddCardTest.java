@@ -45,9 +45,6 @@ public class AddCardTest{
                .type("First Column")
                .pressSimultaneously(VK_ENTER)
                .pause(250)
-               .type("1")
-               .pressSimultaneously(VK_ENTER)
-               .pause(250)
                .pressSimultaneously(VK_ENTER)
                 .pause(250);
         // assertThat(boardTitleField.getText(), equalTo("First Board"));

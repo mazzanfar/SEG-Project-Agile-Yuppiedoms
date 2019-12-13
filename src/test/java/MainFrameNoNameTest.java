@@ -29,7 +29,7 @@ public class MainFrameNoNameTest{
     }
 
     @Test
-    public void testMainframe(){
+    public void testMainframeNoName(){
         swinger.pause(250);
         swinger.clickOn("name:newKanbanBoard")
                .pause(250)
