@@ -27,7 +27,7 @@ public class AddColumnNoFieldsTest{
     }
 
     @Test
-    public void testAddColumn(){
+    public void testAddColumnNoFields(){
         swinger.pause(250);
         swinger.clickOn("name:newKanbanBoard")
                .pause(250)
@@ -42,10 +42,12 @@ public class AddColumnNoFieldsTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250)
-               .pressSimultaneously(VK_ENTER)
-               .pause(250)
                .pressSimultaneously(VK_ENTER);
-              // mainFrame.getBoardGUI().getBoard().getColumns().length == 0
+        swinger.pause(250);
+        JTextField ColumnTitleLabel = (JTextField)swinger.getUserWith(mainFrame.getBoardGUI())
+                                                        .getAt("name:titleLabel");
+        swinger.pause(250);
+        assertThat(ColumnTitleLabel.getText(), equalTo(""));
         swinger.pause(250);
     }
     @After

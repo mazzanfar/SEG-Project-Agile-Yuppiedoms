@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import com.athaydes.automaton.Swinger;
 import static java.awt.event.KeyEvent.*;
 
-public class RemoveColumnTest{
+public class ColumnTitleTest{
 
     private Mainframe mainFrame;
     private Swinger swinger;
@@ -27,7 +27,7 @@ public class RemoveColumnTest{
     }
 
     @Test
-    public void testRemoveColumn(){
+    public void testColumnTitle(){
         swinger.pause(250);
         swinger.clickOn("name:newKanbanBoard")
                .pause(250)
@@ -35,6 +35,8 @@ public class RemoveColumnTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
+
+        swinger.pause(250);
         swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:newColumn")
                .pause(250)
@@ -43,10 +45,12 @@ public class RemoveColumnTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
-        swinger.getUserWith(mainFrame.getBoardGUI())
-               .clickOn("name:removeButton")
-               .pause(250);
-        assertThat(mainFrame.getBoardGUI().getBoard().getColumns().size(), equalTo(0));
+        JTextField ColumnTitleLabel = (JTextField)swinger.getUserWith(mainFrame.getBoardGUI())
+                                                        .getAt("name:titleLabel");
+        swinger.pause(250);
+        assertThat(ColumnTitleLabel.getText(), equalTo("First Column"));
+    
+        swinger.pause(250);
     }
     @After
     public void tearDown(){
