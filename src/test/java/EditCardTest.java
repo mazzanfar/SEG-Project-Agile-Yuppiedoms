@@ -8,6 +8,7 @@ import org.junit.Test;
 import GUI.Board_GUI.Mainframe;
 import GUI.Card_GUI.CardGui;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -36,8 +37,6 @@ public class EditCardTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
-        JTextField boardTitleField = (JTextField)swinger.getUserWith(mainFrame.getBoardGUI()).getAt("name:boardTitle");
-        assertThat(boardTitleField.getText(), equalTo("First Board"));
         swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:newColumn")
                .pause(250)
@@ -48,15 +47,18 @@ public class EditCardTest{
                .pressSimultaneously(VK_ENTER)
                .pause(250)
                .pressSimultaneously(VK_ENTER)
-               .pause(2500)
                .pause(250)
                .clickOn("name:addCardButton")
                .pause(250);
-        //       .clickOn("name:edit");
-        // swinger.getUserWith(CardGui.getPopUpFrame())
-        //        .clickOn("name:changeButton")
-        //        .pause(250);
-        swinger.pause(250);
+        swinger.getUserWith(mainFrame.getBoardGUI())
+               .clickOn("name:editButton")
+               .pause(2500);
+        // Swinger swinger2 = Swinger.forSwingWindow();
+        // swinger2.setRoot(swinger.getAt("name:popUpFrame"));
+        //        //((JFrame)swinger.getAt("name:popUpFrame"))
+        // swinger2.clickOn("name:changeButton")
+        //         .pause(250);
+        // swinger.pause(250);
     }
     @After
     public void tearDown(){

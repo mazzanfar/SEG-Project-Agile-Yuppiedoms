@@ -75,6 +75,7 @@ public class Column_GUI extends JPanel{
 
         JTextField titleLabel = new JTextField(column.getName());
         titleLabel.setPreferredSize(new Dimension(60,25));
+        titleLabel.setName("titleLabel");
 
         Object[] roles = { "Backlog", "In-progress", "Completed"};
         JComboBox comboBox = new JComboBox(roles); comboBox.setSelectedIndex(1);
@@ -82,8 +83,8 @@ public class Column_GUI extends JPanel{
         if(column.getRole()==1){comboBox.setSelectedItem("In-progress");}
         if(column.getRole()==2){comboBox.setSelectedItem("Completed");}
 
-
         JButton saveTitleButton = new JButton("Save");
+        saveTitleButton.setName("saveTitleButton");
         saveTitleButton.setPreferredSize(new Dimension(92, 25));
         saveTitleButton.addActionListener(new ActionListener() {
             @Override
@@ -99,6 +100,7 @@ public class Column_GUI extends JPanel{
         });
         JButton addCardButton = new JButton("+ Card");
         addCardButton.setName("addCardButton");
+        System.out.println(addCardButton.getName());
         addCardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -114,6 +116,7 @@ public class Column_GUI extends JPanel{
         });
         JButton removeButton = new JButton("Remove");
         removeButton.setPreferredSize(new Dimension(20, 20));
+        removeButton.setName("removeButton");
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

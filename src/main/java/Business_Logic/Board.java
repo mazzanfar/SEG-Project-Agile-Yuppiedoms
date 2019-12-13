@@ -49,6 +49,10 @@ public class Board {
         return columns;
     }
 
+    public Column getColumn(int index){
+        return columns.get(index);    
+    }
+
     public String getName() {
         return name;
     }

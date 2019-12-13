@@ -42,20 +42,21 @@ public class AddCardTest{
         swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:newColumn")
                .pause(250)
-               .type("first Column")
+               .type("First Column")
                .pressSimultaneously(VK_ENTER)
                .pause(250)
                .type("1")
                .pressSimultaneously(VK_ENTER)
                .pause(250)
                .pressSimultaneously(VK_ENTER)
-                .pause(2500);
+                .pause(250);
         // assertThat(boardTitleField.getText(), equalTo("First Board"));
         swinger.getUserWith(mainFrame.getBoardGUI())
                .pause(250)
                .clickOn("name:addCardButton")
                .pause(250);
-        swinger.pause(2500);
+        assertThat(mainFrame.getBoardGUI().getBoard().getColumn(0).getCards().size(), equalTo(1));
+        swinger.pause(250);
     }
     @After
     public void tearDown(){
