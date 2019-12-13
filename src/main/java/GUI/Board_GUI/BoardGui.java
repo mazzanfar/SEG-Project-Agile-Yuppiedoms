@@ -61,7 +61,7 @@ public class BoardGui extends JFrame{
     boardTitle.setText(board.getName());
     boardTitle.setEditable(false);
     boardTitle.setHorizontalAlignment(JTextField.CENTER);
-
+    boardTitle.setName("boardTitle");
 
     this.add(boardPanel);
 
@@ -100,6 +100,7 @@ public class BoardGui extends JFrame{
   public void newButtons() {
     newColumn = new JButton("+ New Column");
     newColumn.setPreferredSize(new Dimension(20,20));
+    newColumn.setName("newColumn");
     newColumn.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -130,13 +131,16 @@ public class BoardGui extends JFrame{
     exit = new JMenuItem("Exit");
     newBoard = new JMenuItem("Kanban Board");
     save = new JMenuItem("Save");
+    save.setName("save");
     boardActivity = new JMenuItem("Board Activity");
+    boardActivity.setName("activity");
     assignActions();
     makeShortcuts();
 
     file.add(exit);
     file.add(save);
     file.add(boardActivity);
+    file.setName("file");
     makeNew.add(newBoard);
 
     return menuBar;
@@ -201,7 +205,7 @@ public class BoardGui extends JFrame{
         cp.add(boardLog);
         c.add(cp);
         c.pack();
-        
+
         try
         {
           for (int i = 0; i < board.getActivity().size(); i++)
@@ -224,6 +228,9 @@ public class BoardGui extends JFrame{
 
     KeyStroke saveShortcut = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
     save.setAccelerator(saveShortcut);
+
+    KeyStroke activityShortcut = KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK);
+    boardActivity.setAccelerator(activityShortcut);
   }
 
   public void takePicture(JPanel panel) {

@@ -38,12 +38,14 @@ public class CardGui extends DragPane {
     private JLabel IdLabel;
     private JLabel SpLabel;
 
+    private JFrame popUpFrame;
+
     private Card card;
     public CardGui(Card inputCard) {
         card = inputCard;
         makeCard();
     }
-    
+
     /**
      * Method to retrive a card.
      * @return Card
@@ -52,11 +54,15 @@ public class CardGui extends DragPane {
         return card;
     }
 
+    public CardGui getCardGui(){
+        return this;
+    }
+
     /**
      * Create a card.
      * Uses Grid Bag Layout for the instance of a card in the column.
-     * Uses method makeframe() to create a new JFrame to open an instance of the editable card platform. 
-     * Creates the remove button for each card.  
+     * Uses method makeframe() to create a new JFrame to open an instance of the editable card platform.
+     * Creates the remove button for each card.
      */
     public void makeCard(){
         Border blackline, raisedetched, loweredetched,
@@ -114,6 +120,10 @@ public class CardGui extends DragPane {
         this.add(removeButton,gbc);
         this.setMaximumSize(new Dimension(WIDTH+50, 100));
         this.setBorder(blackline);
+
+        editButton.setName("editButton");
+        removeButton.setName("removeButton");
+
         //Instance of the editable card with Jframe pop up.
         editButton.addActionListener(new ActionListener() {
             @Override
@@ -134,7 +144,7 @@ public class CardGui extends DragPane {
                 System.out.println("card click"); // card click functionality
             }
         });
-        
+
         removeButton.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
@@ -154,7 +164,7 @@ public class CardGui extends DragPane {
      * @return JFrame.
      */
     public JFrame makeFrame(){
-        JFrame popUpFrame = new JFrame();
+        popUpFrame = new JFrame();
         popUpFrame.setPreferredSize(new Dimension(900, 600));
         popUpFrame.setMinimumSize(new Dimension(900, 600));
         popUpFrame.setVisible(true);
@@ -217,6 +227,8 @@ public class CardGui extends DragPane {
         buttonPanel.add(changeButton);
         buttonPanel.add(saveButton);
         popUpFrame.add(buttonPanel,BorderLayout.SOUTH);
+        changeButton.setName("changeButton");
+        saveButton.setName("saveButton");
     }
 
     /**
@@ -303,5 +315,9 @@ public class CardGui extends DragPane {
         descriptionPanel.add(description, BorderLayout.CENTER);
         descriptionPanel.add(descriptionLabel, BorderLayout.NORTH);
         popUpFrame.add(descriptionPanel, BorderLayout.CENTER);
+    }
+
+    public JFrame getPopUpFrame(){
+        return popUpFrame;
     }
 }
