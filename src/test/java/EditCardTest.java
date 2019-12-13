@@ -36,8 +36,6 @@ public class EditCardTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
-        JTextField boardTitleField = (JTextField)swinger.getUserWith(mainFrame.getBoardGUI()).getAt("name:boardTitle");
-        assertThat(boardTitleField.getText(), equalTo("First Board"));
         swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:newColumn")
                .pause(250)
@@ -51,11 +49,11 @@ public class EditCardTest{
                .pause(2500)
                .pause(250)
                .clickOn("name:addCardButton")
-               .pause(250);
-        //       .clickOn("name:edit");
-        // swinger.getUserWith(CardGui.getPopUpFrame())
-        //        .clickOn("name:changeButton")
-        //        .pause(250);
+               .pause(250)
+               .clickOn("name:edit");
+         swinger.getUserWith(mainFrame.getPopUpFrame())
+                .clickOn("name:changeButton")
+                .pause(250);
         swinger.pause(250);
     }
     @After

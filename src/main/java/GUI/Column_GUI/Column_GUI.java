@@ -102,6 +102,7 @@ public class Column_GUI extends JPanel{
         });
         JButton removeButton = new JButton("Remove");
         removeButton.setPreferredSize(new Dimension(20, 20));
+        removeButton.setName("removeButton");
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
