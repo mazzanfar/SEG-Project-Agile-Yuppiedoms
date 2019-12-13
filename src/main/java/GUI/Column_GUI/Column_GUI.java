@@ -107,7 +107,7 @@ public class Column_GUI extends JPanel{
                 BoardGui boardGui = (BoardGui) Column_GUI.this.getParent().getParent().getParent().getParent().getParent().getParent().getParent().getParent().getParent();
                 JPanel dp = (JPanel)Column_GUI.this.getParent();
                 dp.remove(Column_GUI.this);
-                boardGui.removeCol(Column_GUI.this.getColumn());
+                boardGui.removeCol(Column_GUI.this.column);
                 dp.repaint();
                 dp.revalidate();
                 SwingUtilities.updateComponentTreeUI(dp);

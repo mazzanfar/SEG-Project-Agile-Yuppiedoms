@@ -84,19 +84,17 @@ public class BoardGui extends JFrame{
     boardPanel.add(northPane,BorderLayout.NORTH);
     boardPanel.add(scrollableCols,BorderLayout.CENTER);
 
-    for(Column c : board.getColumns()){
-      Column_GUI columnPanel = new Column_GUI(c);
-      columnPanel.setVisible(true);
-      columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
-      columnsPanel.add(columnPanel);
-      columnsPanel.repaint();
-      columnsPanel.revalidate();
-      SwingUtilities.updateComponentTreeUI(columnsPanel);
-    }
-
     this.setJMenuBar(makeMenuBar());
     this.setVisible(true);
+    try{
+      for(Column c : board.getColumns())
+      {
+        makeColumn(c);
+      }
+    }
+    catch(java.util.ConcurrentModificationException exception){
 
+    }
   }
 
   public void newButtons() {
@@ -246,25 +244,28 @@ public class BoardGui extends JFrame{
 
   public void makeColumn(Column inputColumn) {
     boolean check = true;
-    for(Component component : columnsPanel.getComponents())
+    if(columnsPanel.getComponents().length !=0 )
     {
-      Column_GUI dp = (Column_GUI) component;
-      if(dp.getComponents().length ==0)
+      for(Component component : columnsPanel.getComponents())
       {
-        addColumn(inputColumn);
-        JPanel columnPanel = new Column_GUI(inputColumn);
-        columnPanel.setVisible(true);
-        dp.add(columnPanel);
-        columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
-        columnsPanel.add(dp);
-        columnPanel.repaint();
-        columnPanel.revalidate();
-        this.repaint();
-        this.revalidate();
-        SwingUtilities.updateComponentTreeUI(this);
-        check = false;
+        DropPane dp = (DropPane) component;
+        if(dp.getComponents().length ==0)
+        {
+          addColumn(inputColumn);
+          JPanel columnPanel = new Column_GUI(inputColumn);
+          columnPanel.setVisible(true);
+          dp.add(columnPanel);
+          columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
+          columnsPanel.add(dp);
+          columnPanel.repaint();
+          columnPanel.revalidate();
+          this.repaint();
+          this.revalidate();
+          SwingUtilities.updateComponentTreeUI(this);
+          check = false;
+        }
+        else{continue;}
       }
-      else{continue;}
     }
     if(check)
     {

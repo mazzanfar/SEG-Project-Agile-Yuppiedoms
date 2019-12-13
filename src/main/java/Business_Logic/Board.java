@@ -34,14 +34,14 @@ public class Board {
     public void removeColumn(Column columnToRemove){
         date = new Date();
         String dateString = formatter.format(date);
-        log.add("A column has been moved. " + "Name: " + columnToRemove.getName() + dateString);
+        log.add("A column has been moved. " + "Name: " + columnToRemove.getName() + " " + dateString);
         columns.remove(columnToRemove);
     }
 
     public void importColumn(Column importedCol){
         date = new Date();
         String dateString = formatter.format(date);
-        log.add("A new column has been made. " + "Name: " + importedCol.getName() + dateString);
+        log.add("A new column has been made. " + "Name: " + importedCol.getName() + " " + dateString);
         columns.add(importedCol);
     }
 
