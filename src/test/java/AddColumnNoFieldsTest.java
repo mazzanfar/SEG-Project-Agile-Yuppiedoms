@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import com.athaydes.automaton.Swinger;
 import static java.awt.event.KeyEvent.*;
 
-public class AddColumnTest{
+public class AddColumnNoFieldsTest{
 
     private Mainframe mainFrame;
     private Swinger swinger;
@@ -40,30 +40,12 @@ public class AddColumnTest{
         swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:newColumn")
                .pause(250)
-               .type("First Column")
-               .pressSimultaneously(VK_ENTER)
-               .pause(250)
-               .type("1")
                .pressSimultaneously(VK_ENTER)
                .pause(250)
                .pressSimultaneously(VK_ENTER)
-               .pause(2500);
-        swinger.getUserWith(mainFrame.getBoardGUI())
-               .clickOn("name:newColumn")
                .pause(250)
-               .type("Second Column")
-               .pressSimultaneously(VK_ENTER)
-               .pause(250)
-               .type("2")
-               .pressSimultaneously(VK_ENTER)
-               .pause(250)
-               .pressSimultaneously(VK_ENTER)
-               .pause(2500);
-        // swinger.getUserWith(mainFrame.getBoardGUI())
-        //        .pause(250)
-        //        .clickOn("name:addCardButton")
-        //        .pause(250)
-        //        .clickOn("name:file");
+               .pressSimultaneously(VK_ENTER);
+              // mainFrame.getBoardGUI().getBoard().getColumns().length == 0
         swinger.pause(250);
     }
     @After

@@ -16,18 +16,18 @@ import com.athaydes.automaton.Swinger;
 import static java.awt.event.KeyEvent.*;
 
 public class MainFrameNoNameTest{
-    
+
     private Mainframe mainFrame;
     private Swinger swinger;
 
-    
+
     @Before
     public void setUp(){
         mainFrame = new Mainframe();
         swinger = Swinger.forSwingWindow();
         swinger.setRoot(mainFrame.getMainFrame());
     }
-    
+
     @Test
     public void testMainframe(){
         swinger.pause(250);
@@ -38,15 +38,15 @@ public class MainFrameNoNameTest{
                .pressSimultaneously(VK_ENTER)
                .clickOn("name:newKanbanBoard")
                .pause(250)
-               .type("first Board")
+               .pressSimultaneously(VK_ENTER)
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
         swinger.pause(250);
     }
-    @After 
+    @After
     public void tearDown(){
         mainFrame.getMainFrame().dispose();
-    } 
-    
+    }
+
 }

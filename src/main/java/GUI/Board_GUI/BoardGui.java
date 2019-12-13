@@ -100,6 +100,7 @@ public class BoardGui extends JFrame{
   public void newButtons() {
     newColumn = new JButton("+ New Column");
     newColumn.setPreferredSize(new Dimension(20,20));
+    newColumn.setName("newColumn");
     newColumn.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
