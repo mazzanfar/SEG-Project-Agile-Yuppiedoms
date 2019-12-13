@@ -130,14 +130,14 @@ public class Column_GUI extends JPanel{
             }
         });
         JPanel titlePanel = new JPanel();
-        JPanel buttonPanel = new JPanel(new GridLayout(1,3,1,1));
+        JPanel buttonPanel = new JPanel(new GridLayout(3,1,1,1));
 
 
         addCardButton.setPreferredSize(new Dimension(92, 25));
         titlePanel.add(titleLabel);
         titlePanel.add(comboBox);
-        buttonPanel.add(addCardButton);
         buttonPanel.add(saveTitleButton);
+        buttonPanel.add(addCardButton);
         buttonPanel.add(removeButton);
 
         
