@@ -133,7 +133,9 @@ public class BoardGui extends JFrame{
     exit = new JMenuItem("Exit");
     newBoard = new JMenuItem("Kanban Board");
     save = new JMenuItem("Save");
+    save.setName("save");
     boardActivity = new JMenuItem("Board Activity");
+    boardActivity.setName("activity");
     assignActions();
     makeShortcuts();
 
@@ -226,6 +228,9 @@ public class BoardGui extends JFrame{
 
     KeyStroke saveShortcut = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
     save.setAccelerator(saveShortcut);
+
+    KeyStroke activityShortcut = KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK);
+    boardActivity.setAccelerator(activityShortcut);
   }
 
   public void takePicture(JPanel panel) {
