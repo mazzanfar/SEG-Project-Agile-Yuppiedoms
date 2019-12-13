@@ -82,6 +82,7 @@ public class Column_GUI extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 column.setName(titleLabel.getText());
                 titleLabel.setText(titleLabel.getText());
+                
             }
         });
         JButton addCardButton = new JButton("+ Card");
@@ -105,9 +106,9 @@ public class Column_GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 BoardGui boardGui = (BoardGui) Column_GUI.this.getParent().getParent().getParent().getParent().getParent().getParent().getParent().getParent().getParent();
-                DropPane dp = (DropPane)Column_GUI.this.getParent();
+                JPanel dp = (JPanel)Column_GUI.this.getParent();
                 dp.remove(Column_GUI.this);
-                boardGui.removeCol(column);
+                boardGui.removeCol(Column_GUI.this.column);
                 dp.repaint();
                 dp.revalidate();
                 SwingUtilities.updateComponentTreeUI(dp);

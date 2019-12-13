@@ -12,6 +12,11 @@ import javax.swing.border.EmptyBorder;
 import java.io.*;
 import java.awt.image.BufferedImage;
 
+
+/**
+ * Initialise all elements of a card.
+ * Create an instance of a Card with informtion from the business_Logic.
+ */
 public class CardGui extends DragPane {
     private JPanel titlePanel;
     private JPanel descriptionPanel;
@@ -41,6 +46,10 @@ public class CardGui extends DragPane {
         makeCard();
     }
 
+    /**
+     * Method to retrive a card.
+     * @return Card
+     */
     public Card getCard(){
         return card;
     }
@@ -49,6 +58,12 @@ public class CardGui extends DragPane {
         return this;
     }
 
+    /**
+     * Create a card.
+     * Uses Grid Bag Layout for the instance of a card in the column.
+     * Uses method makeframe() to create a new JFrame to open an instance of the editable card platform.
+     * Creates the remove button for each card.
+     */
     public void makeCard(){
         Border blackline, raisedetched, loweredetched,
                 raisedbevel, loweredbevel, empty;
@@ -61,7 +76,7 @@ public class CardGui extends DragPane {
         this.setLayout(new GridLayout(3,1,0,2));
 
 
-
+        //make the card instance in the column.
         GridBagLayout gridbag = new GridBagLayout();
         this.setLayout(gridbag);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -109,7 +124,7 @@ public class CardGui extends DragPane {
         editButton.setName("editButton");
         removeButton.setName("removeButton");
 
-
+        //Instance of the editable card with Jframe pop up.
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -129,7 +144,8 @@ public class CardGui extends DragPane {
                 System.out.println("card click"); // card click functionality
             }
         });
-         removeButton.addActionListener(new ActionListener() {
+
+        removeButton.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
                   DropPane dp = (DropPane)CardGui.this.getParent();
@@ -143,6 +159,10 @@ public class CardGui extends DragPane {
          });
     }
 
+    /**
+     * Create the JFrame Pop-up to edit the card.
+     * @return JFrame.
+     */
     public JFrame makeFrame(){
         popUpFrame = new JFrame();
         popUpFrame.setPreferredSize(new Dimension(900, 600));
@@ -158,8 +178,11 @@ public class CardGui extends DragPane {
         return popUpFrame;
     }
 
-
-
+    /**
+     * Creates the buttons that appears on the JFrame pop-up of a card.
+     * (Save and Change buttons)
+     * @param popUpFrame
+     */
     public void makeButton(JFrame popUpFrame) {
         buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.setVisible(true);
@@ -208,6 +231,10 @@ public class CardGui extends DragPane {
         saveButton.setName("saveButton");
     }
 
+    /**
+     * Set the location that will store the card title.
+     * @param popUpFrame
+     */
     public void  makeTitle(JFrame popUpFrame) {
         titleLabel = new JLabel("Title: ");
         titleLabel.setFont(new Font("Courier New", Font.ITALIC, 24));
@@ -226,6 +253,10 @@ public class CardGui extends DragPane {
         popUpFrame.add(titlePanel, BorderLayout.NORTH);
     }
 
+    /**
+     * Set the location that will store the card ID.
+     * @param popUpFrame
+     */
     public void makeID(JFrame popUpFrame)
     {
         IdPanel = new JPanel(new GridLayout(1,2,0,0));
@@ -240,9 +271,12 @@ public class CardGui extends DragPane {
         IdPanel.add(ID);
         IdPanel.setBorder(new EmptyBorder(450, 0, 0, 0));
         popUpFrame.add(IdPanel, BorderLayout.WEST);
-        //TODO: make jlabel ID by getting the id from Card class.
     }
 
+    /**
+     * Set the location that will store the card Story Points.
+     * @param popUpFrame
+     */
     public void makeStoryPoint(JFrame popUpFrame)
     {
         String[] choices = { "1", "2", "3", "4", "5"};
@@ -263,6 +297,10 @@ public class CardGui extends DragPane {
         SpDropDown.setEditable(false);
     }
 
+    /**
+     * Set the location that will store the card description.
+     * @param popUpFrame
+     */
     public void makeDescription(JFrame popUpFrame) {
 
         descriptionLabel = new JLabel("Description: ");
