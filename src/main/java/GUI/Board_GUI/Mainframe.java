@@ -150,7 +150,7 @@ private Card createCard(String[] metadata) {
 }
 
 public BoardGui getBoardGUI()  {
-   return board ;
+   return board;
 }
 
   public void addActions() {
