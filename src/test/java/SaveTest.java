@@ -46,21 +46,15 @@ public class SaveTest{
                .pressSimultaneously(VK_ENTER)
                .pause(2500);
         swinger.getUserWith(mainFrame.getBoardGUI())
-               .clickOn("name:newColumn")
                .pause(250)
-               .type("Second Column")
-               .pressSimultaneously(VK_ENTER)
+               .clickOn("name:addCardButton")
                .pause(250)
-               .pressSimultaneously(VK_ENTER)
-               .pause(2500);
-        swinger.getUserWith(mainFrame.getBoardGUI())
-                .pause(250)
-                .clickOn("name:addCardButton")
-                .pause(250)
-                .clickOn("name:file")
-                .pause(250)
-                .clickOn("name:save");
-        swinger.pause(250);
+               .clickOn("name:file")
+               .pause(250)
+               .clickOn("name:save")
+               .pressSimultaneously(VK_CONTROL, VK_W)
+               .pause(250);
+
     }
     @After
     public void tearDown(){

@@ -41,6 +41,7 @@ public class Mainframe {
 
   public Mainframe() {
     jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+    jfc.setName("jfc");
 
     jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
@@ -85,6 +86,7 @@ public class Mainframe {
     mainFrame.pack();
 
     newKanbanBoard.setName("newKanbanBoard");
+    loadKanbanBoard.setName("loadKanbanBoard");
   }
 
 
@@ -99,18 +101,18 @@ public class Mainframe {
     String line = br.readLine();
     Board board;
     ArrayList<Column> columnList = new ArrayList<>();
-    
-    
+
+
     // use string.split to load a string array with the values from
     // each line of
     // the file, using a comma as the delimiter
     String[] attributes = line.split(",");
     board = createBoard(attributes);
     line = br.readLine();
-    
-    
 
-    while(line != null){ // reading card objects 
+
+
+    while(line != null){ // reading card objects
       line = br.readLine();// begin reading next section
       String[] ColAttributes = line.split(",");
       Column c = createColumn(ColAttributes);
@@ -143,7 +145,7 @@ private Card createCard(String[] metadata) {
   String description = metadata[2];
   String storyPoints = metadata[3];
   int IdCounter = Integer.parseInt(metadata[4]);
-  
+
   return new Card(title, Id, description, storyPoints, IdCounter);
 }
 
@@ -166,6 +168,7 @@ public BoardGui getBoardGUI()  {
     loadKanbanBoard.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         jfc.setDialogTitle("Select a CSV file to load");
+        jfc.setCurrentDirectory(new File(System.getProperty("user.dir"), "/src/main/resources"));
         jfc.setAcceptAllFileFilterUsed(false);
 		    FileNameExtensionFilter filter = new FileNameExtensionFilter(".csv", "csv");
 		    jfc.addChoosableFileFilter(filter);
