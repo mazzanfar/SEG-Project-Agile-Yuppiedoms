@@ -4,6 +4,7 @@ package GUI.Board_GUI;
 import Business_Logic.*;
 import GUI.Column_GUI.Column_GUI;
 import GUI.Column_GUI.DropPane;
+import GUI.State.State;
 //import sun.swing.MenuItemLayoutHelper.ColumnAlignment;
 
 import javax.swing.*;
@@ -43,6 +44,7 @@ public class BoardGui extends JFrame{
   private JMenuItem newBoard;
   private JMenuItem save;
   private JMenuItem boardActivity;
+  private JMenuItem showState;
 
   private Business_Logic.Board board;
 
@@ -137,12 +139,15 @@ public class BoardGui extends JFrame{
     save.setName("save");
     boardActivity = new JMenuItem("Board Activity");
     boardActivity.setName("activity");
+    showState = new JMenuItem("Show State");
+    boardActivity.setName("showState");
     assignActions();
     makeShortcuts();
 
     file.add(exit);
     file.add(save);
     file.add(boardActivity);
+    file.add(showState);
     file.setName("file");
     makeNew.add(newBoard);
 
@@ -196,7 +201,6 @@ public class BoardGui extends JFrame{
       public void actionPerformed(ActionEvent ev)
       {
         JFrame c = new JFrame();
-        //c.setSize(100, 300);
         c.setVisible(true);
         JPanel cp = new JPanel();
         cp.setSize(500, 1000);
@@ -216,6 +220,23 @@ public class BoardGui extends JFrame{
         }
         catch(NullPointerException e)
         { }
+      }
+    });
+
+
+    showState.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ev)
+      {
+        double backLog = 0;
+        double InProgress = 0;
+        double completed = 0;
+        for(Column c : board.getColumns())
+        {
+          if(c.getRole() == 0){backLog++;}
+          if(c.getRole() == 1){InProgress++;}
+          if(c.getRole() == 2){completed++;}
+        }
+        State state = new State(backLog,InProgress,completed);
       }
     });
   }
