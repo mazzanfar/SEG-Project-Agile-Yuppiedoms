@@ -16,9 +16,9 @@ public class State extends JFrame {
         chart.getStyler().setPlotContentSize(.7);
         chart.getStyler().setStartAngleInDegrees(90);
 
-        chart.addSeries("backLog", backLog);
+        chart.addSeries("Backlog", backLog);
         chart.addSeries("In-Progress", InProgress);
-        chart.addSeries("completed", completed);
+        chart.addSeries("Completed", completed);
 
         XChartPanel chartPane = new XChartPanel(chart);
         chartPane.setBounds(0,0,300,300);
