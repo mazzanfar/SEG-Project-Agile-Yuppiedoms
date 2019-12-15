@@ -12,11 +12,6 @@ import javax.swing.border.EmptyBorder;
 import java.io.*;
 import java.awt.image.BufferedImage;
 
-
-/**
- * Initialise all elements of a card.
- * Create an instance of a Card with informtion from the business_Logic.
- */
 public class CardGui extends DragPane {
     private JPanel titlePanel;
     private JPanel descriptionPanel;
@@ -41,6 +36,10 @@ public class CardGui extends DragPane {
     private JFrame popUpFrame;
 
     private Card card;
+    /**
+     * Initialise all elements of a card.
+     * Create an instance of a Card with informtion from the business_Logic.
+     */
     public CardGui(Card inputCard) {
         this.setLayout(new GridBagLayout());
         card = inputCard;
