@@ -37,7 +37,7 @@ public class ColumnTitleTest{
                .pause(250);
 
         swinger.pause(250);
-        swinger.getUserWith(mainFrame.getBoardGUI())
+        Swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:newColumn")
                .pause(250)
                .type("First Column")
@@ -45,7 +45,7 @@ public class ColumnTitleTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
-        JTextField ColumnTitleLabel = (JTextField)swinger.getUserWith(mainFrame.getBoardGUI())
+        JTextField ColumnTitleLabel = (JTextField) Swinger.getUserWith(mainFrame.getBoardGUI())
                                                         .getAt("name:titleLabel");
         swinger.pause(250);
         assertThat(ColumnTitleLabel.getText(), equalTo("First Column"));

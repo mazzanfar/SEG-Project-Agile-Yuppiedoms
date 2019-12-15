@@ -37,10 +37,10 @@ public class MainFrameTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
-        JTextField boardTitleField = (JTextField)swinger.getUserWith(mainFrame.getBoardGUI())
+        JTextField boardTitleField = (JTextField) Swinger.getUserWith(mainFrame.getBoardGUI())
                                                         .getAt("name:boardTitle");
         
-        swinger.getUserWith(mainFrame.getBoardGUI())
+        Swinger.getUserWith(mainFrame.getBoardGUI())
                .pause(250);
         assertThat(boardTitleField.getText(), equalTo("First Board"));
         swinger.pause(250);

@@ -35,7 +35,7 @@ public class RemoveColumnTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
-        swinger.getUserWith(mainFrame.getBoardGUI())
+        Swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:newColumn")
                .pause(250)
                .type("First Column")
@@ -43,7 +43,7 @@ public class RemoveColumnTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
-        swinger.getUserWith(mainFrame.getBoardGUI())
+        Swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:removeButton")
                .pause(250);
         assertThat(mainFrame.getBoardGUI().getBoard().getColumns().size(), equalTo(0));

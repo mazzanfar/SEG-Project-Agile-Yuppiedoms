@@ -37,9 +37,9 @@ public class RemoveCardTest{
                .pause(250);
         
         swinger.pause(250);
-        JTextField boardTitleField = (JTextField)swinger.getUserWith(mainFrame.getBoardGUI())
+        JTextField boardTitleField = (JTextField) Swinger.getUserWith(mainFrame.getBoardGUI())
                                                         .getAt("name:boardTitle");
-        swinger.getUserWith(mainFrame.getBoardGUI())
+        Swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:newColumn")
                .pause(250)
                .type("first Column")
@@ -48,11 +48,11 @@ public class RemoveCardTest{
                .pressSimultaneously(VK_ENTER)
                .pause(2500);
         assertThat(boardTitleField.getText(), equalTo("First Board"));
-        swinger.getUserWith(mainFrame.getBoardGUI())
+        Swinger.getUserWith(mainFrame.getBoardGUI())
                .pause(250)
                .clickOn("name:addCardButton")
                .pause(250);
-        swinger.getUserWith(mainFrame.getBoardGUI())
+        Swinger.getUserWith(mainFrame.getBoardGUI())
                .pause(250)
                .clickOn("name:removeCardButton")
                .pause(250);

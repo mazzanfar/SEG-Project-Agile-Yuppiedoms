@@ -37,7 +37,7 @@ public class EditCardTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
-        swinger.getUserWith(mainFrame.getBoardGUI())
+        Swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:newColumn")
                .pause(250)
                .type("first Column")
@@ -47,7 +47,7 @@ public class EditCardTest{
                .pause(250)
                .clickOn("name:addCardButton")
                .pause(250);
-        swinger.getUserWith(mainFrame.getBoardGUI())
+        Swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:editButton")
                .pause(2500);
         // Swinger swinger2 = Swinger.forSwingWindow();
