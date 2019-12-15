@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import com.athaydes.automaton.Swinger;
 import static java.awt.event.KeyEvent.*;
 
-public class SaveTest{
+public class DragAndDropTest{
 
     private Mainframe mainFrame;
     private Swinger swinger;
@@ -27,7 +27,7 @@ public class SaveTest{
     }
 
     @Test
-    public void testSave(){
+    public void testDND(){
         swinger.pause(250);
         swinger.clickOn("name:newKanbanBoard")
                .pause(250)
@@ -35,8 +35,6 @@ public class SaveTest{
                .pause(250)
                .pressSimultaneously(VK_ENTER)
                .pause(250);
-
-        swinger.pause(250);
         swinger.getUserWith(mainFrame.getBoardGUI())
                .clickOn("name:newColumn")
                .pause(250)
@@ -46,13 +44,16 @@ public class SaveTest{
                .pressSimultaneously(VK_ENTER)
                .pause(2500);
         swinger.getUserWith(mainFrame.getBoardGUI())
+               .clickOn("name:newColumn")
+               .pause(250)
+               .type("Second Column")
+               .pressSimultaneously(VK_ENTER)
+               .pause(250)
+               .pressSimultaneously(VK_ENTER)
+               .pause(2500);
+        swinger.getUserWith(mainFrame.getBoardGUI())
                .pause(250)
                .clickOn("name:addCardButton")
-               .pause(250)
-               .clickOn("name:file")
-               .pause(250)
-               .clickOn("name:save")
-               .pressSimultaneously(VK_CONTROL, VK_W)
                .pause(250);
 
     }

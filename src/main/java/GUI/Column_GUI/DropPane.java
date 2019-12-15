@@ -3,7 +3,6 @@ package GUI.Column_GUI;
 
 import GUI.Transfer.DropHandler;
 
-import java.awt.*;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import javax.swing.JPanel;

@@ -55,7 +55,7 @@ public class Column_GUI extends JPanel{
         cardsPanel.revalidate();
         SwingUtilities.updateComponentTreeUI(cardsPanel);
     }
-    
+
     public void makeColumn() {
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setBounds(1,1,WIDTH,HEIGHT);
@@ -97,7 +97,7 @@ public class Column_GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
             addCard(new Card("Default","Default","1"));
-            
+
             cardsPanel.revalidate();
             cardsPanel.repaint();
             SwingUtilities.updateComponentTreeUI(cardsPanel);
@@ -162,5 +162,3 @@ public class Column_GUI extends JPanel{
     }
 
 }
-
-
