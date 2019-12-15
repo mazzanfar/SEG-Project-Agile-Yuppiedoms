@@ -5,22 +5,16 @@ import Business_Logic.*;
 import GUI.Column_GUI.Column_GUI;
 import GUI.Column_GUI.DropPane;
 import GUI.State.State;
-//import sun.swing.MenuItemLayoutHelper.ColumnAlignment;
 
 import javax.swing.*;
-import java.awt.FlowLayout;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.*;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import javax.xml.stream.Location;
 import java.io.File;
-import java.util.ArrayList;
+
 
 public class BoardGui extends JFrame{
 
@@ -88,15 +82,18 @@ public class BoardGui extends JFrame{
     viewport.setView(columnsPanel);
     scrollableCols.setViewport(viewport);
 
+
     boardPanel.add(northPane,BorderLayout.NORTH);
     boardPanel.add(scrollableCols,BorderLayout.CENTER);
 
     this.setJMenuBar(makeMenuBar());
     this.setVisible(true);
     try{
-      for(Column c : board.getColumns())
+      int size = board.getColumns().size();
+      for(int i = 0; i<size;i++)
       {
-        makeColumn(c);
+        makeColumn(board.getColumns().get(i));
+        System.out.println(i);
       }
     }
     catch(java.util.ConcurrentModificationException exception){
@@ -119,8 +116,7 @@ public class BoardGui extends JFrame{
         JPanel panel = new JPanel(new GridBagLayout());
         Object[] roles = { "Backlog", "In-progress", "Completed"};
         JComboBox comboBox = new JComboBox(roles); comboBox.setSelectedIndex(1);
-        JOptionPane.showMessageDialog(null, comboBox, "Select a role",
-                JOptionPane.QUESTION_MESSAGE);
+        JOptionPane.showMessageDialog(null, comboBox, "Select a role", JOptionPane.QUESTION_MESSAGE);
         panel.add(comboBox);
         String result = (String) comboBox.getSelectedItem();
         if(result.equals("Backlog")){makeColumn(new Column(inputName,0));}
@@ -282,13 +278,12 @@ public class BoardGui extends JFrame{
       for(Component component : columnsPanel.getComponents())
       {
         DropPane dp = (DropPane) component;
-        if(dp.getComponents().length ==0)
+        if(dp.getComponents().length ==0)// if the dp is empty
         {
           addColumn(inputColumn);
           JPanel columnPanel = new Column_GUI(inputColumn);
           columnPanel.setVisible(true);
           dp.add(columnPanel);
-          columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
           columnsPanel.add(dp);
           columnPanel.repaint();
           columnPanel.revalidate();
@@ -297,7 +292,7 @@ public class BoardGui extends JFrame{
           SwingUtilities.updateComponentTreeUI(this);
           check = false;
         }
-        else{continue;}
+        else{continue;}// if the dp is not empty
       }
     }
     if(check)
@@ -308,14 +303,14 @@ public class BoardGui extends JFrame{
       JPanel columnPanel = new Column_GUI(inputColumn);
       columnPanel.setVisible(true);
       dp.add(columnPanel);
-      columnPanel.setBorder(BorderFactory.createLineBorder(Color.red));
+      columnPanel.setBorder(BorderFactory.createLineBorder(Color.gray));
       columnsPanel.add(dp);
       columnPanel.repaint();
       columnPanel.revalidate();
       this.repaint();
       this.revalidate();
       SwingUtilities.updateComponentTreeUI(this);
-      System.out.println(board.getColumns().size());
+      check = true;
     }
     else{check = true; }
   }

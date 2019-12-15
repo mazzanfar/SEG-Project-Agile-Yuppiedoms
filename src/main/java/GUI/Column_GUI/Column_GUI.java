@@ -4,19 +4,11 @@ import Business_Logic.Card;
 import Business_Logic.Column;
 import GUI.Board_GUI.BoardGui;
 import GUI.Card_GUI.*;
-import GUI.Transfer.*;
-
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import java.awt.event.*;
 import java.awt.*;
-
-import java.util.HashMap;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 
 public class Column_GUI extends JPanel{
 
@@ -135,7 +127,6 @@ public class Column_GUI extends JPanel{
         JPanel titlePanel = new JPanel();
         JPanel buttonPanel = new JPanel(new GridLayout(3,1,1,1));
 
-
         addCardButton.setPreferredSize(new Dimension(92, 25));
         titlePanel.add(titleLabel);
         titlePanel.add(comboBox);
@@ -143,16 +134,13 @@ public class Column_GUI extends JPanel{
         buttonPanel.add(addCardButton);
         buttonPanel.add(removeButton);
 
-        
         upperPanel.add(titlePanel);
         upperPanel.add(buttonPanel);
 
         cardsPanel = new DropPane();
 
-
         cardsPanel.setLayout(new GridLayout(20,1,10,0));
         cardsPanel.setPreferredSize(new Dimension(WIDTH,3000));
-
 
         JScrollPane scrollableCards = new JScrollPane();
         scrollableCards.setPreferredSize(new Dimension(250,700));

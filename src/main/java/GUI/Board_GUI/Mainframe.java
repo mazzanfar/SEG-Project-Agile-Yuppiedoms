@@ -123,6 +123,7 @@ public class Mainframe {
       }
       board.importColumn(c);
     }
+    System.out.println("board Size::" +board.getColumns().size() );
     return board;
   }
 

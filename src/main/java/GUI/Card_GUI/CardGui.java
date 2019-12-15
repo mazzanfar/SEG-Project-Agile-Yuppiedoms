@@ -7,10 +7,8 @@ import GUI.Column_GUI.DropPane;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import java.io.*;
-import java.awt.image.BufferedImage;
+
 
 public class CardGui extends DragPane {
     private JPanel titlePanel;
@@ -42,6 +40,7 @@ public class CardGui extends DragPane {
      */
     public CardGui(Card inputCard) {
         this.setLayout(new GridBagLayout());
+        this.setBorder(BorderFactory.createLineBorder(Color.gray));
         card = inputCard;
         makeCard();
     }
@@ -65,16 +64,7 @@ public class CardGui extends DragPane {
      * Creates the remove button for each card.
      */
     public void makeCard(){
-        Border blackline, raisedetched, loweredetched,
-                raisedbevel, loweredbevel, empty;
-
-        blackline = BorderFactory.createLineBorder(Color.black);
-        raisedbevel = BorderFactory.createRaisedBevelBorder();
-        loweredbevel = BorderFactory.createLoweredBevelBorder();
-        empty = BorderFactory.createEmptyBorder();
-
         this.setLayout(new GridLayout(3,1,0,2));
-
 
         //make the card instance in the column.
         GridBagLayout gridbag = new GridBagLayout();
@@ -116,7 +106,6 @@ public class CardGui extends DragPane {
         gbc.gridwidth = 0;
         this.add(removeCardButton,gbc);
         this.setMaximumSize(new Dimension(WIDTH+50, 100));
-        this.setBorder(blackline);
 
         editButton.setName("editButton");
         removeCardButton.setName("removeCardButton");
@@ -183,7 +172,6 @@ public class CardGui extends DragPane {
     public void makeButton(JFrame popUpFrame) {
         buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.setVisible(true);
-        //buttonPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
         changeButton = new JButton();
         changeButton.setRolloverEnabled(true);
@@ -246,7 +234,6 @@ public class CardGui extends DragPane {
         titlePanel.add(title, BorderLayout.CENTER);
         titlePanel.add(titleLabel, BorderLayout.NORTH);
         titlePanel.setBorder(new EmptyBorder(0, 43, 0, 112));
-//        titlePanel.setBorder(BorderFactory.createLineBorder(Color.red));
         popUpFrame.add(titlePanel, BorderLayout.NORTH);
     }
 

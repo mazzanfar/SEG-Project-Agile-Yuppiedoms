@@ -13,14 +13,8 @@ public class DropPane extends JPanel {
     DropTarget dropTarget;
     DropHandler dropHandler;
 
-    public DropPane() {
-        setBackground(Color.BLUE);
-    }
-
-
     @Override
     public void addNotify() {
-        
         super.addNotify(); //To change body of generated methods, choose Tools | Templates.
         dropHandler = new DropHandler();
         dropTarget = new DropTarget(this, DnDConstants.ACTION_MOVE, dropHandler, true);
