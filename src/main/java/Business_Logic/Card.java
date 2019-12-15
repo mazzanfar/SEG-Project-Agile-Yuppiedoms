@@ -62,7 +62,7 @@ public class Card implements Serializable {
         String dateString = formatter.format(date);
         if (!title.equals(inputTitle))
         {
-            log.add("Card title has been edited. Card ID: " + Integer.toString(Id) + dateString);
+            log.add("Card title has been edited. Card ID: " + Id + dateString);
             title = inputTitle;
         }
             
@@ -74,7 +74,7 @@ public class Card implements Serializable {
         String dateString = formatter.format(date);
         if (!description.equals(inputDescription))
         {
-            log.add("Card description has been edited. Card ID: " + Integer.toString(Id) + dateString);
+            log.add("Card description has been edited. Card ID: " + Id + dateString);
             description = inputDescription;
         }
     } 
@@ -85,7 +85,7 @@ public class Card implements Serializable {
         String dateString = formatter.format(date);
         if (!sp.equals(inputSP))
         {
-            log.add("Story Points have been edited. Card ID: " + Integer.toString(Id) + dateString);
+            log.add("Story Points have been edited. Card ID: " + Id + dateString);
             sp = inputSP;
         }
     }

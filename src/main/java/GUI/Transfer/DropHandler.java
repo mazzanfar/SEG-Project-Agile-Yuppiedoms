@@ -59,13 +59,13 @@ public class DropHandler implements DropTargetListener, Serializable {
                     Component component = dtc.getComponent(); // The drop pane
                     if (component instanceof JComponent) {
                         
-                        Column_GUI ColGui = (Column_GUI) ((DropPane) component).getParent().getParent().getParent();
+                        Column_GUI ColGui = (Column_GUI) component.getParent().getParent().getParent();
                         Card c = ((CardGui) panel).getCard();
                         ColGui.addCard(c);
                         success = true;
                         dtde.acceptDrop(DnDConstants.ACTION_MOVE);
-                        ((CardGui) panel).repaint();
-                        ((CardGui) panel).revalidate();
+                        panel.repaint();
+                        panel.revalidate();
                         ColGui.repaint();
                         ColGui.revalidate();
                     } else {

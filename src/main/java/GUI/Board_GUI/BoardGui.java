@@ -180,11 +180,11 @@ public class BoardGui extends JFrame{
             bufferedWriter.write("-");
             bufferedWriter.newLine();
             bufferedWriter.write(i.getName());
-            bufferedWriter.write("," + Integer.toString(i.getRole()));
+            bufferedWriter.write("," + i.getRole());
             for(Card c : i.getCards()){
               bufferedWriter.newLine();
               bufferedWriter.write(c.getTitle());
-              bufferedWriter.write("," + Integer.toString(c.getID()));
+              bufferedWriter.write("," + c.getID());
               bufferedWriter.write("," + c.getDescription());
               bufferedWriter.write("," + c.getStoryPoints());
               bufferedWriter.write("," + c.getIdCounter());

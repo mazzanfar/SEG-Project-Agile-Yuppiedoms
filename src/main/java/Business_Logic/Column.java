@@ -50,7 +50,7 @@ public class Column implements Serializable {
     public void addCard(Card theCard){
         date = new Date();
         String dateString = formatter.format(date);
-        log.add("A card has been added to: " + name + "Card ID: " + Integer.toString(theCard.getID()) + " " + dateString);
+        log.add("A card has been added to: " + name + "Card ID: " + theCard.getID() + " " + dateString);
         cards.add(theCard);
     }
 
@@ -62,7 +62,7 @@ public class Column implements Serializable {
     public void removeCard(Card theCard){
         date = new Date();
         String dateString = formatter.format(date);
-        log.add("A card has been removed from: " + name + " Card ID: " + Integer.toString(theCard.getID()) + " " +  dateString);
+        log.add("A card has been removed from: " + name + " Card ID: " + theCard.getID() + " " +  dateString);
         cards.remove(theCard);
     }
 
