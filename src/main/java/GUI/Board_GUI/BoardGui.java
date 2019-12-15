@@ -47,7 +47,10 @@ public class BoardGui extends JFrame{
   private JMenuItem showState;
 
   private Business_Logic.Board board;
-
+  /**
+   * Initialise all elements of a board.
+   * Create an instance of a board gui with informtion from the business_Logic board
+   */
   public BoardGui(Business_Logic.Board board) {
     this.board = board;
 
@@ -100,7 +103,9 @@ public class BoardGui extends JFrame{
 
     }
   }
-
+  /**
+   * create the buttons for the board gui
+   */
   public void newButtons() {
     newColumn = new JButton("+ New Column");
     newColumn.setPreferredSize(new Dimension(20,20));
@@ -124,7 +129,9 @@ public class BoardGui extends JFrame{
       }
     });
   }
-
+  /**
+   * create menu bar in the board gui
+   */
   public JMenuBar makeMenuBar() {
     menuBar = new JMenuBar();
     JMenu file = new JMenu("File");
@@ -153,7 +160,9 @@ public class BoardGui extends JFrame{
 
     return menuBar;
   }
-
+  /**
+   * Assign the actions to the buttons
+   */
   public void assignActions() {
     exit.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ev) {
@@ -190,10 +199,7 @@ public class BoardGui extends JFrame{
         catch(IOException ex){
           System.out.println("Error writing to file '" + fileName + "'");
         }
-
-        takePicture(boardPanel);
         panelNumber++;
-
       }
     });
 
@@ -223,7 +229,6 @@ public class BoardGui extends JFrame{
       }
     });
 
-
     showState.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ev)
       {
@@ -240,7 +245,9 @@ public class BoardGui extends JFrame{
       }
     });
   }
-
+  /**
+   * Assign the short cuts to the buttons
+   */
   public void makeShortcuts() {
     KeyStroke exitShortcut = KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK);
     exit.setAccelerator(exitShortcut);
@@ -253,24 +260,21 @@ public class BoardGui extends JFrame{
 
     KeyStroke activityShortcut = KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK);
     boardActivity.setAccelerator(activityShortcut);
+
+    KeyStroke stateShortcut = KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK);
+    showState.setAccelerator(stateShortcut);
   }
-
-  public void takePicture(JPanel panel) {
-    BufferedImage img = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_RGB);
-
-    panel.print(img.getGraphics()); // or: panel.printAll(...);
-    try {
-      ImageIO.write(img, "jpg", new File("Kanban-Board-" + panelNumber + ".jpg"));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
+  /**
+   * Add the column the business logic board
+   */
   public void addColumn(Column inputColumn)
   {
     this.board.importColumn(inputColumn);
   }
-
+  /**
+   * Create a column to the board
+   * @param inputColumn
+   */
   public void makeColumn(Column inputColumn) {
     boolean check = true;
     if(columnsPanel.getComponents().length !=0 )
@@ -315,22 +319,16 @@ public class BoardGui extends JFrame{
     }
     else{check = true; }
   }
+  /**
+   * Get the business logic board
+   * @return The business logic board
+   */
   public Board getBoard(){
     return board;
   }
-
-  public boolean isNumeric(String strNum) {
-    if (strNum == null) {
-      return false;
-    }
-    try {
-      double d = Integer.parseInt(strNum);
-    } catch (NumberFormatException nfe) {
-      return false;
-    }
-    return true;
-  }
-
-
+  /**
+   * Remove the column from the business logic board
+   * @param column to be removed
+   */
   public void removeCol(Column column){ board.removeColumn(column);}
 }

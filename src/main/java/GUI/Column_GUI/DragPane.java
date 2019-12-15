@@ -18,7 +18,7 @@ public class DragPane extends JPanel {
     private DragGestureHandler dragGestureHandler;
 
     public DragPane() {
-        System.out.println("DragPane = " + this.hashCode());
+        //System.out.println("DragPane = " + this.hashCode());
         setBackground(Color.RED);
         dragGestureHandler = new DragGestureHandler(this);
         dgr = DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_MOVE, dragGestureHandler);
